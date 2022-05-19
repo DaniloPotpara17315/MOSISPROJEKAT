@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14" />
+        <entry key="..\:/GIT/Android-Projekat/app/src/main/res/drawable/outline_arrow_back_24.xml" value="0.226" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/activity_main.xml" value="0.14722222222222223" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_login.xml" value="0.17831813576494426" />
+        <entry key="..\:/GIT/Android-Projekat/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.226" />
       </map>
     </option>
   </component>
