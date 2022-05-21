@@ -10,9 +10,38 @@
         android:id="@+id/btn_to_Activity2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/buttonToLogin"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="60dp"
+        android:text="@string/homeButtonLogin"
+        android:backgroundTint="@color/button_login"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonToRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearance="@style/Button.Login.Design"/>
+
+
+    <Button
+        android:id="@+id/buttonToRegister"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="@color/button_login"
+        android:text="@string/homeButtonRegister"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearance="@style/Button.Login.Design" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

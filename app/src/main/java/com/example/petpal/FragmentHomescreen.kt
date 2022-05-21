@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentHomescreenBinding
 
 class FragmentHomescreen : Fragment() {
@@ -28,6 +29,14 @@ class FragmentHomescreen : Fragment() {
             startActivity(
                 Intent(context, ActivitySecond::class.java)
             )
+        }
+        val btnLoginActivity = binding.buttonToLogin
+        btnLoginActivity.setOnClickListener{
+            findNavController().navigate(R.id.action_goto_login)
+        }
+        val btnRegisterActivity = binding.buttonToRegister
+        btnRegisterActivity.setOnClickListener{
+            findNavController().navigate(R.id.action_goto_register)
         }
     }
 

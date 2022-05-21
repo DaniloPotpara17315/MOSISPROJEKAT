@@ -1,14 +1,17 @@
 package com.example.petpal
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentLoginBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import kotlin.math.log
 
 //pocistio junk code
 
@@ -80,6 +83,10 @@ class FragmentLogin : Fragment() {
                 * P.S. Nije potrebno da pravis povratne akcije, jer klikom na back dugme se automatski
                 * vraca na prethodni fragment, tako da je ovo dugme malo redundantno ali nema veze xD
                 * */
+        }
+        val button = binding.buttonLogin
+        button.setOnClickListener{
+            findNavController().navigate(R.id.action_goto_home)
         }
     }
 }

@@ -9,7 +9,18 @@
         android:id="@+id/fragmentHomescreen"
         android:name="com.example.petpal.FragmentHomescreen"
         android:label="fragment_homescreen"
-        tools:layout="@layout/fragment_homescreen" />
+        tools:layout="@layout/fragment_homescreen" >
+        <action
+            android:id="@+id/action_goto_register"
+            app:destination="@id/fragmentRegister"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_goto_login"
+            app:destination="@id/fragmentLogin"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
         android:name="com.example.petpal.FragmentLogin"
@@ -17,6 +28,22 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_goto_home"
-            app:destination="@id/fragmentHomescreen" />
+            app:destination="@id/fragmentHomescreen"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="com.example.petpal.FragmentRegister"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_goto_login"
+            app:destination="@id/fragmentLogin"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_goto_home"
+            app:destination="@id/fragmentHomescreen"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
 </navigation>
