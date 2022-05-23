@@ -8,18 +8,18 @@
     tools:context=".FragmentLogin">
 
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
+        android:backgroundTint="@color/background_login"
         android:contentDescription="@string/submit"
         android:src="@drawable/outline_arrow_back_black_36"
-        android:backgroundTint="@color/background_login"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -34,27 +34,53 @@
 
     <EditText
         android:id="@+id/editTextLoginEmail"
-        android:layout_width="310dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@null"
         android:ems="10"
         android:fontFamily="@font/baloo_bhai_2"
         android:hint="@string/loginEmail"
         android:inputType="textEmailAddress"
+        android:padding="10px"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:shapeAppearance="@style/Input.Login.Design"
-        app:layout_constraintBottom_toTopOf="@+id/editTextLoginPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/imageEmailBackground"
+        app:layout_constraintEnd_toEndOf="@+id/imageEmailBackground"
+        app:layout_constraintStart_toStartOf="@+id/imageEmailBackground"
+        app:layout_constraintTop_toTopOf="@+id/imageEmailBackground"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageEmailBackground"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/imagePasswordBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearance="@style/Input.Login.Design"
+        app:strokeColor="@color/button_login"
+        app:strokeWidth="2dp" />
 
     <EditText
         android:id="@+id/editTextLoginPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@null"
         android:ems="10"
         android:fontFamily="@font/baloo_bhai_2"
         android:hint="@string/loginPassword"
         android:inputType="textPassword"
+        android:padding="10px"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imagePasswordBackground"
         app:layout_constraintEnd_toEndOf="@+id/imagePasswordBackground"
@@ -78,17 +104,18 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imagePasswordBackground"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="40dp"
+        android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearance="@style/Input.Login.Design"
         app:strokeColor="@color/button_login"
-        app:strokeWidth="3dp" />
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
