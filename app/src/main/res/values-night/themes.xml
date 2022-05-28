@@ -18,7 +18,7 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="Button.Login" parent="ThemeOverlay.AppCompat">
-        <item name="colorAccent">@color/button_login</item>
+        <item name="colorAccent">@color/blue</item>
     </style>
     <style name="Button.Login.Design" parent="">
         <item name="cornerFamilyTopLeft">rounded</item>

@@ -1,11 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    tools:context=".FragmentNavbar"
-    android:background="@color/black"
-    >
+    android:background="@color/blue"
+    tools:context=".FragmentNavbar">
+
+    <ImageView
+        android:id="@+id/navbar_icon_map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="10dp"
+        android:src="@drawable/outline_place_black_24"
+        app:layout_constraintBottom_toTopOf="@id/navbar_title_map"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/navbar_icon_chat"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/blue_medium" />
+    <TextView
+        android:id="@+id/navbar_title_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:paddingBottom="5dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/navbar_map"
+        app:layout_constraintStart_toStartOf="@id/navbar_icon_map"
+        app:layout_constraintEnd_toEndOf="@id/navbar_icon_map"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/navbar_icon_chat"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="15dp"
+        android:src="@drawable/outline_question_answer_black_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/navbar_icon_profile"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/navbar_icon_map"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/blue_medium" />
+
+    <ImageView
+        android:id="@+id/navbar_icon_profile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="15dp"
+        android:src="@drawable/outline_pets_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/navbar_icon_chat"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/blue_medium" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.example.petpal
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +16,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.log
 
-//pocistio junk code
-
-/*
-* JOS NESTO! Pretvori Layout-e u fragmentima da imaju Constraint Layout umesto Frame
-* Dovoljno je samo da zamenis tagove, i posle moras da dodelis constraints elementima
-* */
-
-//Standardna notacija je da se fajlovi, a i klase, imenuju po formatu TipfajlaImefajla
-//Najvise zato sto i sam AS generise stvari u tom formatu, kao FragmentLoginBinding, ispod
 class FragmentLogin : Fragment() {
 
     private lateinit var binding : FragmentLoginBinding
+    var setMail:Boolean = false
+    var setPw:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,16 +36,44 @@ class FragmentLogin : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        check()
         val fab = binding.fab
         fab.setOnClickListener {
                 findNavController().navigate(R.id.action_back_home)
         }
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(R.id.action_back_home)
+        }
+        binding.editTextLoginEmail.addTextChangedListener(object  :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                setMail = android.util.Patterns.EMAIL_ADDRESS.matcher(p0).matches()
+                check()
+            }
+        })
+        binding.editTextLoginPassword.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                setPw = p0?.isNotEmpty()?:false
+                check()
+            }
+        })
         val button = binding.buttonLogin
         button.setOnClickListener{
             findNavController().popBackStack()
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(R.id.action_back_home)
-        }
+    }
+    private fun check(){
+        binding.buttonLogin.isEnabled = setPw && setMail
     }
 }

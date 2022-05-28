@@ -5,7 +5,7 @@
     <string name="loginButton">Prijavi me</string>
     <string name="registerName">Unesite ime psa...</string>
     <string name="registerDogDescription">Unesite opis psa...</string>
-    <string name="registerDogBreed">Izaberite rasu psa...</string>
+    <string name="registerDogBreed">Unesite rasu psa...</string>
     <string name="registerDogStatus">Izaberite status psa...</string>
     <string name="registerDogPwConfirm">Potvrdite sifru...</string>
     <string name="loginEmail">Unesite email...</string>
@@ -13,16 +13,9 @@
     <string name="homeButtonLogin">Prijava</string>
     <string name="homeButtonRegister">Registracija</string>
     <string name="registerButton">Registruj me</string>
-    <string-array name="dogBreeds">
-        <item>Izaberite rasu psa...</item>
-        <item>Mesanac</item>
-        <item>Labrador</item>
-        <item>Terrier</item>
-        <item>Buldog</item>
-        <item>Sarplaninac</item>
-        <item>Haski</item>
-        <item>Doberman</item>
-    </string-array>
+    <string name="navbar_map">Mapa</string>
+    <string name="navbar_chats">Šetnje</string>
+    <string name="navbar_profile">Profil</string>
     <string-array name="dogStatus">
         <item>Izaberite status psa...</item>
         <item>Druzeljubiv</item>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,8 +19,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|bottom"
                     android:layout_margin="20dp"
-                    android:backgroundTint="@color/background_login"
+                    android:backgroundTint="@color/white"
                     android:contentDescription="@string/submit"
+
                     android:src="@drawable/outline_arrow_back_black_36"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +39,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearance="@style/Input.Login.Design"
-                    app:strokeColor="@color/button_login"
+                    app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
 
                 <ImageView
@@ -50,7 +51,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageCameraBackground"
                     app:layout_constraintStart_toStartOf="@+id/imageCameraBackground"
                     app:layout_constraintTop_toTopOf="@+id/imageCameraBackground"
-                    app:tint="@color/button_login" />
+                    app:tint="@color/blue" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"
@@ -92,7 +93,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/guideline3"
                     app:shapeAppearance="@style/Input.Login.Design"
-                    app:strokeColor="@color/button_login"
+                    app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
 
                 <EditText
@@ -127,7 +128,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageDogNameBackground"
                     app:shapeAppearance="@style/Input.Login.Design"
-                    app:strokeColor="@color/button_login"
+                    app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
 
                 <EditText
@@ -162,7 +163,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageEmailBackground"
                     app:shapeAppearance="@style/Input.Login.Design"
-                    app:strokeColor="@color/button_login"
+                    app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
 
 
@@ -178,15 +179,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageDogDescriptionBackground"
                     app:shapeAppearance="@style/Input.Login.Design"
-                    app:strokeColor="@color/button_login"
+                    app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
 
-                <Spinner
-                    android:id="@+id/dropdown_menuDogBreed"
+                <EditText
+                    android:id="@+id/editText_menuDogBreed"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
-
+                    android:padding="10px"
+                    android:background="@null"
+                    android:hint="@string/registerDogBreed"
                     android:layout_marginEnd="20dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageDogBreedBackground"
                     app:layout_constraintEnd_toEndOf="@+id/imageDogBreedBackground"
@@ -206,7 +209,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageDogBreedBackground"
                     app:shapeAppearance="@style/Input.Login.Design"
-                    app:strokeColor="@color/button_login"
+                    app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
 
                 <Spinner
@@ -234,6 +237,7 @@
                     android:hint="@string/loginPassword"
                     android:inputType="textPassword"
                     android:padding="10px"
+
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imagePasswordBackground"
@@ -255,7 +259,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageDogStatusBackground"
                     app:shapeAppearance="@style/Input.Login.Design"
-                    app:strokeColor="@color/button_login"
+                    app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
 
 
@@ -292,7 +296,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imagePasswordBackground"
                     app:shapeAppearance="@style/Input.Login.Design"
-                    app:strokeColor="@color/button_login"
+                    app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
 
                 <Button
@@ -303,7 +307,7 @@
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="40dp"
-                    android:backgroundTint="@color/button_login"
+                    android:backgroundTint="@color/blue"
                     android:fontFamily="@font/baloo_bhai_2"
                     android:text="@string/registerButton"
                     android:textSize="20sp"
@@ -319,6 +323,7 @@
                     android:layout_height="27dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
+                    app:tint="@color/blue"
                     android:layout_marginBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextRegisterPassword"
                     app:layout_constraintEnd_toEndOf="@+id/editTextRegisterPassword"
@@ -327,6 +332,7 @@
 
                 <ImageView
                     android:id="@+id/imagePwConfHide"
+                    app:tint="@color/blue"
                     android:layout_width="31dp"
                     android:layout_height="27dp"
                     android:layout_marginTop="10dp"
