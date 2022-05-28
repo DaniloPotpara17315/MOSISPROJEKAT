@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
-    android:background="@color/background_login"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentLogin">
@@ -92,8 +92,10 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="320dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/button_login"
         android:fontFamily="@font/baloo_bhai_2"

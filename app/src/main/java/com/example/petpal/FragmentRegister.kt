@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentRegisterBinding
 
 //pocistio junk code
@@ -52,6 +53,23 @@ class FragmentRegister : Fragment() {
                 // Apply the adapter to the spinner
                 spin2.adapter = adapter
             }
+        }
+        val fab = binding.fab
+        fab.setOnClickListener{
+            findNavController().popBackStack()
+        }
+        val butCam = binding.imageCamera
+        butCam.setOnClickListener{
+
+        }
+        val butReg = binding.buttonReg
+        butReg.setOnClickListener{
+            findNavController().navigate(R.id.action_goto_login)
+        }
+        val butPwHide = binding.imagePwHide
+        butPwHide.setOnClickListener{
+            butPwHide.
+            butPwHide.setImageIcon()
         }
     }
 }

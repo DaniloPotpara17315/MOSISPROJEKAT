@@ -17,8 +17,10 @@
 
     <Button
         android:id="@+id/buttonToLogin"
-        android:layout_width="320dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="60dp"
         android:backgroundTint="@color/button_login"
         android:fontFamily="@font/baloo_bhai_2"
@@ -33,8 +35,10 @@
 
     <Button
         android:id="@+id/buttonToRegister"
-        android:layout_width="320dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="60dp"
         android:backgroundTint="@color/button_login"
         android:fontFamily="@font/baloo_bhai_2"

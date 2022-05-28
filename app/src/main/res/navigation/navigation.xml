@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/fragmentLogin">
+    app:startDestination="@id/fragmentHomescreen">
 
     <fragment
         android:id="@+id/fragmentHomescreen"
@@ -19,7 +19,9 @@
             android:id="@+id/action_goto_login"
             app:destination="@id/fragmentLogin"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
@@ -27,7 +29,7 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_goto_home"
+            android:id="@+id/action_back_home"
             app:destination="@id/fragmentHomescreen"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
@@ -40,10 +42,8 @@
         <action
             android:id="@+id/action_goto_login"
             app:destination="@id/fragmentLogin"
-            app:enterAnim="@android:anim/slide_in_left" />
-        <action
-            android:id="@+id/action_goto_home"
-            app:destination="@id/fragmentHomescreen"
-            app:enterAnim="@android:anim/slide_in_left" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/fragmentLogin"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
