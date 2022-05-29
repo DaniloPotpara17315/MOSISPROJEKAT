@@ -28,7 +28,7 @@ class FragmentRegister : Fragment() {
     private var showPw:Boolean = false
     private var showPwConf:Boolean = false;
     private val REQUEST_IMAGE_CAPTURE = 1;
-    private var formCheck:BooleanArray = BooleanArray(8)
+    private var formCheck:BooleanArray = BooleanArray(7)
     private lateinit var binding: FragmentRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -181,7 +181,10 @@ class FragmentRegister : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                formCheck[6] = p0?.isNotEmpty()?:false
+
+                if (p0 != null) {
+                    formCheck[6] = p0.isNotEmpty() and (binding.editTextRegisterPassConfirm.text.toString() == p0.toString())
+                }
                 enableButton()
             }
 
@@ -197,7 +200,7 @@ class FragmentRegister : Fragment() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0 != null) {
-                    formCheck[7] = p0.isNotEmpty() and (binding.editTextRegisterPassword.text.toString() == p0.toString())
+                    formCheck[6] = p0.isNotEmpty() and (binding.editTextRegisterPassword.text.toString() == p0.toString())
                 }
                 enableButton()
 
