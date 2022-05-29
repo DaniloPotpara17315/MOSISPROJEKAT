@@ -70,6 +70,7 @@ class FragmentLogin : Fragment() {
         })
         val button = binding.buttonLogin
         button.setOnClickListener{
+            //Code for Login
             findNavController().popBackStack()
         }
     }

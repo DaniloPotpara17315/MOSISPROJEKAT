@@ -34,6 +34,7 @@
                     android:layout_height="150dp"
                     android:background="@color/white"
                     android:padding="5dp"
+
                     app:layout_constraintBottom_toTopOf="@+id/guideline3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -188,6 +189,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
                     android:padding="10px"
+                    android:textColor="@color/black"
                     android:background="@null"
                     android:hint="@string/registerDogBreed"
                     android:layout_marginEnd="20dp"
@@ -217,7 +219,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
-
+                    android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageDogStatusBackground"
                     app:layout_constraintEnd_toEndOf="@+id/imageDogStatusBackground"
@@ -256,12 +258,12 @@
                     android:layout_marginEnd="20dp"
                     android:padding="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageDogStatusBackground"
                     app:shapeAppearance="@style/Input.Login.Design"
                     app:strokeColor="@color/blue"
                     app:strokeWidth="2dp" />
-
 
                 <EditText
                     android:id="@+id/editTextRegisterPassConfirm"
@@ -319,29 +321,25 @@
 
                 <ImageView
                     android:id="@+id/imagePwHide"
-                    android:layout_width="31dp"
-                    android:layout_height="27dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="10dp"
-                    app:tint="@color/blue"
-                    android:layout_marginBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextRegisterPassword"
                     app:layout_constraintEnd_toEndOf="@+id/editTextRegisterPassword"
                     app:layout_constraintTop_toTopOf="@+id/editTextRegisterPassword"
-                    app:srcCompat="@drawable/outline_visibility_black_24" />
+                    app:srcCompat="@drawable/outline_visibility_black_24"
+                    app:tint="@color/blue" />
 
                 <ImageView
                     android:id="@+id/imagePwConfHide"
-                    app:tint="@color/blue"
-                    android:layout_width="31dp"
-                    android:layout_height="27dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextRegisterPassConfirm"
                     app:layout_constraintEnd_toEndOf="@+id/editTextRegisterPassConfirm"
                     app:layout_constraintTop_toTopOf="@+id/editTextRegisterPassConfirm"
-                    app:srcCompat="@drawable/outline_visibility_black_24" />
+                    app:srcCompat="@drawable/outline_visibility_black_24"
+                    app:tint="@color/blue" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
