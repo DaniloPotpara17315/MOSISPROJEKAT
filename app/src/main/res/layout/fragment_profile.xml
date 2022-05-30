@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+
+    tools:context=".FragmentProfile">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="312dp" />
+
+    <ImageView
+        android:id="@+id/imageTab"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@color/purple_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageLogout"
+        android:layout_width="44dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/outline_logout_white_36"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTab"
+        app:layout_constraintEnd_toEndOf="@+id/imageTab"
+        app:layout_constraintTop_toTopOf="@+id/imageTab" />
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/tabProfile"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTab"
+        app:layout_constraintStart_toStartOf="@+id/imageTab"
+        app:layout_constraintTop_toTopOf="@+id/imageTab" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageProfileBack"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/purple_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageTab"
+        app:shapeAppearance="@style/Profile.Tab.Background" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageProfileBack"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/imageProfileBack"
+        app:layout_constraintTop_toTopOf="@+id/imageProfileBack"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
+    <ImageView
+        android:id="@+id/imageButtonStatus"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageView
+        android:id="@+id/imageButtonProfile"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonStatus" />
+
+    <ImageView
+        android:id="@+id/imageButtonFriends"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonProfile" />
+
+    <ImageView
+        android:id="@+id/imageButtonDelete"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonFriends" />
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/tabProfileStatus"
+        android:textColor="@color/blue_medium"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonStatus"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonStatus"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonStatus" />
+
+    <TextView
+        android:id="@+id/textPromeniProfil"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="@string/tabProfileChange"
+        android:textColor="@color/blue_medium"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonProfile"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonProfile"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonProfile" />
+
+    <TextView
+        android:id="@+id/textFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="@string/tabProfileFriends"
+        android:textColor="@color/blue_medium"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonFriends"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonFriends"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonFriends" />
+
+    <TextView
+        android:id="@+id/textDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="@string/tabProfileDelete"
+        android:textColor="@color/red"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDelete"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonDelete"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonDelete" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="180dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
