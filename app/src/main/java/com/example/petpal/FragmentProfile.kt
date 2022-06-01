@@ -18,13 +18,26 @@ class FragmentProfile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.imageButtonStatus.setOnClickListener{
+            //logic for status
+        }
+        binding.imageButtonProfile.setOnClickListener{
+            //logic for profile
+        }
+        binding.imageButtonFriends.setOnClickListener{
+            //logic for friends
+        }
+        binding.imageButtonDelete.setOnClickListener{
+            //logic for delete
+        }
+        binding.imageLogout.setOnClickListener{
+            //logic for loggout
+        }
     }
 }

@@ -73,6 +73,29 @@
         app:layout_constraintTop_toTopOf="@+id/imageProfileBack"
         app:shapeAppearance="@style/Input.Login.Design" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageSwitch"
+        android:layout_width="149dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/green_light"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonStatus"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageSwitchKnob"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@color/green_dark"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageSwitch"
+        app:layout_constraintStart_toStartOf="@+id/imageSwitch"
+        app:layout_constraintTop_toTopOf="@+id/imageSwitch"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
     <ImageView
         android:id="@+id/imageButtonStatus"
         android:layout_width="0dp"
@@ -166,5 +189,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="180dp" />
+
+    <TextView
+        android:id="@+id/textViewDogName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:textColor="@color/very_dark_blue"
+        android:text="DoggoName"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/imageProfileBack" />
+
+    <TextView
+        android:id="@+id/textView2DogDesc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/blue_medium"
+        android:textSize="18sp"
+        android:text="Doggo desc"
+        app:layout_constraintBottom_toBottomOf="@+id/imageProfileBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDogName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
