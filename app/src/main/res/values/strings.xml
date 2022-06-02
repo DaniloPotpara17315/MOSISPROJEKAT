@@ -17,10 +17,16 @@
     <string name="navbar_chats">Šetnje</string>
     <string name="navbar_profile">Profil</string>
     <string name="tabProfile"><b>Podešavanja</b></string>
+    <string name="tabProfileProperties"><b>Promeni profil</b></string>
     <string name="tabProfileStatus"><u><b>Status</b></u></string>
     <string name="tabProfileChange"><u><b>Promeni profil</b></u></string>
     <string name="tabProfileFriends"><u><b>Lista prijatelja</b></u></string>
     <string name="tabProfileDelete"><u><b>Obriši profil</b></u></string>
+    <string name="ProfileDogName"><u><b>Ime psa:</b></u></string>
+    <string name="ProfileDogDesc"><u><b>Opis psa:</b></u></string>
+    <string name="ProfileDogBreed"><u><b>Rasa psa:</b></u></string>
+    <string name="ProfileDogEmail"><u><b>Promenite email</b></u></string>
+    <string name="ProfileDogPassword"><u><b>Promenite šifru</b></u></string>
     <string-array name="dogStatus">
         <item>Izaberite status psa...</item>
         <item>Druzeljubiv</item>
