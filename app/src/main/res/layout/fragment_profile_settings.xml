@@ -4,245 +4,245 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    tools:context=".FragmentProfileSettings">
-
-    <ImageView
-        android:id="@+id/imageButtonDogName"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
-
-    <ImageView
-        android:id="@+id/imageButtonDogDesc"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonDogName" />
-
-    <ImageView
-        android:id="@+id/imageButtonDogBreed"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonDogDesc" />
-
-    <ImageView
-        android:id="@+id/imageButtonDogEmail"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonDogBreed" />
-
-    <ImageView
-        android:id="@+id/imageButtonDogPassword"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonDogEmail" />
-
-    <TextView
-        android:id="@+id/textProfileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="@string/ProfileDogName"
-        android:textColor="@color/blue_medium"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogName"
-        app:layout_constraintStart_toStartOf="@+id/imageButtonDogName"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogName" />
-
-    <TextView
-        android:id="@+id/textProfileDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="@string/ProfileDogDesc"
-        android:textColor="@color/blue_medium"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogDesc"
-        app:layout_constraintStart_toStartOf="@+id/imageButtonDogDesc"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogDesc" />
-
-    <TextView
-        android:id="@+id/textProfileBreed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="@string/ProfileDogBreed"
-        android:textColor="@color/blue_medium"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogBreed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogBreed" />
-
-    <TextView
-        android:id="@+id/textProfileEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="@string/ProfileDogEmail"
-        android:textColor="@color/blue_medium"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogEmail" />
-
-    <TextView
-        android:id="@+id/textProfilePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="@string/ProfileDogPassword"
-        android:textColor="@color/blue_medium"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogPassword"
-        app:layout_constraintStart_toStartOf="@+id/imageButtonDogPassword"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogPassword" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageProfile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/white"
-        android:padding="5dp"
-        app:strokeColor="@color/blue"
-        app:strokeWidth="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageTab"
-        app:shapeAppearance="@style/Input.Login.Design" />
+        tools:context=".FragmentProfileSettings">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageProfileEdit"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:background="@color/blue"
-        android:padding="5dp"
-        android:src="@drawable/outline_edit_white_18"
-        app:layout_constraintEnd_toEndOf="@+id/imageProfile"
-        app:layout_constraintTop_toTopOf="@+id/imageProfile"
-        app:shapeAppearance="@style/Input.Login.Design" />
+        <ImageView
+            android:id="@+id/imageButtonDogName"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-    <ImageView
-        android:id="@+id/imageTab"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:background="@color/purple_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageButtonDogDesc"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonDogName" />
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="@string/tabProfileProperties"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageTab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageTab"
-        app:layout_constraintTop_toTopOf="@+id/imageTab" />
+        <ImageView
+            android:id="@+id/imageButtonDogBreed"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonDogDesc" />
 
-    <ImageView
-        android:id="@+id/imageBackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/outline_arrow_back_white_48"
-        app:layout_constraintBottom_toBottomOf="@+id/imageTab"
-        app:layout_constraintStart_toStartOf="@+id/imageTab"
-        app:layout_constraintTop_toTopOf="@+id/imageTab" />
+        <ImageView
+            android:id="@+id/imageButtonDogEmail"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonDogBreed" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="279dp" />
+        <ImageView
+            android:id="@+id/imageButtonDogPassword"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonDogEmail" />
 
-    <ImageView
-        android:id="@+id/imageEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/outline_edit_white_48"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogName"
-        app:layout_constraintEnd_toEndOf="@+id/imageButtonDogName"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogName"
-        app:tint="@color/blue_medium" />
+        <TextView
+            android:id="@+id/textProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="@string/profileDogName"
+            android:textColor="@color/blue_medium"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogName"
+            app:layout_constraintStart_toStartOf="@+id/imageButtonDogName"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogName" />
 
-    <ImageView
-        android:id="@+id/imageEdit3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/outline_edit_white_48"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogDesc"
-        app:layout_constraintEnd_toEndOf="@+id/imageButtonDogDesc"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogDesc"
-        app:tint="@color/blue_medium" />
+        <TextView
+            android:id="@+id/textProfileDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="@string/profileDogDesc"
+            android:textColor="@color/blue_medium"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogDesc"
+            app:layout_constraintStart_toStartOf="@+id/imageButtonDogDesc"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogDesc" />
 
-    <ImageView
-        android:id="@+id/imageEdit4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/outline_edit_white_48"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogBreed"
-        app:layout_constraintEnd_toEndOf="@+id/imageButtonDogBreed"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogBreed"
-        app:tint="@color/blue_medium" />
+        <TextView
+            android:id="@+id/textProfileBreed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="@string/profileDogBreed"
+            android:textColor="@color/blue_medium"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogBreed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogBreed" />
 
-    <ImageView
-        android:id="@+id/imageEdit5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/outline_edit_white_48"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogEmail"
-        app:layout_constraintEnd_toEndOf="@+id/imageButtonDogEmail"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogEmail"
-        app:tint="@color/blue_medium" />
+        <TextView
+            android:id="@+id/textProfileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="@string/profileDogEmail"
+            android:textColor="@color/blue_medium"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogEmail" />
 
-    <ImageView
-        android:id="@+id/imageEdit6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/outline_edit_white_48"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogPassword"
-        app:layout_constraintEnd_toEndOf="@+id/imageButtonDogPassword"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonDogPassword"
-        app:tint="@color/blue_medium" />
+        <TextView
+            android:id="@+id/textProfilePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="@string/profileDogPassword"
+            android:textColor="@color/blue_medium"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogPassword"
+            app:layout_constraintStart_toStartOf="@+id/imageButtonDogPassword"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogPassword" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/white"
+            android:padding="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageTab"
+            app:shapeAppearance="@style/Input.Login.Design"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="4dp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageProfileEdit"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@color/blue"
+            android:padding="5dp"
+            android:src="@drawable/outline_edit_white_36"
+            app:layout_constraintEnd_toEndOf="@+id/imageProfile"
+            app:layout_constraintTop_toTopOf="@+id/imageProfile"
+            app:shapeAppearance="@style/Input.Login.Design" />
+
+        <ImageView
+            android:id="@+id/imageTab"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@color/purple_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="@string/tabProfileProperties"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageTab"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageTab"
+            app:layout_constraintTop_toTopOf="@+id/imageTab" />
+
+        <ImageView
+            android:id="@+id/imageBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/outline_arrow_back_white_48"
+            app:layout_constraintBottom_toBottomOf="@+id/imageTab"
+            app:layout_constraintStart_toStartOf="@+id/imageTab"
+            app:layout_constraintTop_toTopOf="@+id/imageTab" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="279dp" />
+
+        <ImageView
+            android:id="@+id/imageEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/outline_edit_white_48"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogName"
+            app:layout_constraintEnd_toEndOf="@+id/imageButtonDogName"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogName"
+            app:tint="@color/blue_medium" />
+
+        <ImageView
+            android:id="@+id/imageEdit3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/outline_edit_white_48"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogDesc"
+            app:layout_constraintEnd_toEndOf="@+id/imageButtonDogDesc"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogDesc"
+            app:tint="@color/blue_medium" />
+
+        <ImageView
+            android:id="@+id/imageEdit4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/outline_edit_white_48"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogBreed"
+            app:layout_constraintEnd_toEndOf="@+id/imageButtonDogBreed"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogBreed"
+            app:tint="@color/blue_medium" />
+
+        <ImageView
+            android:id="@+id/imageEdit5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/outline_edit_white_48"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogEmail"
+            app:layout_constraintEnd_toEndOf="@+id/imageButtonDogEmail"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogEmail"
+            app:tint="@color/blue_medium" />
+
+        <ImageView
+            android:id="@+id/imageEdit6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/outline_edit_white_48"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogPassword"
+            app:layout_constraintEnd_toEndOf="@+id/imageButtonDogPassword"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonDogPassword"
+            app:tint="@color/blue_medium" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </ScrollView>

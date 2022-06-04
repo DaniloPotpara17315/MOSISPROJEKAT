@@ -34,6 +34,10 @@
         <item name="cornerSize">25%</item>
         <item name="cornerFamily">rounded</item>
     </style>
+    <style name="Event.Tab.Background" parent="">
+        <item name="cornerSize">15%</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
     <style name="Input.Login.Design" parent="">
         <item name="cornerSize">50%</item>
         <item name="cornerFamily">rounded</item>

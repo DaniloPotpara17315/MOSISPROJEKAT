@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".FragmentDogProfile">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageProfile2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageTabDogProfile"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
+    <ImageView
+        android:id="@+id/imageTabDogProfile"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@color/purple_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/dogProfileTitle"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTabDogProfile"
+        app:layout_constraintEnd_toEndOf="@+id/imageTabDogProfile"
+        app:layout_constraintStart_toStartOf="@+id/imageTabDogProfile"
+        app:layout_constraintTop_toTopOf="@+id/imageTabDogProfile" />
+
+    <ImageView
+        android:id="@+id/imageBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/outline_arrow_back_white_48"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTabDogProfile"
+        app:layout_constraintStart_toStartOf="@+id/imageTabDogProfile"
+        app:layout_constraintTop_toTopOf="@+id/imageTabDogProfile" />
+</androidx.constraintlayout.widget.ConstraintLayout>

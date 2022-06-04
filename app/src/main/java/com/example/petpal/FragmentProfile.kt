@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentProfileBinding
 
 class FragmentProfile : Fragment() {
@@ -29,6 +30,7 @@ class FragmentProfile : Fragment() {
         }
         binding.imageButtonProfile.setOnClickListener{
             //logic for profile
+            findNavController().navigate(R.id.actoin_goto_settings)
         }
         binding.imageButtonFriends.setOnClickListener{
             //logic for friends

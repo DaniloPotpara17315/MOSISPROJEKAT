@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".FragmentEventInfo">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageEvent"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/purple_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageTab2"
+        app:shapeAppearance="@style/Event.Tab.Background" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageEventInfo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/purple_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:shapeAppearance="@style/Event.Tab.Background" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageEventList"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/purple_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageEventInfo"
+        app:shapeAppearance="@style/Profile.Tab.Background" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageEventConfirm"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/purple_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageEventInfo"
+        app:layout_constraintVertical_bias="0.504"
+        app:shapeAppearance="@style/Profile.Tab.Background" />
+
+    <ImageView
+        android:id="@+id/imageTab2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@color/purple_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/outline_arrow_back_white_48"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTab2"
+        app:layout_constraintStart_toStartOf="@+id/imageTab2"
+        app:layout_constraintTop_toTopOf="@+id/imageTab2" />
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/eventTitle"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTab2"
+        app:layout_constraintEnd_toEndOf="@+id/imageTab2"
+        app:layout_constraintStart_toStartOf="@+id/imageTab2"
+        app:layout_constraintTop_toTopOf="@+id/imageTab2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="315dp" />
+
+    <TextView
+        android:id="@+id/textViewEventTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:maxLines="4"
+        android:text="Noćna šetnja haskija i dobermana"
+        android:textColor="@color/very_dark_blue"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageEventInfo"
+        app:layout_constraintStart_toStartOf="@+id/imageEventInfo"
+        app:layout_constraintTop_toTopOf="@+id/imageEventInfo" />
+
+    <ImageView
+        android:id="@+id/imageLine"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/very_dark_blue"
+        app:layout_constraintEnd_toEndOf="@+id/imageEventInfo"
+        app:layout_constraintStart_toStartOf="@+id/imageEventInfo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEventTitle" />
+
+    <TextView
+        android:id="@+id/textViewEventDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="TextView"
+        android:textColor="@color/very_dark_blue"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageEventInfo"
+        app:layout_constraintEnd_toEndOf="@+id/imageEventInfo"
+        app:layout_constraintStart_toStartOf="@+id/imageEventInfo"
+        app:layout_constraintTop_toBottomOf="@id/imageLine" />
+
+    <ImageView
+        android:id="@+id/imageViewPeopleList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/outline_group_black_48"
+        app:layout_constraintBottom_toBottomOf="@+id/imageEventList"
+        app:layout_constraintStart_toStartOf="@+id/imageEventList"
+        app:layout_constraintTop_toTopOf="@+id/imageEventList"
+        app:tint="@color/blue" />
+
+    <TextView
+        android:id="@+id/textViewListNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="35"
+        android:textColor="@color/blue"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageEventList"
+        app:layout_constraintEnd_toEndOf="@+id/imageEventList"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPeopleList"
+        app:layout_constraintTop_toTopOf="@+id/imageEventList" />
+
+    <TextView
+        android:id="@+id/textViewConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="Dolazim"
+        android:textAllCaps="false"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageEventConfirm"
+        app:layout_constraintStart_toStartOf="@+id/imageEventConfirm"
+        app:layout_constraintTop_toTopOf="@+id/imageEventConfirm" />
+
+    <ImageView
+        android:id="@+id/imageViewTick"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/outline_task_alt_white_36"
+        app:layout_constraintBottom_toBottomOf="@+id/imageEventConfirm"
+        app:layout_constraintEnd_toEndOf="@+id/imageEventConfirm"
+        app:layout_constraintTop_toTopOf="@+id/imageEventConfirm"
+        app:tint="@color/blue" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
