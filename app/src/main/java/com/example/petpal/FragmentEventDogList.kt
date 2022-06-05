@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.petpal.databinding.FragmentDogProfileBinding
+import com.example.petpal.databinding.FragmentEventDogListBinding
 
+class FragmentEventDogList : Fragment() {
 
-class FragmentDogProfile : Fragment() {
-
-    private lateinit var binding:FragmentDogProfileBinding
+    private lateinit var binding:FragmentEventDogListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,18 +19,16 @@ class FragmentDogProfile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDogProfileBinding.inflate(layoutInflater)
-        // Inflate the layout for this fragment
+        binding = FragmentEventDogListBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.imageBackButton.setOnClickListener {
-            // back button
-        }
-        binding.imageDogInvite.setOnClickListener {
-            //invite dog
+
+        binding.imageBackButton2.setOnClickListener {
+            //back button
         }
     }
+
 }

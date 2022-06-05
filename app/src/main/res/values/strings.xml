@@ -18,17 +18,19 @@
     <string name="navbar_profile">Profil</string>
     <string name="tabProfile"><b>Podešavanja</b></string>
     <string name="tabProfileProperties"><b>Promeni profil</b></string>
-    <string name="tabProfileStatus"><u><b>Status</b></u></string>
-    <string name="tabProfileChange"><u><b>Promeni profil</b></u></string>
-    <string name="tabProfileFriends"><u><b>Lista prijatelja</b></u></string>
-    <string name="tabProfileDelete"><u><b>Obriši profil</b></u></string>
-    <string name="profileDogName"><u><b>Ime psa:</b></u></string>
-    <string name="profileDogDesc"><u><b>Opis psa:</b></u></string>
-    <string name="profileDogBreed"><u><b>Rasa psa:</b></u></string>
-    <string name="profileDogEmail"><u><b>Promenite email</b></u></string>
-    <string name="profileDogPassword"><u><b>Promenite šifru</b></u></string>
+    <string name="tabProfileStatus"><b>Status</b></string>
+    <string name="tabProfileChange"><b>Promeni profil</b></string>
+    <string name="tabProfileFriends"><b>Lista prijatelja</b></string>
+    <string name="tabProfileDelete"><b>Obriši profil</b></string>
+    <string name="profileDogName"><b>Ime psa:</b></string>
+    <string name="profileDogDesc"><b>Opis psa:</b></string>
+    <string name="profileDogBreed"><b>Rasa psa:</b></string>
+    <string name="profileDogEmail"><b>Promenite email</b></string>
+    <string name="profileDogPassword"><b>Promenite šifru</b></string>
     <string name="eventTitle"><b>Informacije događaja</b></string>
     <string name="dogProfileTitle"><b>Profil psa</b></string>
+    <string name="eventTitleList"><b>Posetioci</b></string>
+    <string name="confirmation">Uspešno promenjeno</string>
     <string-array name="dogStatus">
         <item>Izaberite status psa...</item>
         <item>Druzeljubiv</item>

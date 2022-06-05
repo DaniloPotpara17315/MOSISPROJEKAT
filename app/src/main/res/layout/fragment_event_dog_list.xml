@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".FragmentEventDogList">
+
+
+    <ImageView
+        android:id="@+id/imageTabEventList"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@color/purple_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textTitle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/eventTitleList"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTabEventList"
+        app:layout_constraintEnd_toEndOf="@+id/imageTabEventList"
+        app:layout_constraintStart_toStartOf="@+id/imageTabEventList"
+        app:layout_constraintTop_toTopOf="@+id/imageTabEventList" />
+
+    <ImageView
+        android:id="@+id/imageBackButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/outline_arrow_back_white_48"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTabEventList"
+        app:layout_constraintStart_toStartOf="@+id/imageTabEventList"
+        app:layout_constraintTop_toTopOf="@+id/imageTabEventList" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageTabEventList">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/innerContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageDogProfile"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageDogPic"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/blue_medium"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageDogProfile"
+                app:layout_constraintTop_toTopOf="@+id/imageDogProfile"
+                app:shapeAppearance="@style/Input.Login.Design" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

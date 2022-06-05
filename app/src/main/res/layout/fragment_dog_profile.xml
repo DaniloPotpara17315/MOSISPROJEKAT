@@ -9,7 +9,53 @@
 
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageProfile2"
+        android:id="@+id/imageDogProfileInfo"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/purple_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:shapeAppearance="@style/Event.Tab.Background" />
+
+    <TextView
+        android:id="@+id/textViewDogProfileDesc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="TextView"
+        android:textColor="@color/very_dark_blue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageDogProfileInfo"
+        app:layout_constraintEnd_toEndOf="@+id/imageDogProfileInfo"
+        app:layout_constraintStart_toStartOf="@+id/imageDogProfileInfo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDogProfileName" />
+
+    <TextView
+        android:id="@+id/textViewDogProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:maxLines="4"
+        android:text="Dog Name"
+        android:textColor="@color/very_dark_blue"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageDogProfileInfo"
+        app:layout_constraintStart_toStartOf="@+id/imageDogProfileInfo"
+        app:layout_constraintTop_toTopOf="@+id/imageDogProfileInfo" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageDogProfile"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="20dp"
@@ -18,7 +64,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageTabDogProfile"
-        app:shapeAppearance="@style/Input.Login.Design" />
+        app:shapeAppearance="@style/Input.Login.Design"
+        app:strokeColor="@color/purple_light"
+        app:strokeWidth="5dp" />
 
     <ImageView
         android:id="@+id/imageTabDogProfile"
@@ -51,4 +99,35 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageTabDogProfile"
         app:layout_constraintStart_toStartOf="@+id/imageTabDogProfile"
         app:layout_constraintTop_toTopOf="@+id/imageTabDogProfile" />
+
+    <ImageView
+        android:id="@+id/imageDogInvite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/outline_question_answer_black_48"
+        app:layout_constraintBottom_toBottomOf="@+id/imageTabDogProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageTabDogProfile"
+        app:tint="@color/white" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="290dp" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageDogKnob"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/green_dark"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageDogProfile"
+        app:layout_constraintEnd_toEndOf="@+id/imageDogProfile"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

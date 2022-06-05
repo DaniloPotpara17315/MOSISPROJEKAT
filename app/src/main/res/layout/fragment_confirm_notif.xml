@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context=".FragmentConfirmNotif">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageConfirmBackground"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/darker_purple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498"
+        app:shapeAppearance="@style/Event.Confirm.Background" />
+
+    <TextView
+        android:id="@+id/textTitle4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/confirmation"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageConfirmBackground"
+        app:layout_constraintStart_toStartOf="@+id/imageConfirmBackground"
+        app:layout_constraintTop_toTopOf="@+id/imageConfirmBackground" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/outline_task_alt_white_48"
+        app:layout_constraintBottom_toBottomOf="@+id/imageConfirmBackground"
+        app:layout_constraintEnd_toEndOf="@+id/imageConfirmBackground"
+        app:layout_constraintTop_toTopOf="@+id/imageConfirmBackground" />
+</androidx.constraintlayout.widget.ConstraintLayout>

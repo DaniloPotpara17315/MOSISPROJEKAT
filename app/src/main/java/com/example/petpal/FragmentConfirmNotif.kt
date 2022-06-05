@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.petpal.databinding.FragmentDogProfileBinding
+import androidx.fragment.app.DialogFragment
+import com.example.petpal.databinding.FragmentConfirmNotifBinding
 
+class FragmentConfirmNotif : DialogFragment() {
 
-class FragmentDogProfile : Fragment() {
-
-    private lateinit var binding:FragmentDogProfileBinding
+    private lateinit var binding:FragmentConfirmNotifBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,18 +20,15 @@ class FragmentDogProfile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDogProfileBinding.inflate(layoutInflater)
+        binding = FragmentConfirmNotifBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.imageBackButton.setOnClickListener {
-            // back button
-        }
-        binding.imageDogInvite.setOnClickListener {
-            //invite dog
+        binding.imageConfirmBackground.setOnClickListener{
+            //notification click
         }
     }
 }

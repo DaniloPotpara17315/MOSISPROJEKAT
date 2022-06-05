@@ -37,6 +37,8 @@ class FragmentProfileSettings : Fragment() {
         }
         binding.imageButtonDogName.setOnClickListener{
             //change dog name funkcija
+            var dialog = FragmentConfirmNotif()
+//            dialog.show()
         }
         binding.imageButtonDogDesc.setOnClickListener{
             //change doggy desc funkcija
