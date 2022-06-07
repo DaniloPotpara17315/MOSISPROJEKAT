@@ -37,8 +37,7 @@ class FragmentProfileSettings : Fragment() {
         }
         binding.imageButtonDogName.setOnClickListener{
             //change dog name funkcija
-            var dialog = FragmentConfirmNotif()
-//            dialog.show()
+            findNavController().navigate(R.id.action_goto_confirm)
         }
         binding.imageButtonDogDesc.setOnClickListener{
             //change doggy desc funkcija
@@ -48,9 +47,11 @@ class FragmentProfileSettings : Fragment() {
         }
         binding.imageButtonDogEmail.setOnClickListener{
             //change email funkcija
+            findNavController().navigate(R.id.action_goto_changeEmail)
         }
         binding.imageButtonDogPassword.setOnClickListener{
             //change password funkcija
+            findNavController().navigate(R.id.action_goto_ChangePw)
         }
     }
 }

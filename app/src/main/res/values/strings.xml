@@ -9,10 +9,12 @@
     <string name="registerDogStatus">Izaberite status psa...</string>
     <string name="registerDogPwConfirm">Potvrdite šifru...</string>
     <string name="loginEmail">Unesite email...</string>
+    <string name="changeEmail">Unesite novi email...</string>
     <string name="loginPassword">Unesite šifru...</string>
     <string name="homeButtonLogin">Prijava</string>
     <string name="homeButtonRegister">Registracija</string>
     <string name="registerButton">Registruj me</string>
+    <string name="changeButton">Potvrdi promenu</string>
     <string name="navbar_map">Mapa</string>
     <string name="navbar_chats">Šetnje</string>
     <string name="navbar_profile">Profil</string>
@@ -28,6 +30,8 @@
     <string name="profileDogEmail"><b>Promenite email</b></string>
     <string name="profileDogPassword"><b>Promenite šifru</b></string>
     <string name="eventTitle"><b>Informacije događaja</b></string>
+    <string name="settingsChangeMailTitle"><b>Promeni trenutni email</b></string>
+    <string name="settingsChangePwTitle"><b>Promeni šifru</b></string>
     <string name="dogProfileTitle"><b>Profil psa</b></string>
     <string name="eventTitleList"><b>Posetioci</b></string>
     <string name="confirmation">Uspešno promenjeno</string>
