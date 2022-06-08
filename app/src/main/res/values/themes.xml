@@ -50,8 +50,22 @@
         <item name="cornerSize">15%</item>
         <item name="cornerFamily">rounded</item>
     </style>
+    <style name="Event.Creation.Background" parent="">
+        <item name="cornerSize">5%</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
     <style name="Input.Login.Design" parent="">
         <item name="cornerSize">50%</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+    <style name="Event.Calendar" parent="">
+        <item name="cornerSizeTopRight">25%</item>
+        <item name="cornerSizeBottomRight">25%</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+    <style name="Event.Creation.Design" parent="">
+        <item name="cornerSize">25%</item>
         <item name="cornerFamily">rounded</item>
     </style>
     <style name="AppBaseTheme" parent="android:Theme.Light">
