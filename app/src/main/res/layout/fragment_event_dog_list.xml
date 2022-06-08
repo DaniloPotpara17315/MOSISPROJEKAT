@@ -8,38 +8,49 @@
     tools:context=".FragmentEventDogList">
 
 
-    <ImageView
-        android:id="@+id/imageTabEventList"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:background="@color/purple_blue"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_chats_header"
+        android:background="@color/blue"
+        >
 
-    <TextView
-        android:id="@+id/textTitle3"
+        <ImageView
+            android:id="@+id/imageBackButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/outline_arrow_back_white_48"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textTitle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="@string/eventTitleList"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_chats_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="@string/eventTitleList"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageTabEventList"
-        app:layout_constraintEnd_toEndOf="@+id/imageTabEventList"
-        app:layout_constraintStart_toStartOf="@+id/imageTabEventList"
-        app:layout_constraintTop_toTopOf="@+id/imageTabEventList" />
-
-    <ImageView
-        android:id="@+id/imageBackButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/outline_arrow_back_white_48"
-        app:layout_constraintBottom_toBottomOf="@+id/imageTabEventList"
-        app:layout_constraintStart_toStartOf="@+id/imageTabEventList"
-        app:layout_constraintTop_toTopOf="@+id/imageTabEventList" />
-
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".1" />
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="0dp"
@@ -47,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageTabEventList">
+        app:layout_constraintTop_toBottomOf="@+id/guideline_chats_header">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/innerContent"

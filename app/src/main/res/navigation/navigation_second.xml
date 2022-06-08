@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_second"
-    app:startDestination="@id/fragmentProfile">
+    app:startDestination="@id/fragmentFilterNotif">
 
     <fragment
         android:id="@+id/fragmentMap"
@@ -70,4 +70,14 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
+    <dialog
+        android:id="@+id/fragmentFilterNotif"
+        android:name="com.example.petpal.FragmentFilterNotif"
+        android:label="fragment_filter_notif"
+        tools:layout="@layout/fragment_filter_notif" />
+    <dialog
+        android:id="@+id/fragmentEventNotif"
+        android:name="com.example.petpal.FragmentEventNotif"
+        android:label="fragment_event_notif"
+        tools:layout="@layout/fragment_event_notif" />
 </navigation>
