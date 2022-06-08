@@ -18,8 +18,6 @@
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_dog_profile.xml" value="0.33" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_event_dog_list.xml" value="0.33" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_event_info.xml" value="0.33" />
-        <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_event_notif.xml" value="0.33" />
-        <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_filter_notif.xml" value="0.33" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_homescreen.xml" value="0.22735507246376813" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_map.xml" value="0.22735507246376813" />
@@ -32,9 +30,14 @@
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.226" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/activity_second.xml" value="0.2296195652173913" />
+        <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/chat_item.xml" value="0.33" />
+        <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_chat.xml" value="0.22083333333333333" />
+        <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_dog_profile.xml" value="0.2296195652173913" />
+        <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_event_notif.xml" value="0.2296195652173913" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_homescreen.xml" value="0.22864583333333333" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_map.xml" value="0.2296195652173913" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_navbar.xml" value="0.2296195652173913" />
+        <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_profile.xml" value="0.22083333333333333" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_register.xml" value="0.11354166666666667" />
       </map>
     </option>

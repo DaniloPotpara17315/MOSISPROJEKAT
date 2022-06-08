@@ -35,6 +35,7 @@
     <string name="dogProfileTitle"><b>Profil psa</b></string>
     <string name="eventTitleList"><b>Posetioci</b></string>
     <string name="confirmation">Uspešno promenjeno</string>
+    <string name="chats_title">Šetnje</string>
     <string-array name="dogStatus">
         <item>Izaberite status psa...</item>
         <item>Druzeljubiv</item>

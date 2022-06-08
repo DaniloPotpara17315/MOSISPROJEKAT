@@ -11,7 +11,7 @@
         android:id="@+id/navbar_icon_map"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="10dp"
+        android:paddingTop="15dp"
         android:src="@drawable/outline_place_black_24"
         app:layout_constraintBottom_toTopOf="@id/navbar_title_map"
         app:layout_constraintDimensionRatio="1:1"
@@ -39,9 +39,10 @@
         android:id="@+id/navbar_icon_chat"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="15dp"
+        android:padding="10dp"
+        android:layout_marginBottom="15dp"
         android:src="@drawable/outline_question_answer_black_24"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/navbar_title_setnje"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/navbar_icon_profile"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,18 +50,50 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/blue_medium" />
 
+    <TextView
+        android:id="@+id/navbar_title_setnje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:paddingBottom="5dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/navbar_chats"
+        app:layout_constraintStart_toStartOf="@id/navbar_icon_chat"
+        app:layout_constraintEnd_toEndOf="@id/navbar_icon_chat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
     <ImageView
         android:id="@+id/navbar_icon_profile"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="15dp"
         android:src="@drawable/outline_pets_24"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleX="1.4"
+        android:scaleY="1.4"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toBottomOf="@id/navbar_title_profil"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/navbar_icon_chat"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/blue_medium" />
+
+    <TextView
+        android:id="@+id/navbar_title_profil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:paddingBottom="5dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:text="@string/navbar_profile"
+        app:layout_constraintStart_toStartOf="@id/navbar_icon_profile"
+        app:layout_constraintEnd_toEndOf="@id/navbar_icon_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

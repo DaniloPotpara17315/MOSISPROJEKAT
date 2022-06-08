@@ -3,13 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_second"
-    app:startDestination="@id/fragmentFilterNotif">
+
+    app:startDestination="@id/fragmentMap">
 
     <fragment
         android:id="@+id/fragmentMap"
         android:name="com.example.petpal.FragmentMap"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_fragmentMap_to_fragmentChat"
+            app:destination="@id/fragmentChat" />
+        <action
+            android:id="@+id/action_fragmentMap_to_fragmentProfile"
+            app:destination="@id/fragmentProfile" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentProfile"
         android:name="com.example.petpal.FragmentProfile"
@@ -20,6 +28,12 @@
             app:destination="@id/fragmentProfileSettings"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentChat"
+            app:destination="@id/fragmentChat" />
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentMap"
+            app:destination="@id/fragmentMap" />
     </fragment>
     <fragment
         android:id="@+id/fragmentProfileSettings"
@@ -70,6 +84,7 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
+
     <dialog
         android:id="@+id/fragmentFilterNotif"
         android:name="com.example.petpal.FragmentFilterNotif"
@@ -80,4 +95,17 @@
         android:name="com.example.petpal.FragmentEventNotif"
         android:label="fragment_event_notif"
         tools:layout="@layout/fragment_event_notif" />
+
+    <fragment
+        android:id="@+id/fragmentChat"
+        android:name="com.example.petpal.FragmentChat"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_fragmentChat_to_fragmentProfile"
+            app:destination="@id/fragmentProfile" />
+        <action
+            android:id="@+id/action_fragmentChat_to_fragmentMap"
+            app:destination="@id/fragmentMap" />
+    </fragment>
 </navigation>

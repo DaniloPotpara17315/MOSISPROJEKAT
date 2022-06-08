@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_chats_item"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/placeholder_dog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_chats_item_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintStart_toStartOf="@id/guideline_chats_item_status"
+        app:layout_constraintEnd_toEndOf="@id/guideline_chats_item_photo"
+        app:layout_constraintBottom_toBottomOf="@id/image_chats_item"
+        android:background="@color/blue"
+        app:shapeAppearance="@style/Input.Login.Design"
+        />
+
+
+    <TextView
+        android:id="@+id/text_chat_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Issa Dogge"
+        app:layout_constraintStart_toEndOf="@id/guideline_chats_item_photo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="25dp"
+        android:textSize="24dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:textColor="@color/blue_medium"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_chats_item_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_chats_item_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.19" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
