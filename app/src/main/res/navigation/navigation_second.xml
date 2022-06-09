@@ -107,5 +107,13 @@
         <action
             android:id="@+id/action_fragmentChat_to_fragmentMap"
             app:destination="@id/fragmentMap" />
+        <action
+            android:id="@+id/action_chat_to_chatroom"
+            app:destination="@id/fragmentChatroom" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentChatroom"
+        android:name="com.example.petpal.FragmentChatroom"
+        android:label="fragment_chatroom"
+        tools:layout="@layout/fragment_chatroom" />
 </navigation>

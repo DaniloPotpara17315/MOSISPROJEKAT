@@ -63,7 +63,7 @@
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_chats_header"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_chatroom_header"
         app:shapeAppearance="@style/Input.Login.Design"
         app:strokeColor="@color/purple_light"
         app:strokeWidth="5dp" />
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_chats_header"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_chatroom_header"
         android:background="@color/blue"
         >
 
@@ -115,7 +115,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_chats_header"
+        android:id="@+id/guideline_chatroom_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

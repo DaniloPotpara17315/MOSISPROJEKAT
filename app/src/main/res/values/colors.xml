@@ -18,6 +18,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="red">#FF3E3E</color>
+    <color name="yellow">#FFE600</color>
+    <color name="gray">#818181</color>
     <color name="trans">#00FFFFFF</color>
     <color name="darker_purple">#6279F1</color>
 </resources>

@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_chats_header"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_chatroom_header"
         android:background="@color/blue"
         >
 
@@ -46,7 +46,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_chats_header"
+        android:id="@+id/guideline_chatroom_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -63,7 +63,7 @@
         android:background="@color/purple_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_chats_header"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_chatroom_header"
         app:shapeAppearance="@style/Profile.Tab.Background" />
 
     <com.google.android.material.imageview.ShapeableImageView
