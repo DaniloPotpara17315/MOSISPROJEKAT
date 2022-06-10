@@ -20,6 +20,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentRegisterBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlin.math.log
 
 
@@ -75,7 +78,47 @@ class FragmentRegister : Fragment() {
         //Klik za registraciju
         val butReg = binding.buttonReg
         butReg.setOnClickListener{
-            findNavController().navigate(R.id.action_goto_login)
+
+
+            var email =  binding.editTextRegisterEmail.text.toString()
+            var password = binding.editTextRegisterPassword.text.toString()
+            Firebase.auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener{ task ->
+                    if (task.isSuccessful) {
+                        val user = Firebase.auth.currentUser
+                        Log.d("user", user.toString())
+
+                        var currUser = hashMapOf<Any,Any>()
+                        try {
+                            currUser = hashMapOf(
+                            "Name" to binding.editTextDogName.text.toString(),
+                            "Email" to binding.editTextRegisterEmail.text.toString(),
+                            "Breed" to binding.editTextMenuDogBreed.text.toString(),
+                            "Description" to binding.editTextRegisterDescription.text.toString(),
+                            "Friends" to listOf<String>(),
+                            "Status" to binding.dropdownMenuDogStatus.selectedItem.toString()
+                            )
+                            val db = Firebase.firestore.collection("Users").add(currUser)
+
+                        }
+                        catch (e: Exception){
+                            if (user != null) {
+                                user.delete()
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            Log.d("TAG", "User account deleted.")
+                                        }
+                                    }
+                            }
+                        }
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+//                        updateUI(null)
+                    }
+                }
+
+//            findNavController().navigate(R.id.action_goto_login)
         }
 
         val butPwHide = binding.imagePwHide

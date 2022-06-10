@@ -14,16 +14,30 @@ import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentLoginBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlin.math.log
 
 class FragmentLogin : Fragment() {
 
     private lateinit var binding : FragmentLoginBinding
+    private lateinit var auth: FirebaseAuth
+
     var setMail:Boolean = false
     var setPw:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
+    }
 
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            Toast.makeText(context,"logged in",Toast.LENGTH_SHORT).show()
+            Firebase.auth.signOut()
+        }
     }
 
     override fun onCreateView(
@@ -71,7 +85,22 @@ class FragmentLogin : Fragment() {
         val button = binding.buttonLogin
         button.setOnClickListener{
             //Code for Login
-            findNavController().popBackStack()
+            var email = binding.editTextLoginEmail.text.toString()
+            var password = binding.editTextLoginPassword.text.toString()
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
+                    task->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Toast.makeText(context, "Authentication success.",
+                        Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
+                } else {
+                // If sign in fails, display a message to the user.
+                Toast.makeText(context, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
     }
     private fun check(){
