@@ -5,15 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentNavbarBinding
+import com.example.petpal.shared_view_models.MainSharedViewModel
 
 class FragmentNavbar : Fragment() {
 
     private var _binding : FragmentNavbarBinding? = null
     private val binding get() = _binding!!
-
+    private val sharedViewModel : MainSharedViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

@@ -8,18 +8,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentProfileChangeEmailBinding
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class FragmentProfileChangeEmail : Fragment() {
 
     private var showPw:Boolean = false
+    private lateinit var user: FirebaseUser
     private lateinit var binding:FragmentProfileChangeEmailBinding
     var setMail:Boolean = false
     var setPw:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        user = Firebase.auth.currentUser!!
+        if(user == null){
+
+        }
+        else{
+
+        }
+//        Toast.makeText(context,"${user.email.toString()}",Toast.LENGTH_LONG).show()
 
     }
 
@@ -34,6 +49,7 @@ class FragmentProfileChangeEmail : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         check()
+        binding.textViewChangeMailText.text = "Trenutni email: ${user.email.toString()}"
         binding.imageBackButton3.setOnClickListener {
             //back button
             findNavController().navigate(R.id.action_back_settings)
@@ -78,6 +94,22 @@ class FragmentProfileChangeEmail : Fragment() {
 
         binding.buttonChangeEmail.setOnClickListener {
             //logic for email change
+
+            val credential = EmailAuthProvider
+                .getCredential(user.email.toString(), binding.editTextRegisterPassword.text.toString())
+
+// Prompt the user to re-provide their sign-in credentials
+            user.reauthenticate(credential)
+                .addOnCompleteListener {
+                    user!!.updateEmail(binding.editTextRegisterEmail.text.toString())
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Snackbar.make(binding.root, "Email updated", Snackbar.LENGTH_LONG).show()
+                            findNavController().popBackStack()
+
+                        }
+                    } }
+
         }
     }
 
