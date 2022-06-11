@@ -265,7 +265,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageButtonDogPassword" />
 
             <ImageView
-                android:id="@+id/imageEdit"
+                android:id="@+id/imageEditName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -276,7 +276,7 @@
                 app:tint="@color/blue_medium" />
 
             <ImageView
-                android:id="@+id/imageEdit3"
+                android:id="@+id/imageEditDogDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -287,7 +287,7 @@
                 app:tint="@color/blue_medium" />
 
             <ImageView
-                android:id="@+id/imageEdit4"
+                android:id="@+id/imageEditChangeRace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -319,7 +319,203 @@
                 app:layout_constraintTop_toTopOf="@+id/imageButtonDogPassword"
                 app:tint="@color/blue_medium" />
 
+            <ImageView
+                android:id="@+id/imageEditDogNameConf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_check_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogName"
+                app:layout_constraintEnd_toEndOf="@+id/imageButtonDogName"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogName"
+                app:tint="@color/blue_medium"
+                tools:visibility="invisible" />
 
+            <ImageView
+                android:id="@+id/imageEditDogNameDec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_cancel_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogName"
+                app:layout_constraintEnd_toStartOf="@+id/imageEditName"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogName"
+                app:tint="@color/blue_medium"
+                tools:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/editTextDogName"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@null"
+                android:ems="10"
+                android:fontFamily="@font/baloo_bhai_2"
+                android:hint="@string/registerName"
+                android:inputType="text"
+                android:padding="10px"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageDogNameBackground"
+                app:layout_constraintEnd_toEndOf="@+id/imageDogNameBackground"
+                app:layout_constraintStart_toStartOf="@+id/imageDogNameBackground"
+                app:layout_constraintTop_toTopOf="@+id/imageDogNameBackground"
+                app:shapeAppearance="@style/Input.Login.Design"
+                tools:visibility="invisible" />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageDogNameBackground"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:padding="5dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/imageEditDogNameDec"
+                app:layout_constraintStart_toStartOf="@+id/imageButtonDogName"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogName"
+                app:shapeAppearance="@style/Input.Login.Design"
+                app:strokeColor="@color/blue"
+                app:strokeWidth="2dp"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/imageEditDogDescConf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_check_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogDesc"
+                app:layout_constraintEnd_toEndOf="@+id/imageButtonDogDesc"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogDesc"
+                app:tint="@color/blue_medium"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/imageEditDogDescDec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_cancel_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogDesc"
+                app:layout_constraintEnd_toStartOf="@+id/imageEditDogDesc"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogDesc"
+                app:tint="@color/blue_medium"
+                tools:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/editTextDogDesc"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@null"
+                android:ems="10"
+                android:fontFamily="@font/baloo_bhai_2"
+                android:hint="@string/registerDogDescription"
+                android:inputType="text"
+                android:padding="10px"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageDogDescBackground"
+                app:layout_constraintEnd_toEndOf="@+id/imageDogDescBackground"
+                app:layout_constraintStart_toStartOf="@+id/imageDogDescBackground"
+                app:layout_constraintTop_toTopOf="@+id/imageDogDescBackground"
+                app:shapeAppearance="@style/Input.Login.Design"
+                tools:visibility="invisible" />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageDogDescBackground"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:padding="5dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/imageEditDogDescDec"
+                app:layout_constraintStart_toStartOf="@+id/imageButtonDogDesc"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogDesc"
+                app:shapeAppearance="@style/Input.Login.Design"
+                app:strokeColor="@color/blue"
+                app:strokeWidth="2dp"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/imageEditDogBreedConf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_check_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogBreed"
+                app:layout_constraintEnd_toEndOf="@+id/imageButtonDogBreed"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogBreed"
+                app:tint="@color/blue_medium"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/imageEditDogBreedDec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_cancel_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButtonDogBreed"
+                app:layout_constraintEnd_toStartOf="@+id/imageEditDogBreedConf"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogBreed"
+                app:tint="@color/blue_medium"
+                tools:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/editTextDogBreed"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@null"
+                android:ems="10"
+                android:fontFamily="@font/baloo_bhai_2"
+                android:hint="@string/registerDogDescription"
+                android:inputType="text"
+                android:padding="10px"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageDogBreedBackground"
+                app:layout_constraintEnd_toEndOf="@+id/imageDogBreedBackground"
+                app:layout_constraintStart_toStartOf="@+id/imageDogBreedBackground"
+                app:layout_constraintTop_toTopOf="@+id/imageDogBreedBackground"
+                app:shapeAppearance="@style/Input.Login.Design"
+                tools:visibility="invisible" />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageDogBreedBackground"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:padding="5dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/imageEditDogBreedDec"
+                app:layout_constraintStart_toStartOf="@+id/imageButtonDogBreed"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDogBreed"
+                app:shapeAppearance="@style/Input.Login.Design"
+                app:strokeColor="@color/blue"
+                app:strokeWidth="2dp"
+                tools:visibility="invisible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

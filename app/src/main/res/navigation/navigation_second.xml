@@ -45,9 +45,6 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
         <action
-            android:id="@+id/action_goto_confirm"
-            app:destination="@id/fragmentConfirmNotif" />
-        <action
             android:id="@+id/action_goto_changeEmail"
             app:destination="@id/fragmentProfileChangeEmail"
             app:enterAnim="@android:anim/slide_in_left"
@@ -58,11 +55,6 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
-    <dialog
-        android:id="@+id/fragmentConfirmNotif"
-        android:name="com.example.petpal.FragmentConfirmNotif"
-        android:label="fragment_confirm_notif"
-        tools:layout="@layout/fragment_confirm_notif" />
     <fragment
         android:id="@+id/fragmentProfileChangeEmail"
         android:name="com.example.petpal.FragmentProfileChangeEmail"
