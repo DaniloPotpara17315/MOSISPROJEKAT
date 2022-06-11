@@ -1,5 +1,6 @@
 package com.example.petpal
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -36,7 +37,7 @@ class FragmentLogin : Fragment() {
         val currentUser = auth.currentUser
         if(currentUser != null){
             Toast.makeText(context,"logged in",Toast.LENGTH_SHORT).show()
-            Firebase.auth.signOut()
+//            Firebase.auth.signOut()
         }
     }
 
@@ -90,10 +91,16 @@ class FragmentLogin : Fragment() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                     task->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(context, "Authentication success.",
-                        Toast.LENGTH_SHORT).show()
                     val user = auth.currentUser
+                    if (user != null) {
+                        Toast.makeText(context, "Authentication success. Welcome:"+user.email.toString(),
+                            Toast.LENGTH_SHORT).show()
+                    }
+                    // Sign in success, update UI with the signed-in user's information
+                    startActivity(
+                        Intent(context, ActivitySecond::class.java)
+                    )
+
                 } else {
                 // If sign in fails, display a message to the user.
                 Toast.makeText(context, "Authentication failed.",

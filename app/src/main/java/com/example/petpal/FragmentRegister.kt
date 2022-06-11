@@ -98,7 +98,10 @@ class FragmentRegister : Fragment() {
                             "Friends" to listOf<String>(),
                             "Status" to binding.dropdownMenuDogStatus.selectedItem.toString()
                             )
-                            val db = Firebase.firestore.collection("Users").add(currUser)
+                            val db = user?.let { it1 ->
+                                Firebase.firestore.collection("Users").document(
+                                    it1.uid).set(currUser)
+                            }
 
                         }
                         catch (e: Exception){
@@ -110,6 +113,7 @@ class FragmentRegister : Fragment() {
                                         }
                                     }
                             }
+                            Log.w("Error",e.toString())
                         }
 
                     } else {

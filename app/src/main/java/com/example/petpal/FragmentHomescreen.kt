@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentHomescreenBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class FragmentHomescreen : Fragment() {
 
@@ -17,6 +19,13 @@ class FragmentHomescreen : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        var auth = Firebase.auth
+        if(auth.currentUser != null){
+            startActivity(
+                Intent(context, ActivitySecond::class.java)
+            )
+
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

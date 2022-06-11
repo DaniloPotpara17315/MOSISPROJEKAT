@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentProfileBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class FragmentProfile : Fragment() {
 
@@ -39,6 +41,8 @@ class FragmentProfile : Fragment() {
             //logic for delete
         }
         binding.imageLogout.setOnClickListener{
+            Firebase.auth.signOut()
+
             //logic for loggout
         }
     }
