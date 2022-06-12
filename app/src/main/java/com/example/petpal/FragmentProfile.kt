@@ -1,5 +1,6 @@
 package com.example.petpal
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.petpal.databinding.FragmentProfileBinding
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -42,6 +44,7 @@ class FragmentProfile : Fragment() {
         Log.d("DataIshere","${sharedViewModel.userData}")
         binding.textViewDogName.text= sharedViewModel.userData.get("Name").toString()
         binding.textView2DogDesc.text = sharedViewModel.userData.get("Description").toString()
+        Glide.with(this).load(sharedViewModel.profileImg).into(binding.imageProfile)
         var stat= sharedViewModel.userData.get("Status").toString()
         if(stat == "Druzeljubiv"){
             binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_dark));

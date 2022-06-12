@@ -24,6 +24,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
 import kotlin.math.log
 
 
@@ -104,14 +106,28 @@ class FragmentRegister : Fragment() {
                                 Firebase.firestore.collection("Users").document(
                                     it1.uid
                                 ).set(currUser).addOnCompleteListener{
-                                    Snackbar.make(
-                                        binding.root,
-                                        "Korisnik registrovan uspešno",
-                                        Snackbar.LENGTH_LONG
-                                    ).show()
-                                    startActivity(
-                                        Intent(context, ActivitySecond::class.java)
-                                    )
+                                    val baos = ByteArrayOutputStream()
+                                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+                                    val data = baos.toByteArray()
+
+                                    val storageRef = Firebase.storage.reference
+                                    val mountainImagesRef = storageRef.child("ProfileImages/${user.uid}.png")
+                                    var uploadTask = mountainImagesRef.putBytes(data)
+                                    uploadTask.addOnFailureListener {
+                                        // Handle unsuccessful uploads
+                                        Log.d("PictureFail","This is a picture upload failure")
+                                    }.addOnSuccessListener { taskSnapshot ->
+                                        // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                                        // ...
+                                        Snackbar.make(
+                                            binding.root,
+                                            "Korisnik registrovan uspešno",
+                                            Snackbar.LENGTH_LONG
+                                        ).show()
+                                        startActivity(
+                                            Intent(context, ActivitySecond::class.java)
+                                        )
+                                    }
                                 }
 
                             }

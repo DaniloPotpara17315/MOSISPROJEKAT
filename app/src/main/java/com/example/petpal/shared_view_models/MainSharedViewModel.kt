@@ -7,18 +7,26 @@ import com.example.petpal.models.Profile
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class MainSharedViewModel : ViewModel(){
     var selectedProfile = MutableLiveData<Profile>()
     var userData = mutableMapOf<String,Any>()
+    lateinit var profileImg:Any
     init {
         var usr = Firebase.auth.currentUser
         var data = Firebase.firestore.collection("Users").document(
             usr!!.uid).get()
-
         data.addOnSuccessListener { document ->
             if (document != null) {
                 userData = document.data!!
+                val storageRef = Firebase.storage.reference
+                storageRef.child("ProfileImages/${usr.uid}.png").downloadUrl.addOnSuccessListener{
+                    profileImg = it
+                    Log.d("ObjectName","${profileImg}")
+                }.addOnFailureListener{
+                    Log.d("FailedToLocat","NotFound")
+                }
                 Log.d("Nodocumentfound", "User data is set ${userData}")
             }
             else {

@@ -20,6 +20,7 @@ class FragmentHomescreen : Fragment() {
         super.onCreate(savedInstanceState)
 
         var auth = Firebase.auth
+
         if(auth.currentUser != null){
             startActivity(
                 Intent(context, ActivitySecond::class.java)
