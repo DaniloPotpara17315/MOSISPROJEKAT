@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentProfileBinding
@@ -41,7 +42,28 @@ class FragmentProfile : Fragment() {
         Log.d("DataIshere","${sharedViewModel.userData}")
         binding.textViewDogName.text= sharedViewModel.userData.get("Name").toString()
         binding.textView2DogDesc.text = sharedViewModel.userData.get("Description").toString()
+        var stat= sharedViewModel.userData.get("Status").toString()
+        if(stat == "Druzeljubiv"){
+            binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_dark));
+            binding.imageSwitch.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_light));
+            binding.imageSwitchKnobP.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_dark));
 
+        }
+        else if(stat == "Nezainteresovan") {
+            binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.yellow_dark));
+            binding.imageSwitch.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.yellow));
+            binding.imageSwitchKnobP.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.yellow_dark));
+        }
+        else if(stat == "Agresivan"){
+            binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red_dark));
+            binding.imageSwitch.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red));
+            binding.imageSwitchKnobP.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red_dark));
+        }
+        else{
+            binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray_dark));
+            binding.imageSwitch.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray_light));
+            binding.imageSwitchKnobP.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray_dark));
+        }
         eventClicks()
 
     }
@@ -58,6 +80,17 @@ class FragmentProfile : Fragment() {
         }
         binding.imageButtonDelete.setOnClickListener{
             //logic for delete
+            binding.imageEditDeleteProfDec.visibility = View.VISIBLE
+            binding.imageEditDeleteProfConf.visibility = View.VISIBLE
+        }
+        binding.imageEditDeleteProfDec.setOnClickListener {
+            binding.imageEditDeleteProfDec.visibility = View.INVISIBLE
+            binding.imageEditDeleteProfConf.visibility = View.INVISIBLE
+        }
+        binding.imageEditDeleteProfConf.setOnClickListener {
+            //add code for deletion of profile and all it's data
+            binding.imageEditDeleteProfDec.visibility = View.INVISIBLE
+            binding.imageEditDeleteProfConf.visibility = View.INVISIBLE
         }
         binding.imageLogout.setOnClickListener{
             Firebase.auth.signOut()

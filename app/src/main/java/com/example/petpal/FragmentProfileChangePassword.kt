@@ -102,7 +102,7 @@ class FragmentProfileChangePassword : Fragment() {
                     user!!.updatePassword(binding.editTextRegisterPassword2.text.toString())
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                Snackbar.make(binding.root, "Password changed", Snackbar.LENGTH_LONG).show()
+                                Snackbar.make(binding.root, "Šifra promenjena", Snackbar.LENGTH_LONG).show()
                                 findNavController().popBackStack()
                             }
                         } }

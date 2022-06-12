@@ -55,8 +55,10 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/outline_arrow_back_white_48"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textTitle5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

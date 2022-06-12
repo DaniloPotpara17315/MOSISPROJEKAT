@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.FragmentRegisterBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -31,6 +32,7 @@ class FragmentRegister : Fragment() {
     private var showPw:Boolean = false
     private var showPwConf:Boolean = false;
     private val REQUEST_IMAGE_CAPTURE = 1;
+    private lateinit var imageBitmap:Bitmap
     private var formCheck:BooleanArray = BooleanArray(7)
     private lateinit var binding: FragmentRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,46 +85,62 @@ class FragmentRegister : Fragment() {
             var email =  binding.editTextRegisterEmail.text.toString()
             var password = binding.editTextRegisterPassword.text.toString()
             Firebase.auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener{ task ->
+                .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val user = Firebase.auth.currentUser
                         Log.d("user", user.toString())
 
-                        var currUser = hashMapOf<Any,Any>()
+                        var currUser = hashMapOf<Any, Any>()
                         try {
                             currUser = hashMapOf(
-                            "Name" to binding.editTextDogName.text.toString(),
-                            "Email" to binding.editTextRegisterEmail.text.toString(),
-                            "Breed" to binding.editTextMenuDogBreed.text.toString(),
-                            "Description" to binding.editTextRegisterDescription.text.toString(),
-                            "Friends" to listOf<String>(),
-                            "Status" to binding.dropdownMenuDogStatus.selectedItem.toString()
+                                "Name" to binding.editTextDogName.text.toString(),
+                                "Email" to binding.editTextRegisterEmail.text.toString(),
+                                "Breed" to binding.editTextMenuDogBreed.text.toString(),
+                                "Description" to binding.editTextRegisterDescription.text.toString(),
+                                "Friends" to listOf<String>(),
+                                "Status" to binding.dropdownMenuDogStatus.selectedItem.toString()
                             )
                             val db = user?.let { it1 ->
                                 Firebase.firestore.collection("Users").document(
-                                    it1.uid).set(currUser)
+                                    it1.uid
+                                ).set(currUser).addOnCompleteListener{
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Korisnik registrovan uspešno",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                    startActivity(
+                                        Intent(context, ActivitySecond::class.java)
+                                    )
+                                }
+
                             }
 
-                        }
-                        catch (e: Exception){
+                        } catch (e: Exception) {
                             if (user != null) {
                                 user.delete()
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
-                                            Log.d("TAG", "User account deleted.")
+                                            Snackbar.make(
+                                                binding.root,
+                                                "Neuspešna registracija V2",
+                                                Snackbar.LENGTH_LONG
+                                            ).show()
+
                                         }
                                     }
-                            }
-                            Log.w("Error",e.toString())
-                        }
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-//                        updateUI(null)
+                            }
+                        }
+                    }
+                    else {
+                        Snackbar.make(
+                            binding.root,
+                            "Neuspešna registracija V1",
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
                 }
-
-//            findNavController().navigate(R.id.action_goto_login)
         }
 
         val butPwHide = binding.imagePwHide
@@ -272,7 +290,7 @@ class FragmentRegister : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as Bitmap
+            imageBitmap = data?.extras?.get("data") as Bitmap
             formCheck[0] = true
             binding.imageCamera.setImageDrawable(null)
             binding.imageCameraBackground.setImageBitmap(imageBitmap)

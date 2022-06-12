@@ -236,6 +236,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageButtonFriends" />
 
+
+            <ImageView
+                android:id="@+id/imageEditDeleteProfConf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_check_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButtonDelete"
+                app:layout_constraintEnd_toEndOf="@+id/imageButtonDelete"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDelete"
+                app:tint="@color/red"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/imageEditDeleteProfDec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_baseline_cancel_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButtonDelete"
+                app:layout_constraintEnd_toStartOf="@+id/imageEditDeleteProfConf"
+                app:layout_constraintTop_toTopOf="@+id/imageButtonDelete"
+                app:tint="@color/red"
+                tools:visibility="invisible" />
             <ImageView
                 android:id="@+id/imageLine10"
                 android:layout_width="0dp"
@@ -243,7 +269,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/blue_medium"
+                android:background="@color/red"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButtonDelete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

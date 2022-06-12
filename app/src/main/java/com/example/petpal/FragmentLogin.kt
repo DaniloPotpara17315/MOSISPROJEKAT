@@ -92,19 +92,17 @@ class FragmentLogin : Fragment() {
                     task->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    if (user != null) {
-                        Toast.makeText(context, "Authentication success. Welcome:"+user.email.toString(),
-                            Toast.LENGTH_SHORT).show()
-                    }
-                    // Sign in success, update UI with the signed-in user's information
+
+
                     startActivity(
                         Intent(context, ActivitySecond::class.java)
                     )
+                    if (user != null) {
+                        Snackbar.make(binding.root, "Uspešno ulogovan, dobrodošao:"+user.email.toString(), Snackbar.LENGTH_LONG).show()
+                    }
 
                 } else {
-                // If sign in fails, display a message to the user.
-                Toast.makeText(context, "Authentication failed.",
-                    Toast.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, "Neuspešno logovanje", Snackbar.LENGTH_LONG).show()
                 }
             }
 

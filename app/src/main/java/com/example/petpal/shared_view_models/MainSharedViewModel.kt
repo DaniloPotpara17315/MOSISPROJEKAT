@@ -10,7 +10,7 @@ import com.google.firebase.ktx.Firebase
 
 class MainSharedViewModel : ViewModel(){
     var selectedProfile = MutableLiveData<Profile>()
-    var userData = mapOf<String,Any>()
+    var userData = mutableMapOf<String,Any>()
     init {
         var usr = Firebase.auth.currentUser
         var data = Firebase.firestore.collection("Users").document(
