@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class FragmentProfile : Fragment() {
 
@@ -92,6 +93,24 @@ class FragmentProfile : Fragment() {
         }
         binding.imageEditDeleteProfConf.setOnClickListener {
             //add code for deletion of profile and all it's data
+            var user = Firebase.auth.currentUser
+            val storageRef = Firebase.storage.reference
+            val mountainImagesRef = storageRef.child("ProfileImages/${user!!.uid}.png")
+            mountainImagesRef.delete().addOnCompleteListener{
+                Firebase.firestore.collection("Users").document(
+                    user.uid
+                ).delete().addOnCompleteListener{
+                    user.delete().addOnCompleteListener{
+                        Snackbar.make(
+                            binding.root,
+                            "Profil uspesno obrisan",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        Firebase.auth.signOut()
+                        requireActivity().finish()
+                    }
+                }
+            }
             binding.imageEditDeleteProfDec.visibility = View.INVISIBLE
             binding.imageEditDeleteProfConf.visibility = View.INVISIBLE
         }
