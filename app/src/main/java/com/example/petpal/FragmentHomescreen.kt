@@ -18,7 +18,7 @@ import java.util.*
 class FragmentHomescreen : Fragment() {
 
     private lateinit var binding : FragmentHomescreenBinding
-    //val pd = ProgressDialog(context)
+    val pd = ProgressDialog(context)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,8 +29,8 @@ class FragmentHomescreen : Fragment() {
                 Intent(context, ActivitySecond::class.java)
             )
         }
-        //pd.setCancelable(false)
-        //pd.setMessage("Loading")
+        pd.setCancelable(false)
+        pd.setMessage("Loading")
 //        pd.show()
 
     }
