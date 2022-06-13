@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".FragmentMap">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <org.osmdroid.views.MapView
+        android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        tilesource="Mapnik"
+        />
 </FrameLayout>

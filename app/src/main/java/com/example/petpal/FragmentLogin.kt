@@ -25,12 +25,13 @@ class FragmentLogin : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
-    val pd = ProgressDialog(context)
+
     var setMail: Boolean = false
     var setPw: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        val pd = ProgressDialog(context)
         pd.setCancelable(false)
         pd.setMessage("LOGOVANJE...")
 
@@ -57,6 +58,7 @@ class FragmentLogin : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         check()
         val fab = binding.fab
+        val pd = ProgressDialog(context)
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_back_home)
         }

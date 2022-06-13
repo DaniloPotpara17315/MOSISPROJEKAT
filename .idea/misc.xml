@@ -20,7 +20,6 @@
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_profile_change_email.xml" value="0.536" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_profile_settings.xml" value="0.4" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_register.xml" value="0.2" />
-        <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/menu/popup_menu.xml" value="0.1" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/drawable/outline_arrow_back_24.xml" value="0.226" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/activity_main.xml" value="0.14722222222222223" />
@@ -47,6 +46,7 @@
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_dog_profile.xml" value="0.2296195652173913" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_event_notif.xml" value="0.2296195652173913" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_homescreen.xml" value="0.22864583333333333" />
+        <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_login.xml" value="0.14375" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_map.xml" value="0.2296195652173913" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_navbar.xml" value="0.2296195652173913" />
         <entry key="..\:/projekti/MOSIS/app/src/main/res/layout/fragment_profile.xml" value="0.22083333333333333" />
