@@ -36,6 +36,10 @@
     <string name="eventTitleList"><b>Posetioci</b></string>
     <string name="confirmation">Uspešno promenjeno</string>
     <string name="chats_title">Šetnje</string>
+    <string name="action_drz">Druzeljubiv</string>
+    <string name="action_nez">Nezainteresovan</string>
+    <string name="action_agr">Agresivan</string>
+    <string name="action_inv">Offline</string>
     <string-array name="dogStatus">
         <item>Izaberite status psa...</item>
         <item>Druzeljubiv</item>

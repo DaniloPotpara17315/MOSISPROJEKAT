@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -32,9 +33,12 @@ class FragmentProfileSettings : Fragment() {
     private lateinit var binding:FragmentProfileSettingsBinding
     private lateinit var user: FirebaseUser
     private val REQUEST_IMAGE_CAPTURE = 1;
+    val pd = ProgressDialog(context)
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd.setCancelable(false)
+        pd.setMessage("PROMENE U TOKU...")
         user = Firebase.auth.currentUser!!
         if(user == null){
 
@@ -63,6 +67,7 @@ class FragmentProfileSettings : Fragment() {
         }
         binding.imageProfile.setOnClickListener{
             //edit camera
+            pd.show()
             dispatchTakePictureIntent()
         }
         binding.imageButtonDogName.setOnClickListener{
@@ -107,7 +112,7 @@ class FragmentProfileSettings : Fragment() {
         binding.imageEditDogNameConf.setOnClickListener {
             //confirm code change name
 
-
+            pd.show()
             var currUser = mutableMapOf<String, Any>(
                 "Name" to binding.editTextDogName.text.toString(),
             )
@@ -116,6 +121,7 @@ class FragmentProfileSettings : Fragment() {
                 user.uid
             ).update(currUser).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    pd.hide()
                     Snackbar.make(
                         binding.root,
                         "Promenjeno ime uspešno",
@@ -130,6 +136,7 @@ class FragmentProfileSettings : Fragment() {
                     binding.editTextDogName.visibility = INVISIBLE
                 }
                 else{
+                    pd.hide()
                     Snackbar.make(
                         binding.root,
                         "Neuspešna promena",
@@ -161,6 +168,7 @@ class FragmentProfileSettings : Fragment() {
         }
         binding.imageEditDogDescConf.setOnClickListener{
             //confirm code change opis
+            pd.show()
             var currUser = mutableMapOf<String, Any>(
                 "Description" to binding.editTextDogDesc.text.toString(),
             )
@@ -169,6 +177,7 @@ class FragmentProfileSettings : Fragment() {
                 user.uid
             ).update(currUser).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    pd.hide()
                     Snackbar.make(
                         binding.root,
                         "Promenjen opis uspešno",
@@ -185,6 +194,7 @@ class FragmentProfileSettings : Fragment() {
                     binding.imageDogDescBackground.visibility = INVISIBLE
                     binding.editTextDogDesc.visibility = INVISIBLE
                 } else {
+                    pd.hide()
                     Snackbar.make(
                         binding.root,
                         "Neuspešna promena",
@@ -217,6 +227,7 @@ class FragmentProfileSettings : Fragment() {
         }
         binding.imageEditDogBreedConf.setOnClickListener{
 
+            pd.show()
             var currUser = mutableMapOf<String, Any>(
                 "Breed" to binding.editTextDogBreed.text.toString(),
             )
@@ -225,6 +236,7 @@ class FragmentProfileSettings : Fragment() {
                 user.uid
             ).update(currUser).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    pd.hide()
                     Snackbar.make(
                         binding.root,
                         "Promenjena rasa uspešno",
@@ -241,6 +253,7 @@ class FragmentProfileSettings : Fragment() {
                     binding.imageDogBreedBackground.visibility = INVISIBLE
                     binding.editTextDogBreed.visibility = INVISIBLE
                 } else {
+                    pd.hide()
                     Snackbar.make(
                         binding.root,
                         "Neuspešna promena",
@@ -280,6 +293,7 @@ class FragmentProfileSettings : Fragment() {
             var uploadTask = mountainImagesRef.putBytes(data)
             uploadTask.addOnFailureListener {
                 // Handle unsuccessful uploads
+                pd.hide()
                 Log.d("PictureFail","This is a picture upload failure")
             }.addOnSuccessListener { taskSnapshot ->
                 // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
@@ -292,6 +306,7 @@ class FragmentProfileSettings : Fragment() {
                 binding.imageProfile.setImageBitmap(imageBitmap)
                 storageRef.child("ProfileImages/${user.uid}.png").downloadUrl.addOnSuccessListener{
                     sharedViewModel.profileImg = it
+                    pd.hide()
                     Log.d("ObjectName","${sharedViewModel.profileImg}")
                 }
             }

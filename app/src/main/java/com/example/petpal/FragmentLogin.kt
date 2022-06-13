@@ -1,5 +1,6 @@
 package com.example.petpal
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -22,21 +23,24 @@ import kotlin.math.log
 
 class FragmentLogin : Fragment() {
 
-    private lateinit var binding : FragmentLoginBinding
+    private lateinit var binding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
-
-    var setMail:Boolean = false
-    var setPw:Boolean = false
+    val pd = ProgressDialog(context)
+    var setMail: Boolean = false
+    var setPw: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        pd.setCancelable(false)
+        pd.setMessage("LOGOVANJE...")
+
     }
 
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
-        if(currentUser != null){
-            Toast.makeText(context,"logged in",Toast.LENGTH_SHORT).show()
+        if (currentUser != null) {
+            Toast.makeText(context, "logged in", Toast.LENGTH_SHORT).show()
 //            Firebase.auth.signOut()
         }
     }
@@ -54,12 +58,12 @@ class FragmentLogin : Fragment() {
         check()
         val fab = binding.fab
         fab.setOnClickListener {
-                findNavController().navigate(R.id.action_back_home)
+            findNavController().navigate(R.id.action_back_home)
         }
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigate(R.id.action_back_home)
         }
-        binding.editTextLoginEmail.addTextChangedListener(object  :TextWatcher{
+        binding.editTextLoginEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -71,7 +75,7 @@ class FragmentLogin : Fragment() {
                 check()
             }
         })
-        binding.editTextLoginPassword.addTextChangedListener(object :TextWatcher{
+        binding.editTextLoginPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -79,36 +83,40 @@ class FragmentLogin : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                setPw = p0?.isNotEmpty()?:false
+                setPw = p0?.isNotEmpty() ?: false
                 check()
             }
         })
         val button = binding.buttonLogin
-        button.setOnClickListener{
+        button.setOnClickListener {
             //Code for Login
+            pd.show()
             var email = binding.editTextLoginEmail.text.toString()
             var password = binding.editTextLoginPassword.text.toString()
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
-                    task->
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-
+                    pd.hide()
 
                     startActivity(
                         Intent(context, ActivitySecond::class.java)
                     )
                     if (user != null) {
-                        Snackbar.make(binding.root, "Uspešno ulogovan, dobrodošao:"+user.email.toString(), Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(
+                            binding.root,
+                            "Uspešno ulogovan, dobrodošao:" + user.email.toString(),
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
 
                 } else {
                     Snackbar.make(binding.root, "Neuspešno logovanje", Snackbar.LENGTH_LONG).show()
                 }
             }
-
         }
     }
-    private fun check(){
+
+    private fun check() {
         binding.buttonLogin.isEnabled = setPw && setMail
     }
 }

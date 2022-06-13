@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -42,31 +43,21 @@ class FragmentProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("DataIshere","${sharedViewModel.userData}")
         binding.textViewDogName.text= sharedViewModel.userData.get("Name").toString()
         binding.textView2DogDesc.text = sharedViewModel.userData.get("Description").toString()
         Glide.with(this).load(sharedViewModel.profileImg).into(binding.imageProfile)
         var stat= sharedViewModel.userData.get("Status").toString()
-        if(stat == "Druzeljubiv"){
-            binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_dark));
-            binding.imageSwitch.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_light));
-            binding.imageSwitchKnobP.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_dark));
-
+        if(stat == "Druzeljubiv") {
+            paintGreen()
         }
         else if(stat == "Nezainteresovan") {
-            binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.yellow_dark));
-            binding.imageSwitch.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.yellow));
-            binding.imageSwitchKnobP.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.yellow_dark));
+            paintYellow()
         }
-        else if(stat == "Agresivan"){
-            binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red_dark));
-            binding.imageSwitch.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red));
-            binding.imageSwitchKnobP.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red_dark));
+        else if(stat == "Agresivan") {
+            paintRed()
         }
-        else{
-            binding.imageSwitchKnob.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray_dark));
-            binding.imageSwitch.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray_light));
-            binding.imageSwitchKnobP.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray_dark));
+        else {
+            paintOff()
         }
         eventClicks()
 
@@ -74,6 +65,47 @@ class FragmentProfile : Fragment() {
     private fun eventClicks(){
         binding.imageButtonStatus.setOnClickListener{
             //logic for status
+            val popupMenu:PopupMenu= PopupMenu(context,binding.imageButtonStatus)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item->
+                if(checkChange(item.title.toString())){
+                    var currUser = mutableMapOf<String, Any>(
+                        "Status" to item.title.toString()
+                    )
+                    var user = Firebase.auth.currentUser
+                    if (user != null) {
+                        Log.d("DataisHere","${user.uid},${currUser},${item.title.toString()}")
+                    }
+                    if (user != null) {
+                        Firebase.firestore.collection("Users").document(
+                            user.uid
+                        ).update(currUser).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Snackbar.make(
+                                    binding.root,
+                                    "Promenjen status uspesno",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                                sharedViewModel.userData.set(
+                                    "Status",
+                                    item.title.toString()
+                                )
+                                when(item.itemId){
+                                    R.id.action_drz-> paintGreen()
+                                    R.id.action_nez -> paintYellow()
+                                    R.id.action_agr -> paintRed()
+                                    R.id.action_off-> paintOff()
+                                }
+
+                            }
+                        }.addOnFailureListener{
+                            Log.d("FailureToChangeStat",it.toString())
+                        }
+                    }
+                }
+                true
+            })
+            popupMenu.show()
         }
         binding.imageButtonProfile.setOnClickListener{
             //logic for profile
@@ -119,5 +151,91 @@ class FragmentProfile : Fragment() {
             requireActivity().finish()
             //logic for loggout
         }
+    }
+
+
+    private fun paintYellow() {
+        binding.imageSwitchKnob.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.yellow_dark
+            )
+        );
+        binding.imageSwitch.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.yellow
+            )
+        );
+        binding.imageSwitchKnobP.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.yellow_dark
+            )
+        );
+    }
+    private fun paintGreen() {
+        binding.imageSwitchKnob.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.green_dark
+            )
+        );
+        binding.imageSwitch.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.green_light
+            )
+        );
+        binding.imageSwitchKnobP.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.green_dark
+            )
+        );
+    }
+    private fun paintRed() {
+        binding.imageSwitchKnob.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.red_dark
+            )
+        );
+        binding.imageSwitch.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.red
+            )
+        );
+        binding.imageSwitchKnobP.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.red_dark
+            )
+        );
+    }
+
+    private fun paintOff() {
+        binding.imageSwitchKnob.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.gray_dark
+            )
+        );
+        binding.imageSwitch.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.gray_light
+            )
+        );
+        binding.imageSwitchKnobP.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.gray_dark
+            )
+        );
+    }
+    private fun checkChange(currValue:String):Boolean{
+        return sharedViewModel.userData.get("Status").toString() != currValue.toString()
     }
 }

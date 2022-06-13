@@ -1,5 +1,6 @@
 package com.example.petpal
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -27,10 +28,13 @@ class FragmentProfileChangeEmail : Fragment() {
     private lateinit var user: FirebaseUser
     private lateinit var binding:FragmentProfileChangeEmailBinding
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
+    val pd = ProgressDialog(context)
     var setMail:Boolean = false
     var setPw:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd.setCancelable(false)
+        pd.setMessage("PROMENA EMAIL-A U TOKU...")
         user = Firebase.auth.currentUser!!
         if(user == null){
 
@@ -58,7 +62,7 @@ class FragmentProfileChangeEmail : Fragment() {
             //back button
             findNavController().navigate(R.id.action_back_settings)
         }
-        binding.editTextRegisterEmail.addTextChangedListener(object  : TextWatcher {
+        binding.editTextRegisterEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -71,7 +75,7 @@ class FragmentProfileChangeEmail : Fragment() {
             }
         })
 
-        binding.editTextRegisterPassword.addTextChangedListener(object :TextWatcher{
+        binding.editTextRegisterPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -79,7 +83,7 @@ class FragmentProfileChangeEmail : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                setPw = p0?.isNotEmpty()?:false
+                setPw = p0?.isNotEmpty() ?: false
                 check()
             }
         })
@@ -98,36 +102,44 @@ class FragmentProfileChangeEmail : Fragment() {
 
         binding.buttonChangeEmail.setOnClickListener {
             //logic for email change
-
+            pd.show()
             val credential = EmailAuthProvider
-                .getCredential(user.email.toString(), binding.editTextRegisterPassword.text.toString())
+                .getCredential(
+                    user.email.toString(),
+                    binding.editTextRegisterPassword.text.toString()
+                )
 
             user.reauthenticate(credential)
                 .addOnCompleteListener {
                     user!!.updateEmail(binding.editTextRegisterEmail.text.toString())
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Snackbar.make(binding.root, "Email promenjen", Snackbar.LENGTH_LONG).show()
-                            var currUser = mutableMapOf<String, Any>(
-                                "Email" to binding.editTextRegisterEmail.text.toString(),
-                            )
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Snackbar.make(binding.root, "Email promenjen", Snackbar.LENGTH_LONG)
+                                    .show()
+                                var currUser = mutableMapOf<String, Any>(
+                                    "Email" to binding.editTextRegisterEmail.text.toString(),
+                                )
 
-                            Firebase.firestore.collection("Users").document(
-                                user.uid
-                            ).update(currUser).addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    sharedViewModel.userData.set(
-                                        "Email",
-                                        binding.editTextRegisterEmail.text.toString()
-                                    )
-                                    findNavController().popBackStack()
+                                Firebase.firestore.collection("Users").document(
+                                    user.uid
+                                ).update(currUser).addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        sharedViewModel.userData.set(
+                                            "Email",
+                                            binding.editTextRegisterEmail.text.toString()
+                                        )
+                                        pd.hide()
+                                        findNavController().popBackStack()
+
+                                    }
+                                    else{
+                                        pd.hide()
+                                    }
 
                                 }
                             }
-
                         }
-                    } }
-
+                }
         }
     }
 

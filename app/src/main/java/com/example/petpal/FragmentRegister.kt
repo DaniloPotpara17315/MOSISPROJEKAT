@@ -1,6 +1,7 @@
 package com.example.petpal
 
 import android.app.Activity.RESULT_OK
+import android.app.ProgressDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
@@ -31,14 +32,17 @@ import kotlin.math.log
 
 class FragmentRegister : Fragment() {
 
-    private var showPw:Boolean = false
-    private var showPwConf:Boolean = false;
+    private var showPw: Boolean = false
+    private var showPwConf: Boolean = false;
     private val REQUEST_IMAGE_CAPTURE = 1;
-    private lateinit var imageBitmap:Bitmap
-    private var formCheck:BooleanArray = BooleanArray(7)
+    private lateinit var imageBitmap: Bitmap
+    private var formCheck: BooleanArray = BooleanArray(7)
+    var pd = ProgressDialog(context)
     private lateinit var binding: FragmentRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd.setCancelable(false)
+        pd.setMessage("REGISTRACIJA U TOKU...")
     }
 
     override fun onCreateView(
@@ -68,23 +72,23 @@ class FragmentRegister : Fragment() {
 
         val fab = binding.fab
         //odlazak na glavni meni
-        fab.setOnClickListener{
+        fab.setOnClickListener {
             findNavController().popBackStack()
         }
         val butCam = binding.imageCamera
 
         //otvaranje kamere
-        butCam.setOnClickListener{
+        butCam.setOnClickListener {
 
             dispatchTakePictureIntent()
 
         }
         //Klik za registraciju
         val butReg = binding.buttonReg
-        butReg.setOnClickListener{
+        butReg.setOnClickListener {
 
-
-            var email =  binding.editTextRegisterEmail.text.toString()
+            pd.show()
+            var email = binding.editTextRegisterEmail.text.toString()
             var password = binding.editTextRegisterPassword.text.toString()
             Firebase.auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
@@ -105,20 +109,22 @@ class FragmentRegister : Fragment() {
                             val db = user?.let { it1 ->
                                 Firebase.firestore.collection("Users").document(
                                     it1.uid
-                                ).set(currUser).addOnCompleteListener{
+                                ).set(currUser).addOnCompleteListener {
                                     val baos = ByteArrayOutputStream()
                                     imageBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
                                     val data = baos.toByteArray()
 
                                     val storageRef = Firebase.storage.reference
-                                    val mountainImagesRef = storageRef.child("ProfileImages/${user.uid}.png")
+                                    val mountainImagesRef =
+                                        storageRef.child("ProfileImages/${user.uid}.png")
                                     var uploadTask = mountainImagesRef.putBytes(data)
                                     uploadTask.addOnFailureListener {
                                         // Handle unsuccessful uploads
-                                        Log.d("PictureFail","This is a picture upload failure")
+                                        Log.d("PictureFail", "This is a picture upload failure")
                                     }.addOnSuccessListener { taskSnapshot ->
                                         // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                                         // ...
+                                        pd.hide()
                                         Snackbar.make(
                                             binding.root,
                                             "Korisnik registrovan uspešno",
@@ -137,6 +143,7 @@ class FragmentRegister : Fragment() {
                                 user.delete()
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
+                                            pd.hide()
                                             Snackbar.make(
                                                 binding.root,
                                                 "Neuspešna registracija V2",
@@ -145,11 +152,10 @@ class FragmentRegister : Fragment() {
 
                                         }
                                     }
-
                             }
                         }
-                    }
-                    else {
+                    } else {
+                        pd.hide()
                         Snackbar.make(
                             binding.root,
                             "Neuspešna registracija V1",
@@ -190,7 +196,7 @@ class FragmentRegister : Fragment() {
 
         //region textWatchers
 
-        binding.editTextDogName.addTextChangedListener(object :TextWatcher{
+        binding.editTextDogName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -198,11 +204,11 @@ class FragmentRegister : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                formCheck[1] = p0?.isNotEmpty()?:false
+                formCheck[1] = p0?.isNotEmpty() ?: false
                 enableButton()
             }
         })
-        binding.editTextRegisterEmail.addTextChangedListener(object :TextWatcher{
+        binding.editTextRegisterEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -216,7 +222,7 @@ class FragmentRegister : Fragment() {
 
         })
 
-        binding.editTextRegisterDescription.addTextChangedListener(object:TextWatcher{
+        binding.editTextRegisterDescription.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -224,12 +230,12 @@ class FragmentRegister : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                formCheck[3] = p0?.isNotEmpty()?:false
+                formCheck[3] = p0?.isNotEmpty() ?: false
                 enableButton()
             }
         })
 
-        binding.editTextMenuDogBreed.addTextChangedListener(object :TextWatcher{
+        binding.editTextMenuDogBreed.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -237,15 +243,14 @@ class FragmentRegister : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                formCheck[4] = p0?.isNotEmpty()?:false
+                formCheck[4] = p0?.isNotEmpty() ?: false
                 enableButton()
             }
         })
 
-        spin2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
+        spin2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                formCheck[5] = p2!= 0
+                formCheck[5] = p2 != 0
                 enableButton()
             }
 
@@ -254,7 +259,7 @@ class FragmentRegister : Fragment() {
 
         }
 
-        binding.editTextRegisterPassword.addTextChangedListener(object:TextWatcher{
+        binding.editTextRegisterPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -264,14 +269,15 @@ class FragmentRegister : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
 
                 if (p0 != null) {
-                    formCheck[6] = p0.isNotEmpty() and (binding.editTextRegisterPassConfirm.text.toString() == p0.toString())
+                    formCheck[6] =
+                        p0.isNotEmpty() and (binding.editTextRegisterPassConfirm.text.toString() == p0.toString())
                 }
                 enableButton()
             }
 
         })
 
-        binding.editTextRegisterPassConfirm.addTextChangedListener(object:TextWatcher{
+        binding.editTextRegisterPassConfirm.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -281,7 +287,8 @@ class FragmentRegister : Fragment() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0 != null) {
-                    formCheck[6] = p0.isNotEmpty() and (binding.editTextRegisterPassword.text.toString() == p0.toString())
+                    formCheck[6] =
+                        p0.isNotEmpty() and (binding.editTextRegisterPassword.text.toString() == p0.toString())
                 }
                 enableButton()
 
@@ -291,9 +298,11 @@ class FragmentRegister : Fragment() {
         //endregion
 
     }
-    private fun enableButton(){
+
+    private fun enableButton() {
         binding.buttonReg.isEnabled = formCheck.all { it }
     }
+
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
@@ -310,7 +319,7 @@ class FragmentRegister : Fragment() {
             formCheck[0] = true
             binding.imageCamera.setImageDrawable(null)
             binding.imageCameraBackground.setImageBitmap(imageBitmap)
-        //imageView.setImageBitmap(imageBitmap)
+            //imageView.setImageBitmap(imageBitmap)
         }
     }
 }

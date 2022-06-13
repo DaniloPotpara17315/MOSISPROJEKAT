@@ -1,5 +1,6 @@
 package com.example.petpal
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -19,19 +20,21 @@ import com.google.firebase.ktx.Firebase
 
 class FragmentProfileChangePassword : Fragment() {
 
-    private var showPwCurrent:Boolean = false
-    private var showPwNew:Boolean = false
+    private var showPwCurrent: Boolean = false
+    private var showPwNew: Boolean = false
     private lateinit var user: FirebaseUser
-    private var showPwConfirm:Boolean = false
-    private var formCheck:BooleanArray = BooleanArray(2)
-    private lateinit var binding:FragmentProfileChangePasswordBinding
+    val pd = ProgressDialog(context)
+    private var showPwConfirm: Boolean = false
+    private var formCheck: BooleanArray = BooleanArray(2)
+    private lateinit var binding: FragmentProfileChangePasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd.setCancelable(false)
+        pd.setMessage("PROMENA SIFRE U TOKU...")
         user = Firebase.auth.currentUser!!
-        if(user == null){
+        if (user == null) {
 
-        }
-        else{
+        } else {
 
         }
     }
@@ -93,8 +96,12 @@ class FragmentProfileChangePassword : Fragment() {
 
         binding.buttonChangeEmail.setOnClickListener {
             //button pw changer
+            pd.show()
             val credential = EmailAuthProvider
-                .getCredential(user.email.toString(), binding.editTextRegisterPassword.text.toString())
+                .getCredential(
+                    user.email.toString(),
+                    binding.editTextRegisterPassword.text.toString()
+                )
 
 // Prompt the user to re-provide their sign-in credentials
             user.reauthenticate(credential)
@@ -102,12 +109,20 @@ class FragmentProfileChangePassword : Fragment() {
                     user!!.updatePassword(binding.editTextRegisterPassword2.text.toString())
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                Snackbar.make(binding.root, "Šifra promenjena", Snackbar.LENGTH_LONG).show()
+                                pd.hide()
+                                Snackbar.make(
+                                    binding.root,
+                                    "Šifra promenjena",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
                                 findNavController().popBackStack()
+                            } else {
+                                pd.hide()
                             }
-                        } }
+                        }
+                }
         }
-        binding.editTextRegisterPassword.addTextChangedListener(object :TextWatcher{
+        binding.editTextRegisterPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -115,13 +130,13 @@ class FragmentProfileChangePassword : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                formCheck[0] = p0?.isNotEmpty()?:false
+                formCheck[0] = p0?.isNotEmpty() ?: false
                 enableButton()
             }
         })
 
 
-        binding.editTextRegisterPassword2.addTextChangedListener(object: TextWatcher {
+        binding.editTextRegisterPassword2.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -131,14 +146,15 @@ class FragmentProfileChangePassword : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
 
                 if (p0 != null) {
-                    formCheck[1] = p0.isNotEmpty() and (binding.editTextRegisterPassConfirm2.text.toString() == p0.toString())
+                    formCheck[1] =
+                        p0.isNotEmpty() and (binding.editTextRegisterPassConfirm2.text.toString() == p0.toString())
                 }
                 enableButton()
             }
 
         })
 
-        binding.editTextRegisterPassConfirm2.addTextChangedListener(object: TextWatcher {
+        binding.editTextRegisterPassConfirm2.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -148,13 +164,15 @@ class FragmentProfileChangePassword : Fragment() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0 != null) {
-                    formCheck[1] = p0.isNotEmpty() and (binding.editTextRegisterPassword2.text.toString() == p0.toString())
+                    formCheck[1] =
+                        p0.isNotEmpty() and (binding.editTextRegisterPassword2.text.toString() == p0.toString())
                 }
                 enableButton()
             }
         })
     }
-    private fun enableButton(){
+
+    private fun enableButton() {
         binding.buttonChangeEmail.isEnabled = formCheck.all { it }
     }
 
