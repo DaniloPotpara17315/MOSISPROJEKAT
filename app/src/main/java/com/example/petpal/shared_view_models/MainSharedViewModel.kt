@@ -41,4 +41,7 @@ class MainSharedViewModel : ViewModel(){
         }
     }
 
+    companion object{
+        const val databaseURL="https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/"
+    }
 }
