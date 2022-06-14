@@ -2,6 +2,7 @@ package com.example.petpal
 
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Paint
 import android.graphics.Picture
 import android.os.Bundle
 import android.util.Log
@@ -18,9 +19,12 @@ import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.osmdroid.config.Configuration
+import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.Polygon
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
@@ -51,7 +55,6 @@ class FragmentMap : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        map.setMultiTouchControls(true)
         if (ActivityCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
             ||
             ActivityCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -63,6 +66,8 @@ class FragmentMap : Fragment() {
             setUserLocationOverlay()
         }
 
+        map.setMultiTouchControls(true)
+
     }
 
     override fun onCreateView(
@@ -71,7 +76,7 @@ class FragmentMap : Fragment() {
     ): View? {
         binding = FragmentMapBinding.inflate(layoutInflater)
         map = binding.map
-
+        Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID
         return binding.root
     }
 
@@ -87,19 +92,50 @@ class FragmentMap : Fragment() {
 
     private fun setUserLocationOverlay() {
         map.controller.setZoom(15.0)
+        map.minZoomLevel = 14.0
 
-        var myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(activity), map)
+        val myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(activity), map)
         myLocationOverlay.enableFollowLocation()
         myLocationOverlay.runOnFirstFix {
-            //Log.d("location", "${myLocationOverlay.myLocation}")
-        }
-        /*val userMarker = Marker(map)
-        userMarker.icon = ContextCompat.getDrawable(requireContext(), R.drawable.kerber)
-        userMarker.position = myLocationOverlay.myLocation
-        userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+            val currentLocation = myLocationOverlay.myLocation
+            Log.d("locationtest", "$currentLocation")
+            //val userMarker = Marker(map)
+            //get a smallaer icon jesus fucking christ
+            /*userMarker.icon = ContextCompat.getDrawable(requireContext(), R.drawable.kerber)
+            userMarker.position = myLocationOverlay.myLocation
+            userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+*/
+            //map.overlays.add(userMarker)
 
-        map.overlays.add(userMarker)*/
+            val oPolygon = Polygon(map)
+            val radius = 1000.0;
+            val circlePoints = ArrayList<GeoPoint>()
+            for (f in 0..360){
+                circlePoints.add(currentLocation.destinationPoint(radius, f.toDouble()))
+            }
+            oPolygon.strokeColor = ContextCompat.getColor(requireContext(), R.color.blue_medium)
+            oPolygon.fillColor = ContextCompat.getColor(requireContext(), R.color.blue_pale_transparent)
+
+            oPolygon.points = circlePoints
+            map.overlays.add(oPolygon)
+
+            val constraintOffset = 0.1
+
+            val scrollConstraints = BoundingBox(
+                currentLocation.latitude+constraintOffset,
+                currentLocation.longitude+constraintOffset,
+                currentLocation.latitude-constraintOffset,
+                currentLocation.longitude-constraintOffset
+            )
+            map.setScrollableAreaLimitDouble(scrollConstraints)
+        }
+
+        map.overlays.add(myLocationOverlay)
+
+        Log.d("locationtest", "${myLocationOverlay.myLocation}")
         map.controller.setCenter(myLocationOverlay.myLocation)
+
+
     }
 
 }

@@ -4,6 +4,7 @@
     <color name="true_white">#FFFFFFFF</color>
     <color name="blue_medium">#4F66DD</color>
     <color name="blue_pale">#A1A5FF</color>
+    <color name="blue_pale_transparent">#40A1A5FF</color>
     <color name="white">#FFDDE0EE</color>
     <color name="black">#FF000000</color>
     <color name="opacity_black">#80000000</color>
