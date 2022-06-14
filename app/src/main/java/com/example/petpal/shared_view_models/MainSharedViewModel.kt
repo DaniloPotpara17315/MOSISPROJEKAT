@@ -15,6 +15,8 @@ class MainSharedViewModel : ViewModel(){
     var selectedProfile = MutableLiveData<Profile>()
     var userData = mutableMapOf<String,Any>()
     var profileImg:Any = " "
+
+
     init {
         var usr = Firebase.auth.currentUser
         var data = Firebase.firestore.collection("Users").document(

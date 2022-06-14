@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_fragmentMap_to_fragmentProfile"
             app:destination="@id/fragmentProfile" />
+        <action
+            android:id="@+id/action_map_to_addevent"
+            app:destination="@id/fragmentEventNotif" />
     </fragment>
     <fragment
         android:id="@+id/fragmentProfile"
@@ -86,7 +89,11 @@
         android:id="@+id/fragmentEventNotif"
         android:name="com.example.petpal.FragmentEventNotif"
         android:label="fragment_event_notif"
-        tools:layout="@layout/fragment_event_notif" />
+        tools:layout="@layout/fragment_event_notif" >
+        <action
+            android:id="@+id/action_addevent_to_map"
+            app:destination="@id/fragmentMap" />
+    </dialog>
 
     <fragment
         android:id="@+id/fragmentChat"
