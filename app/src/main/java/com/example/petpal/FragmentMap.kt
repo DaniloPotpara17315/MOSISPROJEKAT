@@ -10,19 +10,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.adapter.FragmentViewHolder
 import com.example.petpal.databinding.FragmentMapBinding
 import com.example.petpal.shared_view_models.MainSharedViewModel
+import com.example.petpal.shared_view_models.MapAddEventViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import org.osmdroid.config.Configuration
+import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polygon
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
@@ -34,6 +41,7 @@ class FragmentMap : Fragment() {
     private lateinit var map : MapView
     private var user:FirebaseUser? = null
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
+    private val mapAddEventViewModel : MapAddEventViewModel by activityViewModels()
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -62,12 +70,29 @@ class FragmentMap : Fragment() {
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             )
         } else {
-
             setUserLocationOverlay()
         }
-
         map.setMultiTouchControls(true)
 
+        if (mapAddEventViewModel.placingCoordinates) {
+            activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.GONE
+            binding.buttonMapDropdown.visibility = View.GONE
+
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                mapAddEventViewModel.placingCoordinates = false
+                findNavController().popBackStack()
+            }
+            setOnMapClickOverlay()
+
+        }
+        else {
+            activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.VISIBLE
+            setOnClickListeners()
+            if (mapAddEventViewModel.creatingEvent)
+            {
+                findNavController().navigate(R.id.action_map_to_addevent)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -134,8 +159,40 @@ class FragmentMap : Fragment() {
 
         Log.d("locationtest", "${myLocationOverlay.myLocation}")
         map.controller.setCenter(myLocationOverlay.myLocation)
-
-
     }
 
+    private fun setOnClickListeners() {
+        val buttonDropdown = binding.buttonMapDropdown
+        buttonDropdown.setOnClickListener {
+            binding.constraintMapDropdown.visibility = View.VISIBLE
+            it.visibility = View.GONE
+        }
+
+        val buttonAddEvent = binding.buttonMapAddEvent
+        buttonAddEvent.setOnClickListener {
+            findNavController().navigate(R.id.action_map_to_addevent)
+        }
+    }
+
+    private fun setOnMapClickOverlay() {
+        var receive = object : MapEventsReceiver {
+            override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
+
+                mapAddEventViewModel.longitude.value = p?.longitude
+                mapAddEventViewModel.latitude.value = p?.latitude
+
+
+                mapAddEventViewModel.placingCoordinates = false
+                findNavController().popBackStack()
+                return true
+            }
+
+            override fun longPressHelper(p: GeoPoint?): Boolean {
+                return false
+            }
+
+        }
+
+        map.overlays.add(MapEventsOverlay(receive))
+    }
 }
