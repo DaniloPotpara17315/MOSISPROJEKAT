@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,16 +43,10 @@ class FragmentHomescreen : Fragment() {
         //   slobodno ga premestaj kako ti volja tho
         val btnOtherActivity = binding.btnToActivity2
         btnOtherActivity.setOnClickListener{
-            val today = Calendar.getInstance()
 
-//            val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->  })
-//
-//            var datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
-//                today.get(Calendar.DAY_OF_MONTH)
-
-//            startActivity(
-//                Intent(context, ActivitySecond::class.java)
-//            )
+            startActivity(
+                Intent(context, ActivitySecond::class.java)
+            )
         }
         val btnLoginActivity = binding.buttonToLogin
         btnLoginActivity.setOnClickListener{

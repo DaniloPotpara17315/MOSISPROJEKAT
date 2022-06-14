@@ -1,5 +1,6 @@
 package com.example.petpal
 
+import android.app.ProgressDialog
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -25,8 +26,13 @@ class FragmentProfile : Fragment() {
 
     private lateinit var binding : FragmentProfileBinding
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
+    lateinit var pd : ProgressDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd = ProgressDialog(context)
+        pd.setMessage("PROMENE U TOKU...")
+        pd.setCancelable(false)
         var usr = Firebase.auth.currentUser
         if(usr == null){
 
@@ -69,6 +75,7 @@ class FragmentProfile : Fragment() {
             popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
             popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item->
                 if(checkChange(item.title.toString())){
+                    pd.show()
                     var currUser = mutableMapOf<String, Any>(
                         "Status" to item.title.toString()
                     )
@@ -81,6 +88,7 @@ class FragmentProfile : Fragment() {
                             user.uid
                         ).update(currUser).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
+                                pd.hide()
                                 Snackbar.make(
                                     binding.root,
                                     "Promenjen status uspesno",
@@ -99,6 +107,7 @@ class FragmentProfile : Fragment() {
 
                             }
                         }.addOnFailureListener{
+                            pd.hide()
                             Log.d("FailureToChangeStat",it.toString())
                         }
                     }

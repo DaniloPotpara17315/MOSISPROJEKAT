@@ -33,10 +33,12 @@ class FragmentProfileSettings : Fragment() {
     private lateinit var binding:FragmentProfileSettingsBinding
     private lateinit var user: FirebaseUser
     private val REQUEST_IMAGE_CAPTURE = 1;
-    val pd = ProgressDialog(context)
+    lateinit var pd: ProgressDialog
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd = ProgressDialog(context)
+
         pd.setCancelable(false)
         pd.setMessage("PROMENE U TOKU...")
         user = Firebase.auth.currentUser!!

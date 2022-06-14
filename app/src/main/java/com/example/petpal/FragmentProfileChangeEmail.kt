@@ -28,11 +28,13 @@ class FragmentProfileChangeEmail : Fragment() {
     private lateinit var user: FirebaseUser
     private lateinit var binding:FragmentProfileChangeEmailBinding
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
-    val pd = ProgressDialog(context)
+    lateinit var pd : ProgressDialog
     var setMail:Boolean = false
     var setPw:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd = ProgressDialog(context)
+
         pd.setCancelable(false)
         pd.setMessage("PROMENA EMAIL-A U TOKU...")
         user = Firebase.auth.currentUser!!

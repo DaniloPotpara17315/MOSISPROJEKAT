@@ -25,15 +25,14 @@ class FragmentLogin : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
-
+    lateinit var pd:ProgressDialog
     var setMail: Boolean = false
     var setPw: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        val pd = ProgressDialog(context)
+        pd = ProgressDialog(context)
         pd.setCancelable(false)
-        pd.setMessage("LOGOVANJE...")
 
     }
 
@@ -91,7 +90,10 @@ class FragmentLogin : Fragment() {
         })
         val button = binding.buttonLogin
         button.setOnClickListener {
+
             //Code for Login
+            pd.setMessage("LOGOVANJE...")
+
             pd.show()
             var email = binding.editTextLoginEmail.text.toString()
             var password = binding.editTextLoginPassword.text.toString()

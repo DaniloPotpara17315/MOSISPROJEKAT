@@ -37,12 +37,12 @@ class FragmentRegister : Fragment() {
     private val REQUEST_IMAGE_CAPTURE = 1;
     private lateinit var imageBitmap: Bitmap
     private var formCheck: BooleanArray = BooleanArray(7)
-    var pd = ProgressDialog(context)
+    lateinit var pd : ProgressDialog
     private lateinit var binding: FragmentRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd = ProgressDialog(context)
         pd.setCancelable(false)
-        pd.setMessage("REGISTRACIJA U TOKU...")
     }
 
     override fun onCreateView(
@@ -86,7 +86,7 @@ class FragmentRegister : Fragment() {
         //Klik za registraciju
         val butReg = binding.buttonReg
         butReg.setOnClickListener {
-
+            pd.setMessage("REGISTRACIJA U TOKU...")
             pd.show()
             var email = binding.editTextRegisterEmail.text.toString()
             var password = binding.editTextRegisterPassword.text.toString()

@@ -23,12 +23,14 @@ class FragmentProfileChangePassword : Fragment() {
     private var showPwCurrent: Boolean = false
     private var showPwNew: Boolean = false
     private lateinit var user: FirebaseUser
-    val pd = ProgressDialog(context)
+    lateinit var pd: ProgressDialog
     private var showPwConfirm: Boolean = false
     private var formCheck: BooleanArray = BooleanArray(2)
     private lateinit var binding: FragmentProfileChangePasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pd = ProgressDialog(context)
+
         pd.setCancelable(false)
         pd.setMessage("PROMENA SIFRE U TOKU...")
         user = Firebase.auth.currentUser!!
