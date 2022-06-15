@@ -1,29 +1,18 @@
-package com.example.petpal
+package com.example.petpal.screens.homescreen
 
-import android.app.DatePickerDialog
-import android.app.ProgressDialog
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.petpal.R
+import com.example.petpal.activity.ActivitySecond
 import com.example.petpal.databinding.FragmentHomescreenBinding
-import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.util.*
-import kotlin.collections.HashMap
 
 
 class FragmentHomescreen : Fragment() {

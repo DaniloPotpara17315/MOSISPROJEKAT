@@ -1,15 +1,19 @@
-package com.example.petpal
+package com.example.petpal.dialog
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.petpal.databinding.FragmentEventDogListBinding
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
+import com.example.petpal.databinding.MapFilterDialogBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class FragmentEventDogList : Fragment() {
+class MapFilterDialog : BottomSheetDialogFragment() {
 
-    private lateinit var binding:FragmentEventDogListBinding
+    private lateinit var binding:MapFilterDialogBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -19,16 +23,17 @@ class FragmentEventDogList : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentEventDogListBinding.inflate(layoutInflater)
+
+        binding = MapFilterDialogBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.imageBackButton2.setOnClickListener {
-            //back button
+        binding.imageBackButton4.setOnClickListener {
+            //return filter values
+
         }
     }
-
 }

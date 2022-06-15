@@ -1,9 +1,10 @@
-package com.example.petpal
+package com.example.petpal.screens.map
 
+import android.app.Activity
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Paint
-import android.graphics.Picture
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,12 +18,21 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.adapter.FragmentViewHolder
+
+import com.example.petpal.R
 import com.example.petpal.databinding.FragmentMapBinding
+import com.example.petpal.models.Event
+import com.example.petpal.models.Profile
+import com.example.petpal.models.ProfileCoordinates
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.example.petpal.shared_view_models.MapAddEventViewModel
+import com.google.android.datatransport.BuildConfig
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import org.osmdroid.config.Configuration
 import org.osmdroid.events.MapEventsReceiver
@@ -35,14 +45,14 @@ import org.osmdroid.views.overlay.Polygon
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
-class FragmentMap : Fragment() {
+class FragmentMap : Fragment(), LocationListener {
 
     private lateinit var binding : FragmentMapBinding
     private lateinit var map : MapView
     private var user:FirebaseUser? = null
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
     private val mapAddEventViewModel : MapAddEventViewModel by activityViewModels()
-
+    private lateinit var myLocationOverlay : MyLocationNewOverlay
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -69,8 +79,6 @@ class FragmentMap : Fragment() {
             requestPermissionLauncher.launch(
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             )
-        } else {
-            setUserLocationOverlay()
         }
         map.setMultiTouchControls(true)
 
@@ -83,11 +91,22 @@ class FragmentMap : Fragment() {
                 findNavController().popBackStack()
             }
             setOnMapClickOverlay()
-
+            setUserLocationOverlay()
+            prepareMap()
         }
         else {
             activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.VISIBLE
+            setUserLocationOverlay()
+            prepareMap()
             setOnClickListeners()
+            val locManager : LocationManager = requireActivity().getSystemService(Activity.LOCATION_SERVICE) as LocationManager
+            locManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                5555,
+                100f,
+                this
+            )
+
             if (mapAddEventViewModel.creatingEvent)
             {
                 findNavController().navigate(R.id.action_map_to_addevent)
@@ -115,50 +134,104 @@ class FragmentMap : Fragment() {
         map.onPause()
     }
 
-    private fun setUserLocationOverlay() {
-        map.controller.setZoom(15.0)
+    private fun prepareMap() {
+        map.controller.setZoom(16.5)
         map.minZoomLevel = 14.0
+    }
 
-        val myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(activity), map)
+    private fun setUserLocationOverlay() {
+
+        myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(activity), map)
         myLocationOverlay.enableFollowLocation()
+        val database =
+            FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
+
         myLocationOverlay.runOnFirstFix {
-            val currentLocation = myLocationOverlay.myLocation
-            Log.d("locationtest", "$currentLocation")
-            //val userMarker = Marker(map)
-            //get a smallaer icon jesus fucking christ
-            /*userMarker.icon = ContextCompat.getDrawable(requireContext(), R.drawable.kerber)
-            userMarker.position = myLocationOverlay.myLocation
-            userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-*/
-            //map.overlays.add(userMarker)
-
-            val oPolygon = Polygon(map)
-            val radius = 1000.0;
-            val circlePoints = ArrayList<GeoPoint>()
-            for (f in 0..360){
-                circlePoints.add(currentLocation.destinationPoint(radius, f.toDouble()))
-            }
-            oPolygon.strokeColor = ContextCompat.getColor(requireContext(), R.color.blue_medium)
-            oPolygon.fillColor = ContextCompat.getColor(requireContext(), R.color.blue_pale_transparent)
-
-            oPolygon.points = circlePoints
-            map.overlays.add(oPolygon)
-
-            val constraintOffset = 0.1
-
-            val scrollConstraints = BoundingBox(
-                currentLocation.latitude+constraintOffset,
-                currentLocation.longitude+constraintOffset,
-                currentLocation.latitude-constraintOffset,
-                currentLocation.longitude-constraintOffset
-            )
-            map.setScrollableAreaLimitDouble(scrollConstraints)
+            //val currentLocation = myLocationOverlay.myLocation
+            //Log.d("locationtest", "$currentLocation")
+            // crtanje kruznice oko korisnika,
+            // ako se NE postavljaju koordinate
         }
 
         map.overlays.add(myLocationOverlay)
-
         Log.d("locationtest", "${myLocationOverlay.myLocation}")
         map.controller.setCenter(myLocationOverlay.myLocation)
+
+
+
+        val dataRef = database.getReference("map")
+
+        dataRef.child("events").get().addOnSuccessListener {
+            val temp:HashMap<Any,Any> = it.value as HashMap<Any, Any>
+
+            val events : MutableList<Event> = mutableListOf()
+
+            temp.forEach { entry ->
+                val eventMap = entry.value as HashMap<String, Any>
+
+                val event = Event(eventMap["eventName"] as String,
+                    eventMap["eventDesc"] as String,
+                    eventMap["eventDate"] as String,
+                    eventMap["eventLon"] as Double,
+                    eventMap["eventLat"]as Double,
+                    entry.key as String
+                    )
+
+                events.add(event)
+            }
+            sharedViewModel.events = events
+
+            drawMarkers()
+        }
+
+        dataRef.child("users").get().addOnSuccessListener {
+            val temp:HashMap<Any,Any> = it.value as HashMap<Any, Any>
+
+            val users : MutableList<ProfileCoordinates> = mutableListOf()
+
+            temp.forEach { user ->
+                val userMap = user.value as HashMap<String, Any>
+
+                val newUser = ProfileCoordinates(user.key as String,
+                    userMap["lat"] as Double,
+                    userMap["lon"]as Double,
+                )
+
+                users.add(newUser)
+            }
+            sharedViewModel.users = users
+        }
+
+        dataRef.child("users").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+    }
+
+    private fun drawMarkers() {
+        for (event in sharedViewModel.events) {
+            val eventMarker = Marker(map)
+            //get a smallaer icon jesus fucking christ
+            eventMarker.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_event)
+            eventMarker.position = GeoPoint(event.lat, event.lon)
+            eventMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+
+            eventMarker.setOnMarkerClickListener { _, _ ->
+                sharedViewModel.selectedEvent = event
+                findNavController().navigate(R.id.action_map_to_event_info)
+                true
+            }
+            map.overlays.add(eventMarker)
+        }
+
+
     }
 
     private fun setOnClickListeners() {
@@ -171,6 +244,9 @@ class FragmentMap : Fragment() {
         val buttonAddEvent = binding.buttonMapAddEvent
         buttonAddEvent.setOnClickListener {
             findNavController().navigate(R.id.action_map_to_addevent)
+        }
+        binding.buttonMapFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_map_to_addfilter)
         }
     }
 
@@ -194,5 +270,26 @@ class FragmentMap : Fragment() {
         }
 
         map.overlays.add(MapEventsOverlay(receive))
+    }
+
+    override fun onLocationChanged(location: Location) {
+        val userMap = mapOf(
+            "lat" to location.latitude,
+            "lon" to location.longitude
+        )
+        val database = FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
+
+        database.getReference("map").child("users")
+            .child(Firebase.auth.currentUser!!.uid).setValue(userMap)
+
+        //ogranicavanje skrolovanja mape
+        val constraintOffset = 0.1
+        val scrollConstraints = BoundingBox(
+            location.latitude+constraintOffset,
+            location.longitude+constraintOffset,
+            location.latitude-constraintOffset,
+            location.longitude-constraintOffset
+        )
+        map.setScrollableAreaLimitDouble(scrollConstraints)
     }
 }

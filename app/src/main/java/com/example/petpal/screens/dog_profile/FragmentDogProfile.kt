@@ -1,42 +1,37 @@
-package com.example.petpal
+package com.example.petpal.screens.dog_profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.petpal.databinding.FragmentEventInfoBinding
+import com.example.petpal.databinding.FragmentDogProfileBinding
 
-class FragmentEventInfo : Fragment() {
 
-    private lateinit var binding:FragmentEventInfoBinding
+class FragmentDogProfile : Fragment() {
+
+    private lateinit var binding:FragmentDogProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentEventInfoBinding.inflate(layoutInflater)
+        binding = FragmentDogProfileBinding.inflate(layoutInflater)
+        // Inflate the layout for this fragment
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.imageBackButton.setOnClickListener {
-            //back button
+            // back button
         }
-
-        binding.imageEventList.setOnClickListener{
-            //attendees list
+        binding.imageDogInvite.setOnClickListener {
+            //invite dog
         }
-
-        binding.imageEventConfirm.setOnClickListener{
-            //confirm arrival
-        }
-
     }
-
 }

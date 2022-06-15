@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
 
             android:isScrollContainer="true"
-            tools:context=".FragmentRegister">
+            tools:context=".screens.register.FragmentRegister">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab"

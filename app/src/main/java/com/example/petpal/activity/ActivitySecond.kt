@@ -1,8 +1,8 @@
-package com.example.petpal
+package com.example.petpal.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.petpal.shared_view_models.MainSharedViewModel
+import com.example.petpal.R
 
 class ActivitySecond : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

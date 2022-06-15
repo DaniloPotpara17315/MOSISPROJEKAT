@@ -7,7 +7,7 @@
 
     android:background="@color/darker_purple"
 
-    tools:context=".FragmentEventNotif">
+    tools:context=".dialog.EventAddDialog">
 
 
     <com.google.android.material.imageview.ShapeableImageView

@@ -1,4 +1,4 @@
-package com.example.petpal
+package com.example.petpal.screens.register
 
 import android.app.Activity.RESULT_OK
 import android.app.ProgressDialog
@@ -7,7 +7,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
-import android.renderscript.ScriptGroup
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -18,8 +17,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.petpal.R
+import com.example.petpal.activity.ActivitySecond
 import com.example.petpal.databinding.FragmentRegisterBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
@@ -27,7 +27,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
-import kotlin.math.log
 
 
 class FragmentRegister : Fragment() {

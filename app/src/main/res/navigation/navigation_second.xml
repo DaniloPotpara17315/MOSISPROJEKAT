@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragmentMap"
-        android:name="com.example.petpal.FragmentMap"
+        android:name="com.example.petpal.screens.map.FragmentMap"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action
@@ -20,10 +20,16 @@
         <action
             android:id="@+id/action_map_to_addevent"
             app:destination="@id/fragmentEventNotif" />
+        <action
+            android:id="@+id/action_map_to_addfilter"
+            app:destination="@id/fragmentFilterNotif" />
+        <action
+            android:id="@+id/action_map_to_event_info"
+            app:destination="@id/fragmentEventInfo" />
     </fragment>
     <fragment
         android:id="@+id/fragmentProfile"
-        android:name="com.example.petpal.FragmentProfile"
+        android:name="com.example.petpal.screens.profile.FragmentProfile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -40,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentProfileSettings"
-        android:name="com.example.petpal.FragmentProfileSettings"
+        android:name="com.example.petpal.screens.settings.FragmentProfileSettings"
         android:label="FragmentProfileSettings" >
         <action
             android:id="@+id/action_backHome"
@@ -60,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentProfileChangeEmail"
-        android:name="com.example.petpal.FragmentProfileChangeEmail"
+        android:name="com.example.petpal.screens.profile_change_email.FragmentProfileChangeEmail"
         android:label="fragment_profile_change_email"
         tools:layout="@layout/fragment_profile_change_email" >
         <action
@@ -71,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentProfileChangePassword"
-        android:name="com.example.petpal.FragmentProfileChangePassword"
+        android:name="com.example.petpal.screens.profile_change_password.FragmentProfileChangePassword"
         android:label="FragmentProfileChangePassword" >
         <action
             android:id="@+id/action_home"
@@ -82,14 +88,14 @@
 
     <dialog
         android:id="@+id/fragmentFilterNotif"
-        android:name="com.example.petpal.FragmentFilterNotif"
+        android:name="com.example.petpal.dialog.MapFilterDialog"
         android:label="fragment_filter_notif"
-        tools:layout="@layout/fragment_filter_notif" />
+        tools:layout="@layout/map_filter_dialog" />
     <dialog
         android:id="@+id/fragmentEventNotif"
-        android:name="com.example.petpal.FragmentEventNotif"
+        android:name="com.example.petpal.dialog.EventAddDialog"
         android:label="fragment_event_notif"
-        tools:layout="@layout/fragment_event_notif" >
+        tools:layout="@layout/event_add_dialog" >
         <action
             android:id="@+id/action_addevent_to_map"
             app:destination="@id/fragmentMap" />
@@ -97,7 +103,7 @@
 
     <fragment
         android:id="@+id/fragmentChat"
-        android:name="com.example.petpal.FragmentChat"
+        android:name="com.example.petpal.screens.chats.FragmentChat"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" >
         <action
@@ -112,7 +118,12 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentChatroom"
-        android:name="com.example.petpal.FragmentChatroom"
+        android:name="com.example.petpal.screens.chatroom.FragmentChatroom"
         android:label="fragment_chatroom"
         tools:layout="@layout/fragment_chatroom" />
+    <fragment
+        android:id="@+id/fragmentEventInfo"
+        android:name="com.example.petpal.screens.event_info.FragmentEventInfo"
+        android:label="fragment_event_info"
+        tools:layout="@layout/fragment_event_info" />
 </navigation>

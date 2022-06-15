@@ -1,29 +1,25 @@
-package com.example.petpal
+package com.example.petpal.dialog
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.petpal.databinding.FragmentEventNotifBinding
+import com.example.petpal.R
+import com.example.petpal.databinding.EventAddDialogBinding
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.example.petpal.shared_view_models.MapAddEventViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 
-class FragmentEventNotif : BottomSheetDialogFragment() {
+class EventAddDialog : BottomSheetDialogFragment() {
 
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
     private val mapAddEventViewModel : MapAddEventViewModel by activityViewModels()
-    private lateinit var binding:FragmentEventNotifBinding
+    private lateinit var binding:EventAddDialogBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,7 +30,7 @@ class FragmentEventNotif : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentEventNotifBinding.inflate(layoutInflater)
+        binding = EventAddDialogBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -58,6 +54,7 @@ class FragmentEventNotif : BottomSheetDialogFragment() {
             mapAddEventViewModel.opis.value = binding.editTextEventDescription.text.toString()
 
             mapAddEventViewModel.addEvent()
+            dismiss()
         }
         binding.buttonCancel.setOnClickListener {
             //cancel event logic

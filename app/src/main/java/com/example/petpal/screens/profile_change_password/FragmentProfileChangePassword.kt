@@ -1,4 +1,4 @@
-package com.example.petpal
+package com.example.petpal.screens.profile_change_password
 
 import android.app.ProgressDialog
 import android.os.Bundle
@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.petpal.R
 import com.example.petpal.databinding.FragmentProfileChangePasswordBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.EmailAuthProvider

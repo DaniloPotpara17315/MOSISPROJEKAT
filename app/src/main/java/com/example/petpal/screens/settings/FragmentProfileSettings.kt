@@ -1,4 +1,4 @@
-package com.example.petpal
+package com.example.petpal.screens.settings
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.petpal.R
 import com.example.petpal.databinding.FragmentProfileSettingsBinding
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar

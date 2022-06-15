@@ -1,4 +1,4 @@
-package com.example.petpal
+package com.example.petpal.screens.navbar
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
+import com.example.petpal.R
 import com.example.petpal.databinding.FragmentNavbarBinding
 import com.example.petpal.shared_view_models.MainSharedViewModel
 

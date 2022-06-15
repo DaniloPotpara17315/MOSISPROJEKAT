@@ -1,18 +1,15 @@
-package com.example.petpal
+package com.example.petpal.screens.event_dog_list
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.DialogFragment
-import com.example.petpal.databinding.FragmentFilterNotifBinding
+import com.example.petpal.databinding.FragmentEventDogListBinding
 
-class FragmentFilterNotif : DialogFragment() {
+class FragmentEventDogList : Fragment() {
 
-    private lateinit var binding:FragmentFilterNotifBinding
+    private lateinit var binding:FragmentEventDogListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,17 +19,16 @@ class FragmentFilterNotif : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        binding = FragmentFilterNotifBinding.inflate(layoutInflater)
+        binding = FragmentEventDogListBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.imageBackButton4.setOnClickListener {
-            //return filter values
-
+        binding.imageBackButton2.setOnClickListener {
+            //back button
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.petpal
+package com.example.petpal.screens.chats
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.petpal.R
 import com.example.petpal.adapters.ChatAdapter
 import com.example.petpal.databinding.FragmentChatBinding
 import com.example.petpal.models.Profile

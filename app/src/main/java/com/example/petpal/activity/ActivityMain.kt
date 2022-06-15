@@ -1,8 +1,8 @@
-package com.example.petpal
+package com.example.petpal.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
+import com.example.petpal.R
 
 class ActivityMain : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
