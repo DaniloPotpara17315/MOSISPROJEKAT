@@ -12,8 +12,8 @@ class MapAddEventViewModel : ViewModel() {
     var naziv = MutableLiveData<String>("")
     var opis = MutableLiveData<String>("")
     var datum = MutableLiveData<String>("")
-    var longitude = MutableLiveData<Double>()
-    var latitude = MutableLiveData<Double>()
+    var longitude = MutableLiveData<Double?>()
+    var latitude = MutableLiveData<Double?>()
 
     var creatingEvent : Boolean = false
     var placingCoordinates : Boolean = false
