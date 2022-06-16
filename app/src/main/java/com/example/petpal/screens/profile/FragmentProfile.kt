@@ -48,10 +48,12 @@ class FragmentProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textViewDogName.text= sharedViewModel.userData.get("Name").toString()
-        binding.textView2DogDesc.text = sharedViewModel.userData.get("Description").toString()
+        binding.textViewDogName.text= sharedViewModel.userData["Name"].toString()
+        binding.textView2DogDesc.text = sharedViewModel.userData["Description"].toString()
         Glide.with(this).load(sharedViewModel.profileImg).into(binding.imageProfile)
-        var stat= sharedViewModel.userData.get("Status").toString()
+        var stat= sharedViewModel.userData["Status"].toString()
+
+        //TODO stavi when
         if(stat == "Druzeljubiv") {
             paintGreen()
         }

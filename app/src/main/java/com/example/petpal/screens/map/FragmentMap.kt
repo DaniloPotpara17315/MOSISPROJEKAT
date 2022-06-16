@@ -1,6 +1,7 @@
 package com.example.petpal.screens.map
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -27,6 +28,7 @@ import com.example.petpal.models.ProfileCoordinates
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.example.petpal.shared_view_models.MapAddEventViewModel
 import com.google.android.datatransport.BuildConfig
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -34,6 +36,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 import org.osmdroid.config.Configuration
 import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.util.BoundingBox
@@ -96,6 +100,7 @@ class FragmentMap : Fragment(), LocationListener {
         }
         else {
             activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.VISIBLE
+
             setUserLocationOverlay()
             prepareMap()
             setOnClickListeners()
@@ -190,21 +195,25 @@ class FragmentMap : Fragment(), LocationListener {
             val users : MutableList<ProfileCoordinates> = mutableListOf()
 
             temp.forEach { user ->
+
                 val userMap = user.value as HashMap<String, Any>
 
                 val newUser = ProfileCoordinates(user.key as String,
                     userMap["lat"] as Double,
-                    userMap["lon"]as Double,
+                    userMap["lon"] as Double,
+                    userMap["status"] as String
                 )
-
+                if (newUser.id != Firebase.auth.uid)
                 users.add(newUser)
             }
             sharedViewModel.users = users
+            drawMarkers()
         }
 
         dataRef.child("users").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
+                drawMarkers()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -216,6 +225,9 @@ class FragmentMap : Fragment(), LocationListener {
     }
 
     private fun drawMarkers() {
+        map.overlays.clear()
+        map.overlays.add(myLocationOverlay)
+
         for (event in sharedViewModel.events) {
             val eventMarker = Marker(map)
             //get a smallaer icon jesus fucking christ
@@ -230,6 +242,31 @@ class FragmentMap : Fragment(), LocationListener {
             }
             map.overlays.add(eventMarker)
         }
+
+        for (user in sharedViewModel.users) {
+            val userMarker = Marker(map)
+
+            userMarker.icon = when(user.status) {
+                "Druzeljubiv" -> {
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_user_druzeljubiv)
+                }
+                "Nezainteresovan" -> {
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_user_nezainteresovan)
+                }
+                else -> {
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_user_agresivan)
+                }
+            }
+            userMarker.position = GeoPoint(user.lat, user.lon)
+            userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+            userMarker.setOnMarkerClickListener { _, _ ->
+                sharedViewModel.selectedUserKey = user.id
+                findNavController().navigate(R.id.action_map_to_dogprofile)
+                true
+            }
+            map.overlays.add(userMarker)
+        }
+
 
 
     }
@@ -275,8 +312,11 @@ class FragmentMap : Fragment(), LocationListener {
     override fun onLocationChanged(location: Location) {
         val userMap = mapOf(
             "lat" to location.latitude,
-            "lon" to location.longitude
+            "lon" to location.longitude,
+            "status" to sharedViewModel.userData["Status"]
         )
+
+        Log.d("freshavacado","$userMap")
         val database = FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
 
         database.getReference("map").child("users")

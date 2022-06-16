@@ -40,7 +40,7 @@ class MapAddEventViewModel : ViewModel() {
         val dataRef =
             database.reference// << Ovde podesavas sta gadjas iz realtime-a U ovo slucaju je test
 
-        var newEvent = mapOf(
+        val newEvent = mapOf(
             "eventName" to naziv.value,
             "eventDesc" to opis.value,
             "eventDate" to datum.value,
