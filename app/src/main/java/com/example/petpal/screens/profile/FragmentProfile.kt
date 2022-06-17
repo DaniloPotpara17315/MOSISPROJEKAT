@@ -1,6 +1,7 @@
 package com.example.petpal.screens.profile
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,7 +14,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.petpal.R
+import com.example.petpal.activity.ActivityMain
 import com.example.petpal.databinding.FragmentProfileBinding
+import com.example.petpal.helpers.FirebaseHelper
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
@@ -85,6 +88,10 @@ class FragmentProfile : Fragment() {
                         Log.d("DataisHere","${user.uid},${currUser},${item.title.toString()}")
                     }
                     if (user != null) {
+
+                        FirebaseHelper.database.getReference("map").child("users").child(user.uid)
+                            .child("status").setValue(item.title.toString())
+
                         Firebase.firestore.collection("Users").document(
                             user.uid
                         ).update(currUser).addOnCompleteListener { task ->
@@ -158,6 +165,11 @@ class FragmentProfile : Fragment() {
         }
         binding.imageLogout.setOnClickListener{
             Firebase.auth.signOut()
+
+            startActivity(
+                Intent(context, ActivityMain::class.java)
+            )
+
             requireActivity().finish()
             //logic for loggout
         }

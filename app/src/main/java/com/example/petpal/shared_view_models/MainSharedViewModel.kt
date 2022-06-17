@@ -20,7 +20,7 @@ import kotlinx.coroutines.runBlocking
 
 class MainSharedViewModel : ViewModel(){
     var selectedProfile = MutableLiveData<Profile>()
-    var userData = mutableMapOf<String,Any>()
+    var userData = hashMapOf<String,Any>()
     var profileImg:Any = " "
     var selectedEvent : Event? = null
     var selectedUserKey : String? = null
@@ -33,30 +33,7 @@ class MainSharedViewModel : ViewModel(){
 
     init {
         var usr = Firebase.auth.currentUser
-        var data = Firebase.firestore.collection("Users").document(
-            usr!!.uid
-        ).get()
-        data.addOnSuccessListener { document ->
-            if (document != null) {
-                userData = document.data!!
-                dataLoaded.value = true
-                val storageRef = Firebase.storage.reference
-                storageRef.child("ProfileImages/${usr.uid}.png").downloadUrl.addOnSuccessListener {
-                    profileImg = it
-                    Log.d("ObjectName", "${profileImg}")
-                }.addOnFailureListener {
-                    profileImg = " "
-                    Log.d("FailedToLocat", "NotFound")
-                }
-                Log.d("Nodocumentfound", "User data is set ${userData}")
 
-            } else {
-
-                Log.d("Nodocumentfound", "No such document")
-            }
-        }.addOnFailureListener { exception ->
-            Log.d("FAILURE", "get failed with ", exception)
-        }
     }
 
     companion object{

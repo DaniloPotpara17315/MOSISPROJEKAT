@@ -22,6 +22,8 @@ import androidx.navigation.fragment.findNavController
 
 import com.example.petpal.R
 import com.example.petpal.databinding.FragmentMapBinding
+import com.example.petpal.helpers.FirebaseHelper
+import com.example.petpal.interfaces.MapDataLoadedListener
 import com.example.petpal.models.Event
 import com.example.petpal.models.Profile
 import com.example.petpal.models.ProfileCoordinates
@@ -49,7 +51,7 @@ import org.osmdroid.views.overlay.Polygon
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
-class FragmentMap : Fragment(), LocationListener {
+class FragmentMap : Fragment(), LocationListener , MapDataLoadedListener {
 
     private lateinit var binding : FragmentMapBinding
     private lateinit var map : MapView
@@ -148,72 +150,21 @@ class FragmentMap : Fragment(), LocationListener {
 
         myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(activity), map)
         myLocationOverlay.enableFollowLocation()
-        val database =
-            FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
 
         myLocationOverlay.runOnFirstFix {
-            //val currentLocation = myLocationOverlay.myLocation
-            //Log.d("locationtest", "$currentLocation")
-            // crtanje kruznice oko korisnika,
-            // ako se NE postavljaju koordinate
-        }
 
+        }
         map.overlays.add(myLocationOverlay)
         Log.d("locationtest", "${myLocationOverlay.myLocation}")
         map.controller.setCenter(myLocationOverlay.myLocation)
 
+        val currentFrag = this
+        val dataRef = FirebaseHelper.database.getReference("map")
 
-
-        val dataRef = database.getReference("map")
-
-        dataRef.child("events").get().addOnSuccessListener {
-            val temp:HashMap<Any,Any> = it.value as HashMap<Any, Any>
-
-            val events : MutableList<Event> = mutableListOf()
-
-            temp.forEach { entry ->
-                val eventMap = entry.value as HashMap<String, Any>
-
-                val event = Event(eventMap["eventName"] as String,
-                    eventMap["eventDesc"] as String,
-                    eventMap["eventDate"] as String,
-                    eventMap["eventLon"] as Double,
-                    eventMap["eventLat"]as Double,
-                    entry.key as String
-                    )
-
-                events.add(event)
-            }
-            sharedViewModel.events = events
-
-            drawMarkers()
-        }
-
-        dataRef.child("users").get().addOnSuccessListener {
-            val temp:HashMap<Any,Any> = it.value as HashMap<Any, Any>
-
-            val users : MutableList<ProfileCoordinates> = mutableListOf()
-
-            temp.forEach { user ->
-
-                val userMap = user.value as HashMap<String, Any>
-
-                val newUser = ProfileCoordinates(user.key as String,
-                    userMap["lat"] as Double,
-                    userMap["lon"] as Double,
-                    userMap["status"] as String
-                )
-                if (newUser.id != Firebase.auth.uid)
-                users.add(newUser)
-            }
-            sharedViewModel.users = users
-            drawMarkers()
-        }
-
+        FirebaseHelper.getMapData(sharedViewModel,currentFrag)
         dataRef.child("users").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
-                drawMarkers()
+                FirebaseHelper.getMapData(sharedViewModel, currentFrag)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -221,52 +172,63 @@ class FragmentMap : Fragment(), LocationListener {
             }
 
         })
-
     }
 
-    private fun drawMarkers() {
+    override fun drawMarkers() {
         map.overlays.clear()
         map.overlays.add(myLocationOverlay)
 
-        for (event in sharedViewModel.events) {
-            val eventMarker = Marker(map)
-            //get a smallaer icon jesus fucking christ
-            eventMarker.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_event)
-            eventMarker.position = GeoPoint(event.lat, event.lon)
-            eventMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        if (map.isAttachedToWindow) {
+            for (event in sharedViewModel.events) {
+                Log.d("map?", "${map.toString()}")
+                val eventMarker = Marker(map)
+                //get a smallaer icon jesus fucking christ
+                eventMarker.icon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_event)
+                eventMarker.position = GeoPoint(event.lat, event.lon)
+                eventMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
 
-            eventMarker.setOnMarkerClickListener { _, _ ->
-                sharedViewModel.selectedEvent = event
-                findNavController().navigate(R.id.action_map_to_event_info)
-                true
+                eventMarker.setOnMarkerClickListener { _, _ ->
+                    sharedViewModel.selectedEvent = event
+                    findNavController().navigate(R.id.action_map_to_event_info)
+                    true
+                }
+                map.overlays.add(eventMarker)
             }
-            map.overlays.add(eventMarker)
+
+            for (user in sharedViewModel.users) {
+                val userMarker = Marker(map)
+
+                userMarker.icon = when (user.status) {
+                    "Druzeljubiv" -> {
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_marker_user_druzeljubiv
+                        )
+                    }
+                    "Nezainteresovan" -> {
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_marker_user_nezainteresovan
+                        )
+                    }
+                    else -> {
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_marker_user_agresivan
+                        )
+                    }
+                }
+                userMarker.position = GeoPoint(user.lat, user.lon)
+                userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                userMarker.setOnMarkerClickListener { _, _ ->
+                    sharedViewModel.selectedUserKey = user.id
+                    findNavController().navigate(R.id.action_map_to_dogprofile)
+                    true
+                }
+                map.overlays.add(userMarker)
+            }
         }
-
-        for (user in sharedViewModel.users) {
-            val userMarker = Marker(map)
-
-            userMarker.icon = when(user.status) {
-                "Druzeljubiv" -> {
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_user_druzeljubiv)
-                }
-                "Nezainteresovan" -> {
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_user_nezainteresovan)
-                }
-                else -> {
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_user_agresivan)
-                }
-            }
-            userMarker.position = GeoPoint(user.lat, user.lon)
-            userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            userMarker.setOnMarkerClickListener { _, _ ->
-                sharedViewModel.selectedUserKey = user.id
-                findNavController().navigate(R.id.action_map_to_dogprofile)
-                true
-            }
-            map.overlays.add(userMarker)
-        }
-
 
 
     }

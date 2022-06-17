@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
 import com.example.petpal.activity.ActivitySecond
 import com.example.petpal.databinding.FragmentRegisterBinding
+import com.example.petpal.helpers.FirebaseHelper
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -87,81 +88,19 @@ class FragmentRegister : Fragment() {
         butReg.setOnClickListener {
             pd.setMessage("REGISTRACIJA U TOKU...")
             pd.show()
-            var email = binding.editTextRegisterEmail.text.toString()
-            var password = binding.editTextRegisterPassword.text.toString()
-            Firebase.auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val user = Firebase.auth.currentUser
-                        Log.d("user", user.toString())
+            val email = binding.editTextRegisterEmail.text.toString()
+            val password = binding.editTextRegisterPassword.text.toString()
 
-                        var currUser = hashMapOf<Any, Any>()
-                        try {
-                            currUser = hashMapOf(
-                                "Name" to binding.editTextDogName.text.toString(),
-                                "Email" to binding.editTextRegisterEmail.text.toString(),
-                                "Breed" to binding.editTextMenuDogBreed.text.toString(),
-                                "Description" to binding.editTextRegisterDescription.text.toString(),
-                                "Friends" to listOf<String>(),
-                                "Status" to binding.dropdownMenuDogStatus.selectedItem.toString()
-                            )
-                            val db = user?.let { it1 ->
-                                Firebase.firestore.collection("Users").document(
-                                    it1.uid
-                                ).set(currUser).addOnCompleteListener {
-                                    val baos = ByteArrayOutputStream()
-                                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
-                                    val data = baos.toByteArray()
+            FirebaseHelper.registerUser(
+                requireContext(),
+                email,
+                password,
+                binding,
+                imageBitmap,
+                pd
+            )
 
-                                    val storageRef = Firebase.storage.reference
-                                    val mountainImagesRef =
-                                        storageRef.child("ProfileImages/${user.uid}.png")
-                                    var uploadTask = mountainImagesRef.putBytes(data)
-                                    uploadTask.addOnFailureListener {
-                                        // Handle unsuccessful uploads
-                                        Log.d("PictureFail", "This is a picture upload failure")
-                                    }.addOnSuccessListener { taskSnapshot ->
-                                        // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                                        // ...
-                                        pd.hide()
-                                        Snackbar.make(
-                                            binding.root,
-                                            "Korisnik registrovan uspešno",
-                                            Snackbar.LENGTH_LONG
-                                        ).show()
-                                        startActivity(
-                                            Intent(context, ActivitySecond::class.java)
-                                        )
-                                    }
-                                }
 
-                            }
-
-                        } catch (e: Exception) {
-                            if (user != null) {
-                                user.delete()
-                                    .addOnCompleteListener { task ->
-                                        if (task.isSuccessful) {
-                                            pd.hide()
-                                            Snackbar.make(
-                                                binding.root,
-                                                "Neuspešna registracija V2",
-                                                Snackbar.LENGTH_LONG
-                                            ).show()
-
-                                        }
-                                    }
-                            }
-                        }
-                    } else {
-                        pd.hide()
-                        Snackbar.make(
-                            binding.root,
-                            "Neuspešna registracija V1",
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                }
         }
 
         val butPwHide = binding.imagePwHide

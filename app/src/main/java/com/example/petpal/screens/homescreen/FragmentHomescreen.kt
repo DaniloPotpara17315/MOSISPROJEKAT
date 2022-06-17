@@ -1,7 +1,9 @@
 package com.example.petpal.screens.homescreen
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +12,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
 import com.example.petpal.activity.ActivitySecond
 import com.example.petpal.databinding.FragmentHomescreenBinding
+import com.example.petpal.helpers.FirebaseHelper
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.util.HashMap
 
 
 class FragmentHomescreen : Fragment() {
@@ -23,12 +29,11 @@ class FragmentHomescreen : Fragment() {
         super.onCreate(savedInstanceState)
 
         var auth = Firebase.auth
-
         if(auth.currentUser != null){
-
-            startActivity(
-                Intent(context, ActivitySecond::class.java)
-            )
+            val pd = ProgressDialog(requireContext())
+            pd.setMessage("Please wait...")
+            pd.show()
+            FirebaseHelper.getUser(requireContext(), requireActivity())
         }
         //pd.setCancelable(false)
         //pd.setMessage("Loading")

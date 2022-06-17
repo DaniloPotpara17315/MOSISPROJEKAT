@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +16,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
 import com.example.petpal.activity.ActivitySecond
 import com.example.petpal.databinding.FragmentLoginBinding
+import com.example.petpal.helpers.FirebaseHelper
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.util.HashMap
 
 class FragmentLogin : Fragment() {
 
@@ -96,26 +101,9 @@ class FragmentLogin : Fragment() {
             pd.show()
             var email = binding.editTextLoginEmail.text.toString()
             var password = binding.editTextLoginPassword.text.toString()
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    pd.hide()
 
-                    startActivity(
-                        Intent(context, ActivitySecond::class.java)
-                    )
-                    if (user != null) {
-                        Snackbar.make(
-                            binding.root,
-                            "Uspešno ulogovan, dobrodošao:" + user.email.toString(),
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-
-                } else {
-                    Snackbar.make(binding.root, "Neuspešno logovanje", Snackbar.LENGTH_LONG).show()
-                }
-            }
+            FirebaseHelper.logInUser( requireContext(), email, password, binding.root, requireActivity())
+            pd.hide()
         }
     }
 
