@@ -56,21 +56,15 @@ class FragmentProfile : Fragment() {
         Glide.with(this).load(sharedViewModel.profileImg).into(binding.imageProfile)
         var stat= sharedViewModel.userData["Status"].toString()
 
-        //TODO stavi when
-        if(stat == "Druzeljubiv") {
-            paintGreen()
-        }
-        else if(stat == "Nezainteresovan") {
-            paintYellow()
-        }
-        else if(stat == "Agresivan") {
-            paintRed()
-        }
-        else {
-            paintOff()
+        when(stat){
+            "Druzeljubiv"-> paintGreen()
+            "Nezainteresovan" ->paintYellow()
+            "Agresivan"->paintRed()
+            else -> {
+                paintOff()
+            }
         }
         eventClicks()
-
     }
     private fun eventClicks(){
         binding.imageButtonStatus.setOnClickListener{
@@ -112,7 +106,6 @@ class FragmentProfile : Fragment() {
                                     R.id.action_agr -> paintRed()
                                     R.id.action_off -> paintOff()
                                 }
-
                             }
                         }.addOnFailureListener{
                             pd.hide()

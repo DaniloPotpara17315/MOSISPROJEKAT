@@ -307,11 +307,11 @@ class FragmentProfileSettings : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).show()
                 binding.imageProfile.setImageBitmap(imageBitmap)
-                storageRef.child("ProfileImages/${user.uid}.png").downloadUrl.addOnSuccessListener{
-                    sharedViewModel.profileImg = it
-                    pd.hide()
-                    Log.d("ObjectName","${sharedViewModel.profileImg}")
-                }
+            }
+            storageRef.child("ProfileImages/${user.uid}.png").downloadUrl.addOnSuccessListener{
+                sharedViewModel.profileImg = it
+                pd.hide()
+                Log.d("ObjectName","${sharedViewModel.profileImg}")
             }
             //imageView.setImageBitmap(imageBitmap)
         }

@@ -21,6 +21,54 @@
         app:layout_constraintVertical_bias="0.0"
         app:shapeAppearance="@style/Event.Tab.Background" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageFilterBack"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/very_dark_blue"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle6"
+        app:shapeAppearance="@style/Input.Login.Design"
+/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageFilterBack2"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/very_dark_blue"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageFilterBack"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageFilterBack3"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/very_dark_blue"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageEvent2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageFilterBack2"
+        app:shapeAppearance="@style/Input.Login.Design" />
+
     <TextView
         android:id="@+id/textTitle6"
         android:layout_width="wrap_content"
@@ -50,53 +98,57 @@
         android:id="@+id/checkBoxEvents"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/baloo_bhai_2"
         android:text="Prikaži događaje"
         android:textAlignment="center"
         android:textColor="@color/true_white"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageEvent2"
-        app:layout_constraintStart_toStartOf="@+id/imageEvent2"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle6" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageFilterBack"
+        app:layout_constraintEnd_toEndOf="@+id/imageFilterBack"
+        app:layout_constraintStart_toStartOf="@+id/imageFilterBack"
+        app:layout_constraintTop_toTopOf="@+id/imageFilterBack" />
 
     <CheckBox
         android:id="@+id/checkBoxFriends"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/baloo_bhai_2"
         android:text="Prikaži prijatelje"
         android:textAlignment="center"
         android:textColor="@color/true_white"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageEvent2"
-        app:layout_constraintStart_toStartOf="@+id/imageEvent2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxEvents" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageFilterBack2"
+        app:layout_constraintEnd_toEndOf="@+id/imageFilterBack2"
+        app:layout_constraintStart_toStartOf="@+id/imageFilterBack2"
+        app:layout_constraintTop_toTopOf="@+id/imageFilterBack2" />
 
     <CheckBox
         android:id="@+id/checkBoxOther"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/baloo_bhai_2"
         android:text="Prikaži ostalo"
         android:textAlignment="center"
         android:textColor="@color/true_white"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageEvent2"
-        app:layout_constraintStart_toStartOf="@+id/imageEvent2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxFriends" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageFilterBack3"
+        app:layout_constraintEnd_toEndOf="@+id/imageFilterBack3"
+        app:layout_constraintStart_toStartOf="@+id/imageFilterBack3"
+        app:layout_constraintTop_toTopOf="@+id/imageFilterBack3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

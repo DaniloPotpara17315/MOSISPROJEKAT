@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.MapFilterDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -33,7 +34,7 @@ class MapFilterDialog : BottomSheetDialogFragment() {
 
         binding.imageBackButton4.setOnClickListener {
             //return filter values
-
+            findNavController().popBackStack()
         }
     }
 }

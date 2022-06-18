@@ -19,10 +19,10 @@ import com.google.firebase.ktx.Firebase
 
 class FragmentEventInfo : Fragment() {
 
-    private val sharedView : MainSharedViewModel by activityViewModels()
-    lateinit var pd : ProgressDialog
-    private var coming:Boolean = false;
-    private lateinit var binding:FragmentEventInfoBinding
+    private val sharedView: MainSharedViewModel by activityViewModels()
+    lateinit var pd: ProgressDialog
+    private var coming: Boolean = false;
+    private lateinit var binding: FragmentEventInfoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pd = ProgressDialog(context)
@@ -43,15 +43,28 @@ class FragmentEventInfo : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         checkComing()
-        binding.textViewEventTitle.text = "${sharedView.selectedEvent!!.name} - ${sharedView.selectedEvent!!.date}"
+        binding.textViewEventTitle.text =
+            "${sharedView.selectedEvent!!.name} - ${sharedView.selectedEvent!!.date}"
         binding.textViewEventDescription.text = sharedView.selectedEvent!!.desc
+        val dat =
+            FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
+        val datRef = dat.getReference("map")
+        datRef.child("events").child("${sharedView.selectedEvent!!.id}").get().addOnSuccessListener {
+            Log.d("AllEv", "${it.value}")
 
+            var userData = HashMap<Any, Any>()
+            userData = it.value as HashMap<Any, Any>
+            var el = userData.get("Attendees")!! as HashMap<Any,Any>
+            binding.textViewListNumber.text = el.size.toString()
+
+        }
+//        datRef.child("events").child()
         binding.imageBackButton.setOnClickListener {
             //back button
             findNavController().popBackStack()
         }
 
-        binding.imageEventList.setOnClickListener{
+        binding.imageEventList.setOnClickListener {
             //attendees list
             findNavController().navigate(R.id.action_event_to_Rate)
         }
@@ -82,8 +95,8 @@ class FragmentEventInfo : Fragment() {
                             ).show()
                             Log.d("Task", "Uspesno uradjeno")
                             coming = true
-                            binding.textViewConfirm.text="Dolazite!"
-                            binding.imageViewTick.visibility=View.VISIBLE
+                            binding.textViewConfirm.text = "Dolazite!"
+                            binding.imageViewTick.visibility = View.VISIBLE
                             pd.hide()
                         } else {
                             Log.d("Task", "Error ${it.exception}")
@@ -95,6 +108,7 @@ class FragmentEventInfo : Fragment() {
 
 
     }
+
     fun checkComing() {
         val database =
             FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -108,12 +122,11 @@ class FragmentEventInfo : Fragment() {
             Log.d("dataRead", "${it.value}")
             if (it.value != null) {
                 coming = true
-                binding.textViewConfirm.text="Dolazite!"
-                binding.imageViewTick.visibility=View.VISIBLE
-            }
-            else{
-                binding.textViewConfirm.text="Potvrdite dolazak"
-                binding.imageViewTick.visibility=View.GONE
+                binding.textViewConfirm.text = "Dolazite!"
+                binding.imageViewTick.visibility = View.VISIBLE
+            } else {
+                binding.textViewConfirm.text = "Potvrdite dolazak"
+                binding.imageViewTick.visibility = View.GONE
             }
         }.addOnFailureListener {
             Log.d("FAIL", "FAIL")

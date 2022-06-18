@@ -21,6 +21,7 @@ import kotlinx.coroutines.runBlocking
 class MainSharedViewModel : ViewModel(){
     var selectedProfile = MutableLiveData<Profile>()
     var userData = hashMapOf<String,Any>()
+    var usr = Firebase.auth.currentUser
     var profileImg:Any = " "
     var selectedEvent : Event? = null
     var selectedUserKey : String? = null
@@ -32,7 +33,7 @@ class MainSharedViewModel : ViewModel(){
 
 
     init {
-        var usr = Firebase.auth.currentUser
+//        var usr = Firebase.auth.currentUser
 
     }
 
