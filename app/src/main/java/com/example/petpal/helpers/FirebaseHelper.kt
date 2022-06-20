@@ -86,10 +86,6 @@ object FirebaseHelper {
             sharedViewModel.users = users
             listener.drawMarkers()
         }
-
-
-
-
     }
     // Funkcija namenjena za ActivityMain,
     // Uzima trenutnog koristnika iz baze i ukoliko je uspesan, pokrece ActivitySecond

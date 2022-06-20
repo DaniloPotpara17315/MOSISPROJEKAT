@@ -6,14 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.homescreen.FragmentHomescreen">
 
-    <Button
-        android:id="@+id/btn_to_Activity2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/buttonToLogin"
@@ -49,6 +41,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearance="@style/Button.Login.Design" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/homepagebanner" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <ImageView
+        android:id="@+id/imageViewLogo2"
+        android:layout_width="wrap_content"
+        android:layout_height="125dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_paw"
+        app:layout_constraintBottom_toTopOf="@+id/buttonToLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:tint="@color/blue_medium" />
+
+    <TextView
+        android:id="@+id/textViewAppTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/chau_philomene_one"
+        android:shadowColor="@color/blue"
+        android:shadowDx="2.0"
+        android:shadowDy="2.0"
+        android:shadowRadius="2.0"
+        android:text="Paw-Pal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewLogo2"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewLogo2"
+        app:layout_constraintStart_toStartOf="@+id/imageViewLogo2" />
+
+    <Button
+        android:id="@+id/btn_to_Activity2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
