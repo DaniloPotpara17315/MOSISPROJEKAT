@@ -43,6 +43,8 @@ class FragmentDogProfile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        //TODO prebaci ovo u FirebaseHelper
         var ref = Firebase.firestore.collection("Users").document(
             sharedViewModel.selectedUserKey!!
         ).get()
@@ -99,6 +101,8 @@ class FragmentDogProfile : Fragment() {
             Log.d("ImageTag", "Missing${it}")
             Glide.with(this).load(R.drawable.ic_paw).into(binding.imageDogProfile)
         }
+
+        //zasto klik listeneri nisu u posebnu funkciju?
         binding.imageBackButton.setOnClickListener {
             // back button
             findNavController().popBackStack()
@@ -109,13 +113,13 @@ class FragmentDogProfile : Fragment() {
                 FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
             val dataRef =
                 database.reference
-            var body = mapOf(
+            val body = mapOf(
                 "statusCode" to "0"
             )
-            dataRef.child("map")
+            dataRef.child("chat")
                 .child("invitations")
-                .child("${sharedViewModel.selectedUserKey.toString()}")
-                .child("${sharedViewModel.usr!!.uid.toString()}").setValue(body)
+                .child(sharedViewModel.selectedUserKey.toString())
+                .child(sharedViewModel.usr!!.uid).setValue(body)
                 .addOnSuccessListener {
                     Snackbar.make(
                         binding.root,
@@ -125,7 +129,7 @@ class FragmentDogProfile : Fragment() {
                 }.addOnFailureListener{
                     Snackbar.make(
                         binding.root,
-                        "${it.toString()}",
+                        it.toString(),
                         Snackbar.LENGTH_LONG
                     ).show()
                 }

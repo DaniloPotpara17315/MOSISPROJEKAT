@@ -4,7 +4,7 @@ package com.example.petpal.models
 
 data class Profile(
     var name : String,
-    var status : Int = STATUS_OFFLINE
+    var status : Int = STATUS_OFFLINE,
 ){
 
     var rasa : String = ""

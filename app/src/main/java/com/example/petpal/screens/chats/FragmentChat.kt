@@ -1,5 +1,6 @@
 package com.example.petpal.screens.chats
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petpal.R
 import com.example.petpal.adapters.ChatAdapter
 import com.example.petpal.databinding.FragmentChatBinding
+import com.example.petpal.helpers.FirebaseHelper
 import com.example.petpal.models.Profile
 import com.example.petpal.shared_view_models.MainSharedViewModel
 
@@ -29,18 +31,24 @@ class FragmentChat : Fragment(),ChatAdapter.ChatOperationHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataset = mutableListOf<Profile>()
+        val pd = ProgressDialog(context)
+        pd.setMessage("Ucitavanje...")
+        pd.setCancelable(false)
+        pd.show()
 
-        dataset.add(Profile("Online", Profile.STATUS_ONLINE))
+        val recycler = binding.recyclerChat
+        FirebaseHelper.getChats(requireContext(),this, recycler, pd)
+
+        /*dataset.add(Profile("Online", Profile.STATUS_ONLINE))
         dataset.add(Profile("Do not disturb", Profile.STATUS_DND))
         dataset.add(Profile("Stay away", Profile.STATUS_AGGRO))
         dataset.add(Profile("Invisible", Profile.STATUS_INVIS))
         dataset.add(Profile("Offline"))
-
-        val recycler = binding.recyclerChat
+*/
+        /*
         recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = ChatAdapter(requireContext(), dataset,this)
-
+        //recycler.adapter = ChatAdapter(requireContext(), dataset,this)
+*/
     }
 
 

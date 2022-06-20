@@ -48,6 +48,47 @@
         android:textColor="@color/blue_medium"
         />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_chat_invite_buttonset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/button_chat_decline"
+            app:layout_constraintEnd_toStartOf="@id/button_chat_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/blue_pale"
+            android:src="@drawable/ic_baseline_cancel_24"
+            app:tint="@color/blue"
+            app:shapeAppearanceOverlay="@style/ChatButtonsetLeft"
+            />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/button_chat_accept"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:scaleType="fitXY"
+            android:background="@color/blue"
+            android:src="@drawable/ic_baseline_check_24"
+            app:tint="@color/white"
+            app:shapeAppearanceOverlay="@style/ChatButtonsetRight"
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_chats_item_photo"
         android:layout_width="wrap_content"

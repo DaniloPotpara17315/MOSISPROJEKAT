@@ -8,10 +8,15 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.petpal.activity.ActivitySecond
+import com.example.petpal.adapters.ChatAdapter
 import com.example.petpal.databinding.FragmentRegisterBinding
 import com.example.petpal.interfaces.MapDataLoadedListener
+import com.example.petpal.models.ChatEntry
 import com.example.petpal.models.Event
+import com.example.petpal.models.Profile
 import com.example.petpal.models.ProfileCoordinates
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -96,7 +101,7 @@ object FirebaseHelper {
 
         data.addOnSuccessListener { document ->
             if (document != null) {
-                Log.d("halp", "Success?")
+                //Log.d("halp", "Success?")
                 val userDataKeys = document.data!!
                 val userDataHashMap = mapToHashMap(userDataKeys)
 
@@ -225,4 +230,76 @@ object FirebaseHelper {
                 }
             }
     }
+
+    fun getChats(
+        context: Context,
+        handler: ChatAdapter.ChatOperationHandler,
+        recycler:RecyclerView,
+        pd: ProgressDialog
+    ) {
+
+        val users = Firebase.firestore.collection("Users").get()
+            .addOnSuccessListener{
+                val document = it.documents
+                val dataset = mutableListOf<ChatEntry>()
+                val dataRef = database.getReference("chat")
+                    .child("invitations")
+                    .child(Firebase.auth.currentUser!!.uid)
+                    .get()
+                    .addOnSuccessListener { ds ->
+                        if (ds.value!=null) {
+                            val temp:HashMap<Any,Any> = ds.value as HashMap<Any, Any>
+
+
+
+                            document.forEach { user ->
+                                //val entry = temp.get(user.id)
+                                if (user.id in temp.keys) {
+                                    dataset.add(
+                                        ChatEntry(
+                                            Profile(
+                                                user["Name"] as String,
+                                                0,
+                                            ),
+                                            false,
+                                            user.id
+                                            //temp["statusCode"] as Boolean
+                                        )
+                                    )
+                                }
+                                Log.d("dataset","$dataset")
+                            }
+                            recycler.adapter = ChatAdapter(context, dataset, handler)
+                            recycler.layoutManager = LinearLayoutManager(context)
+
+                        }
+                        pd.dismiss()
+                    }
+
+
+            }
+    }
+
+    fun notifyInviteAccepted(id : String, pd: ProgressDialog) {
+
+        database.getReference("chat")
+            .child("invitations")
+            .child(Firebase.auth.currentUser!!.uid)
+            .child(id)
+            .setValue(
+                mapOf("statusCode" to 1)
+            )
+            .addOnCompleteListener{
+                pd.dismiss()
+            }
+
+    }
+    fun notifyInviteDeclined(id: String) {
+        database.getReference("chat")
+            .child("invitations")
+            .child(Firebase.auth.currentUser!!.uid)
+            .child(id)
+            .removeValue()
+    }
+
 }
