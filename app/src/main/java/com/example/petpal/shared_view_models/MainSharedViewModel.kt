@@ -22,11 +22,13 @@ class MainSharedViewModel : ViewModel(){
     var selectedProfile = MutableLiveData<Profile>()
     var userData = hashMapOf<String,Any>()
     var usr = Firebase.auth.currentUser
-    var profileImg:Any = " "
+    var profileImg:String = " "
     var selectedEvent : Event? = null
     var selectedUserKey : String? = null
     var dataLoaded = MutableLiveData<Boolean>(false)
 
+    var eventsEnabled = MutableLiveData(true)
+    var usersEnabled = MutableLiveData(true)
 
     var events : MutableList<Event> = mutableListOf()
     var users : MutableList<ProfileCoordinates> = mutableListOf()

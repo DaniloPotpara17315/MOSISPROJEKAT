@@ -7,13 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.databinding.MapFilterDialogBinding
+import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MapFilterDialog : BottomSheetDialogFragment() {
 
+    private val sharedViewModel:MainSharedViewModel by activityViewModels()
     private lateinit var binding:MapFilterDialogBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,27 @@ class MapFilterDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val checkboxEvents = binding.checkBoxEvents
+        checkboxEvents.setOnClickListener {
+             sharedViewModel.eventsEnabled.value = checkboxEvents.isChecked
+        }
+        val checkBoxUsers = binding.checkBoxOther
+        checkBoxUsers.setOnClickListener {
+            sharedViewModel.usersEnabled.value = checkBoxUsers.isChecked
+        }
+
+        sharedViewModel.eventsEnabled.observe(viewLifecycleOwner) {
+            checkboxEvents.isChecked = it
+            setFragmentResult("eventMarkers",
+                bundleOf("eventMarkers" to it))
+        }
+        sharedViewModel.usersEnabled.observe(viewLifecycleOwner) {
+            checkBoxUsers.isChecked = it
+
+            setFragmentResult("userMarkers",
+                bundleOf("userMarkers" to it))
+        }
 
         binding.imageBackButton4.setOnClickListener {
             //return filter values

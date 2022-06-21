@@ -53,6 +53,7 @@ class FragmentProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.textViewDogName.text= sharedViewModel.userData["Name"].toString()
         binding.textView2DogDesc.text = sharedViewModel.userData["Description"].toString()
+        Log.d("profileImg", "${sharedViewModel.profileImg}")
         Glide.with(this).load(sharedViewModel.profileImg).into(binding.imageProfile)
         var stat= sharedViewModel.userData["Status"].toString()
 

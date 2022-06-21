@@ -1,7 +1,6 @@
 package com.example.petpal.screens.map
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -16,21 +15,19 @@ import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 
 import com.example.petpal.R
 import com.example.petpal.databinding.FragmentMapBinding
 import com.example.petpal.helpers.FirebaseHelper
-import com.example.petpal.interfaces.MapDataLoadedListener
-import com.example.petpal.models.Event
-import com.example.petpal.models.Profile
-import com.example.petpal.models.ProfileCoordinates
+import com.example.petpal.interfaces.MapComms
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.example.petpal.shared_view_models.MapAddEventViewModel
 import com.google.android.datatransport.BuildConfig
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -38,8 +35,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
 import org.osmdroid.config.Configuration
 import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.util.BoundingBox
@@ -47,11 +42,10 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.views.overlay.Marker
-import org.osmdroid.views.overlay.Polygon
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
-class FragmentMap : Fragment(), LocationListener , MapDataLoadedListener {
+class FragmentMap : Fragment(), LocationListener , MapComms {
 
     private lateinit var binding : FragmentMapBinding
     private lateinit var map : MapView
@@ -174,13 +168,13 @@ class FragmentMap : Fragment(), LocationListener , MapDataLoadedListener {
         })
     }
 
-    override fun drawMarkers() {
-        map.overlays.clear()
+    override fun drawEventMarkers() {
+        map.overlays.removeAll(map.overlays)
+        Log.d("mapOverlays", "${map.overlays}")
         map.overlays.add(myLocationOverlay)
 
-        if (map.isAttachedToWindow) {
+        if (map.isAttachedToWindow && sharedViewModel.eventsEnabled.value!!) {
             for (event in sharedViewModel.events) {
-                Log.d("map?", "${map.toString()}")
                 val eventMarker = Marker(map)
                 //get a smallaer icon jesus fucking christ
                 eventMarker.icon =
@@ -195,7 +189,13 @@ class FragmentMap : Fragment(), LocationListener , MapDataLoadedListener {
                 }
                 map.overlays.add(eventMarker)
             }
+        }
+        drawUserMarkers()
+    }
 
+    override fun drawUserMarkers() {
+
+        if (map.isAttachedToWindow && sharedViewModel.usersEnabled.value!!) {
             for (user in sharedViewModel.users) {
                 val userMarker = Marker(map)
 
@@ -229,8 +229,6 @@ class FragmentMap : Fragment(), LocationListener , MapDataLoadedListener {
                 map.overlays.add(userMarker)
             }
         }
-
-
     }
 
     private fun setOnClickListeners() {
@@ -246,6 +244,13 @@ class FragmentMap : Fragment(), LocationListener , MapDataLoadedListener {
         }
         binding.buttonMapFilter.setOnClickListener {
             findNavController().navigate(R.id.action_map_to_addfilter)
+        }
+
+        setFragmentResultListener("eventMarkers") { s, bundle ->
+            drawEventMarkers()
+        }
+        setFragmentResultListener("userMarkers") { s, bundle ->
+            drawEventMarkers()
         }
     }
 

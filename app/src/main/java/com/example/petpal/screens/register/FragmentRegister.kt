@@ -97,7 +97,8 @@ class FragmentRegister : Fragment() {
                 password,
                 binding,
                 imageBitmap,
-                pd
+                pd,
+                findNavController()
             )
 
 

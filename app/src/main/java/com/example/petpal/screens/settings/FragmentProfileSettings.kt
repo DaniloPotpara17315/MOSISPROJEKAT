@@ -309,7 +309,7 @@ class FragmentProfileSettings : Fragment() {
                 binding.imageProfile.setImageBitmap(imageBitmap)
             }
             storageRef.child("ProfileImages/${user.uid}.png").downloadUrl.addOnSuccessListener{
-                sharedViewModel.profileImg = it
+                sharedViewModel.profileImg = it.toString()
                 pd.hide()
                 Log.d("ObjectName","${sharedViewModel.profileImg}")
             }

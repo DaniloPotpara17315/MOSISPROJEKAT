@@ -16,5 +16,6 @@ class ActivitySecond : AppCompatActivity() {
 
         sharedViewModel.userData = this.intent.getSerializableExtra("userData")
                 as HashMap<String, Any>
+        sharedViewModel.profileImg = this.intent.getStringExtra("userImg")!!
     }
 }

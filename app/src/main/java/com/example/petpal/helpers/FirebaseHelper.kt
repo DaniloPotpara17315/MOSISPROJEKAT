@@ -8,12 +8,14 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.petpal.R
 import com.example.petpal.activity.ActivitySecond
 import com.example.petpal.adapters.ChatAdapter
 import com.example.petpal.databinding.FragmentRegisterBinding
-import com.example.petpal.interfaces.MapDataLoadedListener
+import com.example.petpal.interfaces.MapComms
 import com.example.petpal.models.ChatEntry
 import com.example.petpal.models.Event
 import com.example.petpal.models.Profile
@@ -21,10 +23,7 @@ import com.example.petpal.models.ProfileCoordinates
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -44,7 +43,7 @@ object FirebaseHelper {
         }
         return hashMap
     }
-    fun getMapData(sharedViewModel: MainSharedViewModel, listener:MapDataLoadedListener) {
+    fun getMapData(sharedViewModel: MainSharedViewModel, listener:MapComms) {
 
         val dataRef = database.getReference("map")
         dataRef.child("events").get().addOnSuccessListener {
@@ -64,7 +63,7 @@ object FirebaseHelper {
                 events.add(event)
             }
             sharedViewModel.events = events
-            listener.drawMarkers()
+            listener.drawEventMarkers()
         }
         dataRef.child("users").get().addOnSuccessListener {
             val temp:HashMap<Any,Any> = it.value as HashMap<Any, Any>
@@ -84,7 +83,7 @@ object FirebaseHelper {
                     users.add(newUser)
             }
             sharedViewModel.users = users
-            listener.drawMarkers()
+            listener.drawEventMarkers()
         }
     }
     // Funkcija namenjena za ActivityMain,
@@ -101,22 +100,25 @@ object FirebaseHelper {
                 val userDataKeys = document.data!!
                 val userDataHashMap = mapToHashMap(userDataKeys)
 
-                var profileImg : Any = " "
+                var profileImg = " "
                 val storageRef = Firebase.storage.reference
                 storageRef.child("ProfileImages/${user.uid}.png").downloadUrl.addOnSuccessListener {
-                    profileImg = it
+                    profileImg = it.toString()
                     Log.d("ObjectName", "$profileImg")
+
+                    val intent = Intent(context, ActivitySecond::class.java)
+                    intent.putExtra("userData", userDataHashMap)
+                    intent.putExtra("userImg", profileImg)
+                    startActivity(context,intent,null)
+                    activity.finish()
 
                 }.addOnFailureListener {
                     profileImg = " "
+                    Log.d("FailedToLocat", it.toString())
                     Log.d("FailedToLocat", "NotFound")
                 }
 
-                val intent = Intent(context, ActivitySecond::class.java)
-                intent.putExtra("userData", userDataHashMap)
 
-                startActivity(context,intent,null)
-                activity.finish()
                 Log.d("Nodocumentfound", "User data is set $userDataHashMap")
 
             } else {
@@ -153,6 +155,7 @@ object FirebaseHelper {
                      binding:FragmentRegisterBinding,
                      imageBitmap:Bitmap,
                      pd: ProgressDialog,
+                     navController: NavController
                      ) {
         Firebase.auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -195,6 +198,8 @@ object FirebaseHelper {
                                         Snackbar.LENGTH_LONG
                                     ).show()
 
+                                    Firebase.auth.signOut()
+                                    navController.navigate(R.id.action_goto_login)
                                     val intent = Intent(context, ActivitySecond::class.java)
                                     intent.putExtra("userData", currUser)
                                     startActivity(context,intent,null)
@@ -247,17 +252,22 @@ object FirebaseHelper {
                             val temp:HashMap<Any,Any> = ds.value as HashMap<Any, Any>
 
 
-
                             document.forEach { user ->
                                 //val entry = temp.get(user.id)
                                 if (user.id in temp.keys) {
+
+                                    val x = temp[user.id] as HashMap<Any,Any>
+
+                                    Log.d("statusCode", "${x["statusCode"]=="1"}")
+
                                     dataset.add(
                                         ChatEntry(
                                             Profile(
                                                 user["Name"] as String,
                                                 0,
                                             ),
-                                            false,
+                                            x["statusCode"].toString() == "1"
+                                            ,
                                             user.id
                                             //temp["statusCode"] as Boolean
                                         )

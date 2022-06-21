@@ -26,14 +26,14 @@ import com.google.firebase.ktx.Firebase
 class FragmentHomescreen : Fragment() {
     private val REQUEST_ENABLE_BT = 1
     private lateinit var binding : FragmentHomescreenBinding
-    lateinit var myBluetoothAdapter:BluetoothAdapter
-    lateinit var bluetoothManager: BluetoothManager
+ /*   lateinit var myBluetoothAdapter:BluetoothAdapter
+    lateinit var bluetoothManager: BluetoothManager*/
     //val pd = ProgressDialog(context)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        context?.getSystemService(BLUETOOTH_SERVICE)
-        bluetoothManager = context?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
-        myBluetoothAdapter= bluetoothManager.getAdapter()
+/*        bluetoothManager = context?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+        myBluetoothAdapter= bluetoothManager.getAdapter()*/
 
         var auth = Firebase.auth
 
@@ -64,7 +64,7 @@ class FragmentHomescreen : Fragment() {
         //   slobodno ga premestaj kako ti volja tho
         val btnOtherActivity = binding.btnToActivity2
         btnOtherActivity.setOnClickListener {
-            if (myBluetoothAdapter != null) {
+            /*if (myBluetoothAdapter != null) {
                 if (!myBluetoothAdapter.isEnabled) {
 
                     var enableBluetoothIntent: Intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -72,7 +72,7 @@ class FragmentHomescreen : Fragment() {
                 } else {
 
                 }
-            }
+            }*/
 
         }
         val btnLoginActivity = binding.buttonToLogin
