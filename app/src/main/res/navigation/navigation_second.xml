@@ -130,8 +130,8 @@
         android:label="fragment_event_info"
         tools:layout="@layout/fragment_event_info" >
         <action
-            android:id="@+id/action_event_to_Rate"
-            app:destination="@id/dogRateDialog" />
+            android:id="@+id/action_event_to_List"
+            app:destination="@id/fragmentEventDogList" />
     </fragment>
     <fragment
         android:id="@+id/fragmentDogProfile"
@@ -144,4 +144,13 @@
         android:name="com.example.petpal.dialog.DogRateDialog"
         android:label="fragment_dog_rate_dialog"
         tools:layout="@layout/fragment_dog_rate_dialog" />
+    <fragment
+        android:id="@+id/fragmentEventDogList"
+        android:name="com.example.petpal.screens.event_dog_list.FragmentEventDogList"
+        android:label="fragment_event_dog_list"
+        tools:layout="@layout/fragment_event_dog_list" >
+        <action
+            android:id="@+id/action_goto_dogRateDialog"
+            app:destination="@id/dogRateDialog" />
+    </fragment>
 </navigation>

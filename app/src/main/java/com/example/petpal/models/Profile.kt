@@ -6,10 +6,11 @@ data class Profile(
     var name : String,
     var status : Int = STATUS_OFFLINE,
 ){
-
+    var userId:String =""
+    var rate: String=""
     var rasa : String = ""
     var opis : String = ""
-
+    var imageUri:String = ""
     // Listu prijatelja i sliku kasnije implementirati
     // Slika kad se bude povezivalo sa bazom
 

@@ -307,6 +307,7 @@ class FragmentProfileSettings : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).show()
                 binding.imageProfile.setImageBitmap(imageBitmap)
+                pd.hide()
             }
             storageRef.child("ProfileImages/${user.uid}.png").downloadUrl.addOnSuccessListener{
                 sharedViewModel.profileImg = it.toString()

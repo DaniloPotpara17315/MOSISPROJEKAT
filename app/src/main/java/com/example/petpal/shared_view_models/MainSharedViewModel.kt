@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.petpal.R
+import com.example.petpal.models.Attendee
 import com.example.petpal.models.Event
 import com.example.petpal.models.Profile
 import com.example.petpal.models.ProfileCoordinates
@@ -25,6 +26,10 @@ class MainSharedViewModel : ViewModel(){
     var profileImg:String = " "
     var selectedEvent : Event? = null
     var selectedUserKey : String? = null
+    var attendeesNumber:Int = 0
+    var attendeesInfo = mutableListOf<Attendee>()
+    var actualAttendeeInfo = mutableListOf<Profile>()
+    var selectedAttendee:Profile = Profile("")
     var dataLoaded = MutableLiveData<Boolean>(false)
 
     var eventsEnabled = MutableLiveData(true)

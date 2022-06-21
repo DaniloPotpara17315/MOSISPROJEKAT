@@ -116,6 +116,11 @@ object FirebaseHelper {
                     profileImg = " "
                     Log.d("FailedToLocat", it.toString())
                     Log.d("FailedToLocat", "NotFound")
+                    val intent = Intent(context, ActivitySecond::class.java)
+                    intent.putExtra("userData", userDataHashMap)
+                    intent.putExtra("userImg", profileImg)
+                    startActivity(context,intent,null)
+                    activity.finish()
                 }
 
 

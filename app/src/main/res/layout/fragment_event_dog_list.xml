@@ -51,46 +51,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".1" />
-    <ScrollView
-        android:id="@+id/scroll"
-        android:layout_width="0dp"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_event_dog_list"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_chatroom_header">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_chatroom_header"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/innerContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imageDogProfile"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageDogPic"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/blue_medium"
-                android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/imageDogProfile"
-                app:layout_constraintTop_toTopOf="@+id/imageDogProfile"
-                app:shapeAppearance="@style/Input.Login.Design" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

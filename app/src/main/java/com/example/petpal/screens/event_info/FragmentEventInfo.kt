@@ -11,11 +11,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
 import com.example.petpal.databinding.FragmentEventInfoBinding
+import com.example.petpal.models.Attendee
+import com.example.petpal.models.Profile
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class FragmentEventInfo : Fragment() {
 
@@ -52,10 +56,17 @@ class FragmentEventInfo : Fragment() {
         datRef.child("events").child("${sharedView.selectedEvent!!.id}").get().addOnSuccessListener {
             Log.d("AllEv", "${it.value}")
 
-            var userData = HashMap<Any, Any>()
-            userData = it.value as HashMap<Any, Any>
-            var el = userData.get("Attendees")!! as HashMap<Any,Any>
+            var eventData = it.value as HashMap<Any, Any>
+            var el = eventData.get("Attendees")!! as HashMap<Any,Any>
+
             binding.textViewListNumber.text = el.size.toString()
+            sharedView.attendeesNumber = el.size
+            sharedView.attendeesInfo = mutableListOf()
+            el.forEach{elem->
+                val x = elem.value as HashMap<String, Any>
+
+                sharedView.attendeesInfo.add(Attendee(x["idUser"].toString(),x["grade"].toString()))
+            }
 
         }
 //        datRef.child("events").child()
@@ -66,7 +77,45 @@ class FragmentEventInfo : Fragment() {
 
         binding.imageEventList.setOnClickListener {
             //attendees list
-            findNavController().navigate(R.id.action_event_to_Rate)
+            pd.show()
+            pd.setMessage("UCITAVANJE ZAINTERESOVANIH...")
+            var helperArray = mutableListOf<Profile>()
+            sharedView.attendeesInfo.forEach { attendee ->
+                var fbRef = Firebase.firestore
+                Firebase.firestore.collection("Users").document(
+                    attendee.uuid
+                ).get().addOnSuccessListener { info->
+                    val storageRef = Firebase.storage.reference
+                    storageRef.child("ProfileImages/${attendee.uuid}.png").downloadUrl.addOnCompleteListener() {
+
+
+                        var eachElement = Profile(info.data!!.get("Name").toString())
+                        Log.d("Tag", info.data!!["Name"].toString())
+                        if(it.isSuccessful){
+                            eachElement.imageUri = it.result.toString()
+                        }
+                        else{
+                            eachElement.imageUri=" "
+                        }
+                        eachElement.rate = attendee.grade
+                        eachElement.userId = attendee.uuid
+                        helperArray.add(eachElement)
+                        Log.d("Addtion","$helperArray")
+                        Log.d("SizeOfPP","MMM very  ${sharedView.attendeesNumber}  --  ${sharedView.actualAttendeeInfo}")
+                        if(helperArray.size == sharedView.attendeesNumber){
+                            sharedView.actualAttendeeInfo = helperArray
+                            pd.hide()
+                            findNavController().navigate(R.id.action_event_to_List)
+
+                        }
+
+                    }.addOnFailureListener {
+                        pd.hide()
+                        Log.d("FailedToLocat", "NotFound")
+                    }
+                }
+            }
+
         }
 
         binding.imageEventConfirm.setOnClickListener {
