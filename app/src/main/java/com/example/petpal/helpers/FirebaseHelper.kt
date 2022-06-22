@@ -5,9 +5,11 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.graphics.drawable.toIcon
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
+import java.net.URL
 
 object FirebaseHelper {
 
@@ -72,18 +75,25 @@ object FirebaseHelper {
 
             temp.forEach { user ->
 
-                val userMap = user.value as HashMap<String, Any>
+                Firebase.storage.reference.child("ProfileImages/${user.key}.png").downloadUrl.addOnCompleteListener { img ->
+                    val userMap = user.value as HashMap<String, Any>
 
-                val newUser = ProfileCoordinates(user.key as String,
-                    userMap["lat"] as Double,
-                    userMap["lon"] as Double,
-                    userMap["status"] as String
-                )
-                if (newUser.id != Firebase.auth.uid)
-                    users.add(newUser)
+
+                    val newUser = ProfileCoordinates(user.key as String,
+                        userMap["lat"] as Double,
+                        userMap["lon"] as Double,
+                        userMap["status"] as String,
+                        img.result.toString()
+                    )
+                    if (newUser.id != Firebase.auth.uid)
+                        users.add(newUser)
+
+                    sharedViewModel.users = users
+                    listener.drawEventMarkers()
+                }
+
+
             }
-            sharedViewModel.users = users
-            listener.drawEventMarkers()
         }
     }
     // Funkcija namenjena za ActivityMain,

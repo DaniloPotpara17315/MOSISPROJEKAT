@@ -26,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:background="@color/very_dark_blue"
         android:padding="5dp"
@@ -34,6 +34,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle6"
+        app:layout_constraintBottom_toTopOf="@id/imageFilterBack2"
         app:shapeAppearance="@style/Input.Login.Design"
 />
 
@@ -50,6 +51,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageFilterBack"
+        app:layout_constraintBottom_toTopOf="@id/imageFilterBack3"
         app:shapeAppearance="@style/Input.Login.Design" />
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -62,7 +64,7 @@
         android:layout_marginBottom="40dp"
         android:background="@color/very_dark_blue"
         android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageEvent2"
+        app:layout_constraintBottom_toTopOf="@+id/edittext_filter_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,5 +152,22 @@
         app:layout_constraintEnd_toEndOf="@+id/imageFilterBack3"
         app:layout_constraintStart_toStartOf="@+id/imageFilterBack3"
         app:layout_constraintTop_toTopOf="@+id/imageFilterBack3" />
+
+    <EditText
+        android:id="@+id/edittext_filter_radius"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white"
+        android:layout_margin="15dp"
+        style="@style/Input.Login.Design"
+        android:textColor="@color/blue"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:textColorHint="@color/blue_medium"
+        android:textAlignment="center"
+        android:hint="Prikazuj dogadjaje u krugu od x metara"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

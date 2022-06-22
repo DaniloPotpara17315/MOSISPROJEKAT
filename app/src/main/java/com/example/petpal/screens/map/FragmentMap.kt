@@ -7,7 +7,6 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +14,11 @@ import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
-
 import com.example.petpal.R
 import com.example.petpal.databinding.FragmentMapBinding
 import com.example.petpal.helpers.FirebaseHelper
@@ -44,6 +42,7 @@ import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+
 
 class FragmentMap : Fragment(), LocationListener , MapComms {
 
@@ -108,6 +107,7 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
                 this
             )
 
+
             if (mapAddEventViewModel.creatingEvent)
             {
                 findNavController().navigate(R.id.action_map_to_addevent)
@@ -128,6 +128,12 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
     override fun onResume() {
         super.onResume()
         map.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val locManager : LocationManager = requireActivity().getSystemService(Activity.LOCATION_SERVICE) as LocationManager
+        locManager.removeUpdates(this)
     }
 
     override fun onPause() {
@@ -175,19 +181,32 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
 
         if (map.isAttachedToWindow && sharedViewModel.eventsEnabled.value!!) {
             for (event in sharedViewModel.events) {
-                val eventMarker = Marker(map)
-                //get a smallaer icon jesus fucking christ
-                eventMarker.icon =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_event)
-                eventMarker.position = GeoPoint(event.lat, event.lon)
-                eventMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
 
-                eventMarker.setOnMarkerClickListener { _, _ ->
-                    sharedViewModel.selectedEvent = event
-                    findNavController().navigate(R.id.action_map_to_event_info)
-                    true
+                var results = FloatArray(3)
+                Location.distanceBetween(
+                    myLocationOverlay.myLocation.latitude,
+                    myLocationOverlay.myLocation.longitude,
+                    event.lat,
+                    event.lon,
+                    results
+                )
+
+                if (sharedViewModel.cutoffDistance==0 || results[0]<sharedViewModel.cutoffDistance) {
+                    val eventMarker = Marker(map)
+
+                    //get a smallaer icon jesus fucking christ
+                    eventMarker.icon =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_event)
+                    eventMarker.position = GeoPoint(event.lat, event.lon)
+                    eventMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+
+                    eventMarker.setOnMarkerClickListener { _, _ ->
+                        sharedViewModel.selectedEvent = event
+                        findNavController().navigate(R.id.action_map_to_event_info)
+                        true
+                    }
+                    map.overlays.add(eventMarker)
                 }
-                map.overlays.add(eventMarker)
             }
         }
         drawUserMarkers()
@@ -198,6 +217,10 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         if (map.isAttachedToWindow && sharedViewModel.usersEnabled.value!!) {
             for (user in sharedViewModel.users) {
                 val userMarker = Marker(map)
+
+                //val ico = user.image.toUri().toIcon().loadDrawable(requireContext())
+
+                //userMarker.icon = ico
 
                 userMarker.icon = when (user.status) {
                     "Druzeljubiv" -> {
@@ -299,4 +322,9 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         )
         map.setScrollableAreaLimitDouble(scrollConstraints)
     }
+
+    override fun onProviderEnabled(provider: String) {}
+    override fun onProviderDisabled(provider: String) {}
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
 }
+

@@ -38,6 +38,7 @@ class MainSharedViewModel : ViewModel(){
     var events : MutableList<Event> = mutableListOf()
     var users : MutableList<ProfileCoordinates> = mutableListOf()
 
+    var cutoffDistance = 0
 
     init {
 //        var usr = Firebase.auth.currentUser
