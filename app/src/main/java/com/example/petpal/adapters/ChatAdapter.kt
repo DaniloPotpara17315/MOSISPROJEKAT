@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +26,7 @@ class ChatAdapter(
 
     interface ChatOperationHandler {
         fun openChat(person:Profile)
+        fun openDiscovery()
     }
 
 
@@ -36,6 +38,7 @@ class ChatAdapter(
         val buttonAccept:ImageView = view.findViewById(R.id.button_chat_accept)
         val buttonDecline:ImageView = view.findViewById(R.id.button_chat_decline)
         val buttonSet:ConstraintLayout = view.findViewById(R.id.constraint_chat_invite_buttonset)
+        val buttonBluetooth:ImageView = view.findViewById(R.id.button_chat_bluetooth)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -71,11 +74,12 @@ class ChatAdapter(
             ))
 
         //postavlja se slika
-        Glide.with(context).load(R.drawable.placeholder_dog).into(holder.profilePhoto)
+        Glide.with(context).load(dataset[position].profile.imageUri).into(holder.profilePhoto)
 
         if(dataset[position].statusCode) {
             holder.buttonSet.visibility = View.GONE
             setOnClickListenersAccepted(holder,position)
+            holder.buttonBluetooth.visibility = View.VISIBLE
         }
         else {
             setOnClickListenersPending(holder,position)
@@ -94,6 +98,10 @@ class ChatAdapter(
     }
 
     private fun setOnClickListenersPending(holder:ViewHolder, position: Int){
+
+        holder.buttonBluetooth.setOnClickListener {
+            handler.openDiscovery()
+        }
 
         holder.buttonAccept.setOnClickListener {
 

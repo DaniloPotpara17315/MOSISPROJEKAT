@@ -29,9 +29,10 @@
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/drawable/outline_arrow_back_24.xml" value="0.226" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/activity_main.xml" value="0.14722222222222223" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/activity_second.xml" value="0.22735507246376813" />
-        <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/chat_item.xml" value="0.23324275362318841" />
+        <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/chat_item.xml" value="0.5" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/event_add_dialog.xml" value="0.23324275362318841" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/event_dog_item.xml" value="0.2418478260869565" />
+        <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_chat.xml" value="0.2418478260869565" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_chatroom.xml" value="0.23324275362318841" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_confirm_notif.xml" value="0.20652173913043478" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_dog_profile.xml" value="0.33" />
@@ -39,6 +40,7 @@
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_event_dog_list.xml" value="0.33" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_event_info.xml" value="0.33" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_event_notif.xml" value="0.36666666666666664" />
+        <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_friend_creation.xml" value="0.2418478260869565" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_homescreen.xml" value="0.22735507246376813" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="..\:/GIT/Android-Projekat/app/src/main/res/layout/fragment_map.xml" value="0.22735507246376813" />

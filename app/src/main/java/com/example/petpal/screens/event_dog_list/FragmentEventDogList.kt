@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petpal.R
@@ -35,7 +36,7 @@ class FragmentEventDogList : Fragment(), AttendeesAdapter.AttendeeListener {
         super.onViewCreated(view, savedInstanceState)
         val recycler = binding.recyclerEventDogList
         val dataToShow = sharedView.actualAttendeeInfo
-        dataToShow.sortBy {
+        dataToShow.sortByDescending {
             var ret = it.rate.split("/")
             if (ret[1].toFloat() == 0F) {
                 0F
@@ -44,8 +45,12 @@ class FragmentEventDogList : Fragment(), AttendeesAdapter.AttendeeListener {
             }
         }
 
-
-        recycler.adapter=AttendeesAdapter(requireContext(), sharedView,dataToShow,this)
+        val adapter = AttendeesAdapter(requireContext(), sharedView,dataToShow,this)
+        recycler.adapter=adapter
+        setFragmentResultListener("rateUpdate"){
+            _,_ ->
+            adapter.notifyDataSetChanged()
+        }
         recycler.layoutManager = LinearLayoutManager(requireContext())
         setOnClickListeners()
     }

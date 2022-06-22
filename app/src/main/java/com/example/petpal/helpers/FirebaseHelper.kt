@@ -266,31 +266,34 @@ object FirebaseHelper {
                         if (ds.value!=null) {
                             val temp:HashMap<Any,Any> = ds.value as HashMap<Any, Any>
 
-
+                            val adapter = ChatAdapter(context,dataset,handler)
                             document.forEach { user ->
                                 //val entry = temp.get(user.id)
                                 if (user.id in temp.keys) {
+                                    val storageRef = Firebase.storage.reference
+                                    storageRef.child("ProfileImages/${user.id}.png").downloadUrl.addOnCompleteListener() {
+                                        val x = temp[user.id] as HashMap<Any, Any>
 
-                                    val x = temp[user.id] as HashMap<Any,Any>
-
-                                    Log.d("statusCode", "${x["statusCode"]=="1"}")
-
-                                    dataset.add(
-                                        ChatEntry(
-                                            Profile(
+                                        Log.d("statusCode", "${x["statusCode"] == "1"}")
+                                        var prf =  Profile(
                                                 user["Name"] as String,
-                                                0,
-                                            ),
-                                            x["statusCode"].toString() == "1"
-                                            ,
-                                            user.id
-                                            //temp["statusCode"] as Boolean
+                                        0,
                                         )
-                                    )
+                                        prf.imageUri = it.result.toString()
+                                        dataset.add(
+                                            ChatEntry(
+                                                prf,
+                                                x["statusCode"].toString() == "1",
+                                                user.id
+                                                //temp["statusCode"] as Boolean
+                                            )
+                                        )
+                                        adapter.notifyItemInserted(dataset.size)
+                                    }
                                 }
                                 Log.d("dataset","$dataset")
                             }
-                            recycler.adapter = ChatAdapter(context, dataset, handler)
+                            recycler.adapter = adapter
                             recycler.layoutManager = LinearLayoutManager(context)
 
                         }

@@ -1,6 +1,11 @@
 package com.example.petpal.screens.chats
 
+import android.app.Activity
 import android.app.ProgressDialog
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.content.Context.BLUETOOTH_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,10 +24,12 @@ import com.example.petpal.shared_view_models.MainSharedViewModel
 
 class FragmentChat : Fragment(),ChatAdapter.ChatOperationHandler {
 
+    private val REQUEST_ENABLE_BT = 1
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
     private var _binding : FragmentChatBinding? = null
     private val binding get() = _binding!!
-
+    lateinit var myBluetoothAdapter: BluetoothAdapter
+    lateinit var bluetoothManager: BluetoothManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,6 +73,31 @@ class FragmentChat : Fragment(),ChatAdapter.ChatOperationHandler {
         val navbar: FragmentContainerView? = activity?.findViewById(R.id.fragment_navbar)
         navbar?.visibility = View.GONE
 
+    }
+
+    override fun openDiscovery() {
+        bluetoothManager = context?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+        myBluetoothAdapter= bluetoothManager.getAdapter()
+        if (myBluetoothAdapter != null) {
+                if (!myBluetoothAdapter.isEnabled) {
+
+                    var enableBluetoothIntent: Intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                    startActivityForResult(enableBluetoothIntent, REQUEST_ENABLE_BT)
+                } else {
+
+                }
+            }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_ENABLE_BT){
+            if(resultCode == Activity.RESULT_OK){
+                findNavController().navigate(R.id.action_go_to_bluetooth)
+            }
+            else if(resultCode == Activity.RESULT_CANCELED){
+
+            }
+        }
     }
 
 }

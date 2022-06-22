@@ -82,36 +82,34 @@ class FragmentEventInfo : Fragment() {
             var helperArray = mutableListOf<Profile>()
             sharedView.attendeesInfo.forEach { attendee ->
                 var fbRef = Firebase.firestore
-                Firebase.firestore.collection("Users").document(
-                    attendee.uuid
-                ).get().addOnSuccessListener { info->
-                    val storageRef = Firebase.storage.reference
-                    storageRef.child("ProfileImages/${attendee.uuid}.png").downloadUrl.addOnCompleteListener() {
+                if (attendee.uuid != Firebase.auth.uid) {
+                    Firebase.firestore.collection("Users").document(
+                        attendee.uuid
+                    ).get().addOnSuccessListener { info ->
+                        val storageRef = Firebase.storage.reference
+                        storageRef.child("ProfileImages/${attendee.uuid}.png").downloadUrl.addOnCompleteListener() {
 
 
-                        var eachElement = Profile(info.data!!.get("Name").toString())
-                        Log.d("Tag", info.data!!["Name"].toString())
-                        if(it.isSuccessful){
-                            eachElement.imageUri = it.result.toString()
-                        }
-                        else{
-                            eachElement.imageUri=" "
-                        }
-                        eachElement.rate = attendee.grade
-                        eachElement.userId = attendee.uuid
-                        helperArray.add(eachElement)
-                        Log.d("Addtion","$helperArray")
-                        Log.d("SizeOfPP","MMM very  ${sharedView.attendeesNumber}  --  ${sharedView.actualAttendeeInfo}")
-                        if(helperArray.size == sharedView.attendeesNumber){
-                            sharedView.actualAttendeeInfo = helperArray
+                            var eachElement = Profile(info.data!!.get("Name").toString())
+                            if (it.isSuccessful) {
+                                eachElement.imageUri = it.result.toString()
+                            } else {
+                                eachElement.imageUri = " "
+                            }
+                            eachElement.rate = attendee.grade
+                            eachElement.userId = attendee.uuid
+                            helperArray.add(eachElement)
+                            if (helperArray.size == sharedView.attendeesNumber-1) {
+                                sharedView.actualAttendeeInfo = helperArray
+                                pd.hide()
+                                findNavController().navigate(R.id.action_event_to_List)
+
+                            }
+
+                        }.addOnFailureListener {
                             pd.hide()
-                            findNavController().navigate(R.id.action_event_to_List)
-
+                            Log.d("FailedToLocat", "NotFound")
                         }
-
-                    }.addOnFailureListener {
-                        pd.hide()
-                        Log.d("FailedToLocat", "NotFound")
                     }
                 }
             }

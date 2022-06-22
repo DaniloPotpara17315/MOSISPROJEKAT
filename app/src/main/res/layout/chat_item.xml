@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chat_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -101,5 +102,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.19" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/button_chat_bluetooth"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/blue"
+        android:src="@drawable/ic_baseline_bluetooth_24"
+
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ChatButtonsetRight"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

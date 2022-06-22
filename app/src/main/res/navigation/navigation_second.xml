@@ -123,7 +123,11 @@
         android:id="@+id/fragmentChatroom"
         android:name="com.example.petpal.screens.chatroom.FragmentChatroom"
         android:label="fragment_chatroom"
-        tools:layout="@layout/fragment_chatroom" />
+        tools:layout="@layout/fragment_chatroom" >
+        <action
+            android:id="@+id/action_go_to_bluetooth"
+            app:destination="@id/fragmentFriendCreation" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentEventInfo"
         android:name="com.example.petpal.screens.event_info.FragmentEventInfo"
@@ -153,4 +157,9 @@
             android:id="@+id/action_goto_dogRateDialog"
             app:destination="@id/dogRateDialog" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentFriendCreation"
+        android:name="com.example.petpal.screens.friends.FragmentFriendCreation"
+        android:label="fragment_friend_creation"
+        tools:layout="@layout/fragment_friend_creation" />
 </navigation>
