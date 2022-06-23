@@ -4,34 +4,36 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
+import androidx.core.util.Pair
+import android.util.Pair.create
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.util.Pair.create
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
+import com.example.petpal.R
 import com.example.petpal.databinding.MapFilterDialogBinding
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class MapFilterDialog : BottomSheetDialogFragment() {
 
     private val sharedViewModel:MainSharedViewModel by activityViewModels()
     private lateinit var binding:MapFilterDialogBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = MapFilterDialogBinding.inflate(layoutInflater)
         return binding.root
@@ -86,6 +88,41 @@ class MapFilterDialog : BottomSheetDialogFragment() {
         binding.imageBackButton4.setOnClickListener {
             //return filter values
             findNavController().popBackStack()
+        }
+
+        binding.buttonFilterName.setOnClickListener {
+            dismiss()
+            setFragmentResult("eventsFilteredByName",
+                bundleOf("eventsFilteredByName" to binding.edittextFilterName.text.toString()))
+        }
+
+        binding.buttonFilterDate.setOnClickListener {
+            val datepick = MaterialDatePicker
+                .Builder
+                .dateRangePicker()
+                .setTitleText("Select dates")
+                .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),MaterialDatePicker.todayInUtcMilliseconds()))
+                .setTheme(R.style.ThemeOverlay_App_DatePicker)
+                .build()
+
+            fragmentManager?.let { it1 -> datepick.show(it1,"Picker") }
+            datepick.addOnPositiveButtonClickListener {
+
+                val simpleFormat = SimpleDateFormat("dd/MM/yyyy")
+                val formattedDateBegin = simpleFormat.format(it.first)
+                val formattedDateEnd = simpleFormat.format(it.second)
+
+                setFragmentResult("filteredEventsByDate",
+                    bundleOf(
+                        "dateBegin" to formattedDateBegin,
+                        "dateEnd" to formattedDateEnd
+                    ))
+                setFragmentResult("dismiss", bundleOf())
+                dismiss()
+            }
+        }
+        setFragmentResultListener("dismiss") {_,_->
+            dismiss()
         }
     }
 }

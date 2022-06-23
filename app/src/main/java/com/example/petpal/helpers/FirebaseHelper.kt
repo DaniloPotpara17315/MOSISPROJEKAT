@@ -66,7 +66,7 @@ object FirebaseHelper {
                 events.add(event)
             }
             sharedViewModel.events = events
-            listener.drawEventMarkers()
+            listener.drawEventMarkers(sharedViewModel.events)
         }
         dataRef.child("users").get().addOnSuccessListener {
             val temp:HashMap<Any,Any> = it.value as HashMap<Any, Any>
@@ -89,7 +89,7 @@ object FirebaseHelper {
                         users.add(newUser)
 
                     sharedViewModel.users = users
-                    listener.drawEventMarkers()
+                    listener.drawEventMarkers(sharedViewModel.events)
                 }
 
 

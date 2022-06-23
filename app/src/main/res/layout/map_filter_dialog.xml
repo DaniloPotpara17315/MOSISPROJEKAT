@@ -8,6 +8,7 @@
     tools:context=".dialog.MapFilterDialog">
 
 
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageEvent2"
         android:layout_width="0dp"
@@ -21,55 +22,6 @@
         app:layout_constraintVertical_bias="0.0"
         app:shapeAppearance="@style/Event.Tab.Background" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageFilterBack"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/very_dark_blue"
-        android:padding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle6"
-        app:layout_constraintBottom_toTopOf="@id/imageFilterBack2"
-        app:shapeAppearance="@style/Input.Login.Design"
-/>
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageFilterBack2"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/very_dark_blue"
-        android:padding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageFilterBack"
-        app:layout_constraintBottom_toTopOf="@id/imageFilterBack3"
-        app:shapeAppearance="@style/Input.Login.Design" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageFilterBack3"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
-        android:background="@color/very_dark_blue"
-        android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/edittext_filter_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageFilterBack2"
-        app:shapeAppearance="@style/Input.Login.Design" />
 
     <TextView
         android:id="@+id/textTitle6"
@@ -96,78 +48,233 @@
         app:layout_constraintStart_toStartOf="@+id/imageEvent2"
         app:layout_constraintTop_toTopOf="@+id/imageEvent2" />
 
-    <CheckBox
-        android:id="@+id/checkBoxEvents"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="Prikaži događaje"
-        android:textAlignment="center"
-        android:textColor="@color/true_white"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageFilterBack"
-        app:layout_constraintEnd_toEndOf="@+id/imageFilterBack"
-        app:layout_constraintStart_toStartOf="@+id/imageFilterBack"
-        app:layout_constraintTop_toTopOf="@+id/imageFilterBack" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_filter_checkboxes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_margin="20dp"
+        android:padding="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTitle6">
 
-    <CheckBox
-        android:id="@+id/checkBoxFriends"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="Prikaži prijatelje"
-        android:textAlignment="center"
-        android:textColor="@color/true_white"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageFilterBack2"
-        app:layout_constraintEnd_toEndOf="@+id/imageFilterBack2"
-        app:layout_constraintStart_toStartOf="@+id/imageFilterBack2"
-        app:layout_constraintTop_toTopOf="@+id/imageFilterBack2" />
+        <CheckBox
 
-    <CheckBox
-        android:id="@+id/checkBoxOther"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/baloo_bhai_2"
-        android:text="Prikaži ostalo"
-        android:textAlignment="center"
-        android:textColor="@color/true_white"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageFilterBack3"
-        app:layout_constraintEnd_toEndOf="@+id/imageFilterBack3"
-        app:layout_constraintStart_toStartOf="@+id/imageFilterBack3"
-        app:layout_constraintTop_toTopOf="@+id/imageFilterBack3" />
+            android:id="@+id/checkBoxEvents"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="Prikaži događaje"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/checkBoxFriends"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
-    <EditText
-        android:id="@+id/edittext_filter_radius"
+        <CheckBox
+            android:id="@+id/checkBoxFriends"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="Prikaži prijatelje"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/checkBoxOther"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxEvents" />
+
+        <CheckBox
+            android:id="@+id/checkBoxOther"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:text="Prikaži ostalo"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxFriends" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_filter_date"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_margin="20dp"
+        android:padding="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraint_filter_checkboxes"
+        app:layout_constraintBottom_toTopOf="@id/constraint_filter_name"
+        >
+        <TextView
+            android:id="@+id/text_filter_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filtriraj po datumu: "
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:textColor="@color/blue"
+            app:layout_constraintTop_toTopOf="@id/button_filter_date"
+            app:layout_constraintBottom_toBottomOf="@id/button_filter_date"
+            app:layout_constraintEnd_toStartOf="@id/button_filter_date"
+            />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/button_filter_date"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/blue_medium"
+            app:layout_constraintDimensionRatio="1:1"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/ic_baseline_calendar_today_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_filter_date"
+            app:shapeAppearanceOverlay="@style/Event.Creation.Design" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_filter_name"
         android:background="@color/white"
-        android:layout_margin="15dp"
-        style="@style/Input.Login.Design"
+        android:layout_margin="20dp"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/constraint_filter_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/constraint_filter_radius"
+    >
+    <TextView
+        android:id="@+id/text_filter_name"
         android:textColor="@color/blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pronadji dogadjaj po nazivu:"
         android:fontFamily="@font/baloo_bhai_2"
-        android:textColorHint="@color/blue_medium"
-        android:textAlignment="center"
-        android:hint="Prikazuj dogadjaje u krugu od x metara"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
+    <EditText
+        android:id="@+id/edittext_filter_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Naziv dogadjaja..."
+        android:textColor="@color/blue"
+
+        android:fontFamily="@font/baloo_bhai_2"
+        android:textColorHint="@color/blue_pale"
+        app:layout_constraintTop_toBottomOf="@id/text_filter_name"
+        app:layout_constraintStart_toStartOf="@id/text_filter_name"
+        app:layout_constraintEnd_toStartOf="@id/button_filter_name"
+        />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/button_filter_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_baseline_search_50"
+        android:background="@color/blue_medium"
+        android:scaleType="fitXY"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/text_filter_name"
+        app:layout_constraintTop_toTopOf="@id/edittext_filter_name"
+        app:layout_constraintBottom_toBottomOf="@id/edittext_filter_name"
+        app:shapeAppearanceOverlay="@style/Event.Creation.Design"
+        />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_filter_radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraint_filter_name"
+        >
+        <TextView
+            android:id="@+id/text_filter_radius1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edittext_filter_radius"
+            app:layout_constraintEnd_toStartOf="@id/edittext_filter_radius"
+            app:layout_constraintBottom_toBottomOf="@id/edittext_filter_radius"
+            android:text="Prikazuj dogadjaje u krugu od: "
+            android:textColor="@color/white"
+
+            />
+        <TextView
+            android:id="@+id/text_filter_radius2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/edittext_filter_radius"
+            app:layout_constraintTop_toTopOf="@id/edittext_filter_radius"
+            app:layout_constraintBottom_toBottomOf="@id/edittext_filter_radius"
+            android:text="metara"
+            android:textColor="@color/white"
+
+            />
+
+        <EditText
+            android:id="@+id/edittext_filter_radius"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_filter_radius1"
+            app:layout_constraintEnd_toStartOf="@id/text_filter_radius2"
+            android:background="@color/white"
+            android:layout_margin="15dp"
+            android:inputType="number"
+            android:hint="0"
+            style="@style/Input.Login.Design"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/baloo_bhai_2"
+            android:textColorHint="@color/blue_pale"
+            android:textAlignment="center"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

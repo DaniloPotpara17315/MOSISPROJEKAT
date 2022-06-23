@@ -23,6 +23,7 @@ import com.example.petpal.R
 import com.example.petpal.databinding.FragmentMapBinding
 import com.example.petpal.helpers.FirebaseHelper
 import com.example.petpal.interfaces.MapComms
+import com.example.petpal.models.Event
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.example.petpal.shared_view_models.MapAddEventViewModel
 import com.google.android.datatransport.BuildConfig
@@ -42,6 +43,7 @@ import org.osmdroid.views.overlay.MapEventsOverlay
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+import java.text.SimpleDateFormat
 
 
 class FragmentMap : Fragment(), LocationListener , MapComms {
@@ -174,42 +176,47 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         })
     }
 
-    override fun drawEventMarkers() {
+    override fun drawEventMarkers(dataset : MutableList<Event>) {
         map.overlays.removeAll(map.overlays)
         Log.d("mapOverlays", "${map.overlays}")
         map.overlays.add(myLocationOverlay)
 
-        if (map.isAttachedToWindow && sharedViewModel.eventsEnabled.value!!) {
-            for (event in sharedViewModel.events) {
+        myLocationOverlay.runOnFirstFix {
+            if (map.isAttachedToWindow && sharedViewModel.eventsEnabled.value!!) {
+                for (event in dataset) {
 
-                var results = FloatArray(3)
-                Location.distanceBetween(
-                    myLocationOverlay.myLocation.latitude,
-                    myLocationOverlay.myLocation.longitude,
-                    event.lat,
-                    event.lon,
-                    results
-                )
+                    Log.d("eventDebug", "$event")
 
-                if (sharedViewModel.cutoffDistance==0 || results[0]<sharedViewModel.cutoffDistance) {
-                    val eventMarker = Marker(map)
+                    var results = FloatArray(3)
+                    Location.distanceBetween(
+                        myLocationOverlay.myLocation.latitude,
+                        myLocationOverlay.myLocation.longitude,
+                        event.lat,
+                        event.lon,
+                        results
+                    )
 
-                    //get a smallaer icon jesus fucking christ
-                    eventMarker.icon =
-                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_event)
-                    eventMarker.position = GeoPoint(event.lat, event.lon)
-                    eventMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                    if (sharedViewModel.cutoffDistance==0 || results[0]<sharedViewModel.cutoffDistance) {
+                        val eventMarker = Marker(map)
 
-                    eventMarker.setOnMarkerClickListener { _, _ ->
-                        sharedViewModel.selectedEvent = event
-                        findNavController().navigate(R.id.action_map_to_event_info)
-                        true
+                        //get a smallaer icon jesus fucking christ
+                        eventMarker.icon =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.ic_marker_event)
+                        eventMarker.position = GeoPoint(event.lat, event.lon)
+                        eventMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+
+                        eventMarker.setOnMarkerClickListener { _, _ ->
+                            sharedViewModel.selectedEvent = event
+                            findNavController().navigate(R.id.action_map_to_event_info)
+                            true
+                        }
+                        map.overlays.add(eventMarker)
                     }
-                    map.overlays.add(eventMarker)
                 }
             }
+            drawUserMarkers()
         }
-        drawUserMarkers()
+
     }
 
     override fun drawUserMarkers() {
@@ -270,11 +277,22 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         }
 
         setFragmentResultListener("eventMarkers") { s, bundle ->
-            drawEventMarkers()
+            drawEventMarkers(sharedViewModel.events)
         }
         setFragmentResultListener("userMarkers") { s, bundle ->
-            drawEventMarkers()
+            drawEventMarkers(sharedViewModel.events)
         }
+        setFragmentResultListener("eventsFilteredByName") { _, bundle ->
+            val filterString = bundle.getString("eventsFilteredByName")
+            filterByName(filterString ?: "")
+        }
+
+        setFragmentResultListener("filteredEventsByDate") {_, bundle ->
+            val dateBegin = bundle.getString("dateBegin")
+            val dateEnd = bundle.getString("dateEnd")
+            filterByDate(dateBegin ?: "", dateEnd ?: "")
+        }
+
     }
 
     private fun setOnMapClickOverlay() {
@@ -322,6 +340,55 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         )
         map.setScrollableAreaLimitDouble(scrollConstraints)
     }
+
+    override fun filterByName(filterString : String) {
+        if (filterString == "")
+            drawEventMarkers(sharedViewModel.events)
+        else {
+            val dataset = mutableListOf<Event>()
+
+            for (event in sharedViewModel.events) {
+                if (filterString in event.name) {
+                    dataset.add(event)
+
+                }
+
+            }
+            drawEventMarkers(dataset)
+            if (dataset.size == 1) {
+                map.controller.animateTo(GeoPoint(dataset[0].lat, dataset[0].lon), 18.5, 1000L)
+            }
+        }
+    }
+
+    private fun filterByDate(dateBegin: String, dateEnd:String) {
+
+        if (dateBegin == "" || dateEnd == "")
+            drawEventMarkers(sharedViewModel.events)
+        else {
+            val dataset = mutableListOf<Event>()
+
+            for (event in sharedViewModel.events) {
+
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+                val dateB = dateFormat.parse(dateBegin)
+                val dateE = dateFormat.parse(dateEnd)
+                val dateEvent = dateFormat.parse(event.date)
+
+                Log.d("eventyyy", "$dateB <= $dateEvent <= $dateE")
+
+                if (dateEvent in dateB..dateE) dataset.add(event)
+
+            }
+            drawEventMarkers(dataset)
+            if (dataset.size == 1) {
+                map.controller.animateTo(GeoPoint(dataset[0].lat, dataset[0].lon), 18.5, 1000L)
+            }
+        }
+
+    }
+
+
 
     override fun onProviderEnabled(provider: String) {}
     override fun onProviderDisabled(provider: String) {}
