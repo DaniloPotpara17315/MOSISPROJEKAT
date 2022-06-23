@@ -156,7 +156,7 @@ class FragmentEventInfo : Fragment() {
 
     }
 
-    fun checkComing() {
+    private fun checkComing() {
         val database =
             FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
         val dataRef =
