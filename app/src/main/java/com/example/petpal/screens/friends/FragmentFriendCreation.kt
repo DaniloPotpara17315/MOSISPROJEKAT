@@ -20,6 +20,7 @@ import com.example.petpal.databinding.FragmentHomescreenBinding
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 class FragmentFriendCreation : Fragment() {
 
@@ -47,8 +48,10 @@ class FragmentFriendCreation : Fragment() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             var action = p1?.action
 
-            if(BluetoothDevice.ACTION_FOUND.equals(action)) run {
-                var device: BluetoothDevice? = p1?.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+            if(BluetoothDevice.ACTION_FOUND.equals(action)) {
+
+                var device: BluetoothDevice = p1!!.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)!!
+                Log.d("Bluedevice","${device!!.name}")
                 if (ActivityCompat.checkSelfPermission(
                         requireContext(),
                         Manifest.permission.BLUETOOTH_CONNECT
@@ -63,8 +66,10 @@ class FragmentFriendCreation : Fragment() {
                     // for ActivityCompat#requestPermissions for more details.
                     return
                 }
-                device?.let { stringArrayList.add(it.name) }
-                arrayAdapter.notifyDataSetChanged()
+
+                arrayAdapter = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,stringArrayList)
+                stringArrayList.add(device.name)
+                scanList.adapter = arrayAdapter
             }
         }
     }
@@ -81,7 +86,7 @@ class FragmentFriendCreation : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var bluetoothDevicesList = binding.ListViewBluetoothDevicesList
-
+        scanList = binding.ListViewBluetoothDevicesList
 
         setOnClickListeners()
 

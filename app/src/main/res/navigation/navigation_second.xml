@@ -118,16 +118,15 @@
         <action
             android:id="@+id/action_chat_to_chatroom"
             app:destination="@id/fragmentChatroom" />
+        <action
+            android:id="@+id/action_go_to_bluetooth"
+            app:destination="@id/fragmentFriendCreation" />
     </fragment>
     <fragment
         android:id="@+id/fragmentChatroom"
         android:name="com.example.petpal.screens.chatroom.FragmentChatroom"
         android:label="fragment_chatroom"
-        tools:layout="@layout/fragment_chatroom" >
-        <action
-            android:id="@+id/action_go_to_bluetooth"
-            app:destination="@id/fragmentFriendCreation" />
-    </fragment>
+        tools:layout="@layout/fragment_chatroom" />
     <fragment
         android:id="@+id/fragmentEventInfo"
         android:name="com.example.petpal.screens.event_info.FragmentEventInfo"

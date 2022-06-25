@@ -68,24 +68,15 @@
         app:shapeAppearanceOverlay="@style/ChatButtonsetRight"
         app:tint="@color/white" />
 
-    <ScrollView
-        android:id="@+id/scrollBluetoothList"
+    <ListView
+        android:id="@+id/ListView_bluetoothDevicesList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_chat_bluetooth_refresh">
-
-        <ListView
-            android:id="@+id/ListView_bluetoothDevicesList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/scrollBluetoothList"
-            app:layout_constraintEnd_toEndOf="@+id/scrollBluetoothList"
-            app:layout_constraintStart_toStartOf="@+id/scrollBluetoothList"
-            app:layout_constraintTop_toBottomOf="@+id/scrollBluetoothList">></ListView>
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/button_chat_bluetooth_refresh">>
+    </ListView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

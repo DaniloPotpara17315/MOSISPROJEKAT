@@ -67,13 +67,13 @@ class FragmentChat : Fragment(),ChatAdapter.ChatOperationHandler {
         return binding.root
     }
 
-    override fun openChat(person:Profile) {
-        sharedViewModel.selectedProfile.value = person
-        findNavController().navigate(R.id.action_chat_to_chatroom)
-        val navbar: FragmentContainerView? = activity?.findViewById(R.id.fragment_navbar)
-        navbar?.visibility = View.GONE
-
-    }
+//    override fun openChat(person:Profile) {
+//        sharedViewModel.selectedProfile.value = person
+//        findNavController().navigate(R.id.action_chat_to_chatroom)
+//        val navbar: FragmentContainerView? = activity?.findViewById(R.id.fragment_navbar)
+//        navbar?.visibility = View.GONE
+//
+//    }
 
     override fun openDiscovery() {
         bluetoothManager = context?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
@@ -84,7 +84,7 @@ class FragmentChat : Fragment(),ChatAdapter.ChatOperationHandler {
                     var enableBluetoothIntent: Intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                     startActivityForResult(enableBluetoothIntent, REQUEST_ENABLE_BT)
                 } else {
-
+                    findNavController().navigate(R.id.action_go_to_bluetooth)
                 }
             }
     }

@@ -25,7 +25,7 @@ class ChatAdapter(
     ) : RecyclerView.Adapter<ChatAdapter.ViewHolder>(){
 
     interface ChatOperationHandler {
-        fun openChat(person:Profile)
+//        fun openChat(person:Profile)
         fun openDiscovery()
     }
 
@@ -93,15 +93,16 @@ class ChatAdapter(
     private fun setOnClickListenersAccepted(holder: ViewHolder, position: Int) {
 
         holder.item.setOnClickListener {
-            handler.openChat(dataset[position].profile)
+//            handler.openChat(dataset[position].profile)
+        }
+        holder.buttonBluetooth.setOnClickListener {
+            handler.openDiscovery()
         }
     }
 
     private fun setOnClickListenersPending(holder:ViewHolder, position: Int){
 
-        holder.buttonBluetooth.setOnClickListener {
-            handler.openDiscovery()
-        }
+
 
         holder.buttonAccept.setOnClickListener {
 
