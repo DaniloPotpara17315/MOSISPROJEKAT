@@ -56,7 +56,7 @@
 
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/button_chat_bluetooth2"
+        android:id="@+id/button_chat_bluetooth_refresh"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/blue"
@@ -75,15 +75,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_chat_bluetooth2">
+        app:layout_constraintTop_toBottomOf="@id/button_chat_bluetooth_refresh">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/innerContent"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <ListView
+            android:id="@+id/ListView_bluetoothDevicesList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/scrollBluetoothList"
+            app:layout_constraintEnd_toEndOf="@+id/scrollBluetoothList"
+            app:layout_constraintStart_toStartOf="@+id/scrollBluetoothList"
+            app:layout_constraintTop_toBottomOf="@+id/scrollBluetoothList">></ListView>
     </ScrollView>
 
 

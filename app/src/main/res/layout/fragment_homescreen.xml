@@ -62,7 +62,7 @@
     <ImageView
         android:id="@+id/imageViewLogo2"
         android:layout_width="wrap_content"
-        android:layout_height="125dp"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/ic_paw"
@@ -75,7 +75,7 @@
     <TextView
         android:id="@+id/textViewAppTitle2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:fontFamily="@font/chau_philomene_one"
         android:shadowColor="@color/blue"
         android:shadowDx="2.0"
