@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bluetooth_individual_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="15dp">
+    <TextView
+        android:id="@+id/text_bluetooth_device_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Issa Dogge"
+        app:layout_constraintStart_toStartOf="@id/bluetooth_individual_item"
+        app:layout_constraintTop_toTopOf="@id/bluetooth_individual_item"
+        app:layout_constraintBottom_toBottomOf="@id/bluetooth_individual_item"
+        android:layout_marginStart="20dp"
+        android:textSize="24dp"
+        android:fontFamily="@font/baloo_bhai_2"
+        android:textColor="@color/blue_medium"
+        />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/button_bluetooth_connect"
+        app:layout_constraintEnd_toEndOf="@id/bluetooth_individual_item"
+        app:layout_constraintTop_toTopOf="@id/bluetooth_individual_item"
+        app:layout_constraintBottom_toBottomOf="@id/bluetooth_individual_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:scaleType="fitXY"
+        android:background="@color/blue"
+        android:src="@drawable/ic_baseline_connect_without_contact_48"
+        app:tint="@color/white"
+        app:shapeAppearanceOverlay="@style/ChatButtonsetRight"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

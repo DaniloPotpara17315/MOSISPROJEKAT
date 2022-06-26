@@ -283,7 +283,7 @@ object FirebaseHelper {
                                         dataset.add(
                                             ChatEntry(
                                                 prf,
-                                                x["statusCode"].toString() == "1",
+                                                x["statusCode"].toString(),
                                                 user.id
                                                 //temp["statusCode"] as Boolean
                                             )
@@ -317,6 +317,18 @@ object FirebaseHelper {
                 pd.dismiss()
             }
 
+    }
+    fun notifyFriendAdded(id:String,pd: ProgressDialog){
+        database.getReference("chat")
+            .child("invitations")
+            .child(Firebase.auth.currentUser!!.uid)
+            .child(id)
+            .setValue(
+                mapOf("statusCode" to 2)
+            )
+            .addOnCompleteListener{
+                pd.dismiss()
+            }
     }
     fun notifyInviteDeclined(id: String) {
         database.getReference("chat")

@@ -30,7 +30,9 @@
             />
 
         <ImageView
-            android:id="@+id/button_chats_filter_friends"
+            app:tint="@color/white"
+            android:src="@drawable/ic_baseline_group_24"
+            android:id="@+id/button_chats_show_friends"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="10dp"
@@ -38,13 +40,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@color/blue_pale"
+
+            android:background="@color/blue"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_chat"
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="@id/guideline_chatroom_header"

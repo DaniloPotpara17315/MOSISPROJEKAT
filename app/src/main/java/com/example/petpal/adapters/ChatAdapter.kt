@@ -2,6 +2,7 @@ package com.example.petpal.adapters
 
 import android.app.ProgressDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class ChatAdapter(
 
     interface ChatOperationHandler {
 //        fun openChat(person:Profile)
-        fun openDiscovery()
+        fun openDiscovery(id:String,buttonToHide:ImageView,buttonToShow:ImageView)
     }
 
 
@@ -39,6 +40,7 @@ class ChatAdapter(
         val buttonDecline:ImageView = view.findViewById(R.id.button_chat_decline)
         val buttonSet:ConstraintLayout = view.findViewById(R.id.constraint_chat_invite_buttonset)
         val buttonBluetooth:ImageView = view.findViewById(R.id.button_chat_bluetooth)
+        val buttonFriend:ImageView = view.findViewById(R.id.button_chat_friend)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -76,10 +78,17 @@ class ChatAdapter(
         //postavlja se slika
         Glide.with(context).load(dataset[position].profile.imageUri).into(holder.profilePhoto)
 
-        if(dataset[position].statusCode) {
+        if(dataset[position].statusCode == "1") {
             holder.buttonSet.visibility = View.GONE
             setOnClickListenersAccepted(holder,position)
             holder.buttonBluetooth.visibility = View.VISIBLE
+        }
+        else if(dataset[position].statusCode == "2"){
+            holder.buttonSet.visibility = View.GONE
+//            setOnClickListenersAccepted(holder,position)
+            holder.buttonBluetooth.visibility = View.GONE
+            holder.buttonFriend.visibility = View.VISIBLE
+
         }
         else {
             setOnClickListenersPending(holder,position)
@@ -96,13 +105,18 @@ class ChatAdapter(
 //            handler.openChat(dataset[position].profile)
         }
         holder.buttonBluetooth.setOnClickListener {
-            handler.openDiscovery()
+            val pd = ProgressDialog(context)
+            pd.setCancelable(false)
+            pd.setMessage("Ucitavanje")
+            pd.show()
+            dataset[position].statusCode = "2"
+            handler.openDiscovery(dataset[position].id,holder.buttonBluetooth,holder.buttonFriend)
+            notifyItemChanged(position)
+            FirebaseHelper.notifyFriendAdded(dataset[position].id, pd)
         }
     }
 
     private fun setOnClickListenersPending(holder:ViewHolder, position: Int){
-
-
 
         holder.buttonAccept.setOnClickListener {
 
@@ -110,13 +124,13 @@ class ChatAdapter(
             pd.setCancelable(false)
             pd.setMessage("Ucitavanje")
             pd.show()
-            dataset[position].statusCode = true
+            dataset[position].statusCode = "1"
             holder.buttonSet.visibility = View.GONE
             setOnClickListenersAccepted(holder,position)
             notifyItemChanged(position)
             FirebaseHelper.notifyInviteAccepted(dataset[position].id, pd)
-
         }
+
         holder.buttonDecline.setOnClickListener {
             FirebaseHelper.notifyInviteDeclined(dataset[position].id)
             dataset.remove(dataset[position])

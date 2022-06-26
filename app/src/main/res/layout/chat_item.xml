@@ -108,7 +108,21 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/blue"
-        android:src="@drawable/ic_baseline_bluetooth_24"
+        android:src="@drawable/ic_baseline_connect_without_contact_48"
+
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ChatButtonsetRight"
+        app:tint="@color/white" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/button_chat_friend"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/blue"
+        android:src="@drawable/ic_baseline_person_48"
 
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

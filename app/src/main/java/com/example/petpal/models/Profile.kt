@@ -11,6 +11,7 @@ data class Profile(
     var rasa : String = ""
     var opis : String = ""
     var imageUri:String = ""
+    var friends:MutableList<String> = mutableListOf<String>()
     // Listu prijatelja i sliku kasnije implementirati
     // Slika kad se bude povezivalo sa bazom
 

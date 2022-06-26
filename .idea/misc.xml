@@ -6,6 +6,8 @@
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/drawable/ic_marker_user_nezainteresovan.xml" value="0.1585" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/activity_second.xml" value="0.25416666666666665" />
+        <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/bluetooth_item.xml" value="0.2391304347826087" />
+        <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/chat_item.xml" value="0.2391304347826087" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_chat.xml" value="0.21014492753623187" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_chatroom.xml" value="0.21014492753623187" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_confirm_notif.xml" value="0.15364583333333334" />
@@ -14,7 +16,7 @@
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_event_info.xml" value="0.25" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_event_notif.xml" value="0.15364583333333334" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_filter_notif.xml" value="0.15364583333333334" />
-        <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_friend_creation.xml" value="0.152" />
+        <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_friend_creation.xml" value="0.2" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_homescreen.xml" value="0.25416666666666665" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_login.xml" value="0.21784420289855072" />
         <entry key="..\:/Documents/Android_Studio_Projekti/Git/MOSISPROJEKAT/app/src/main/res/layout/fragment_map.xml" value="0.25416666666666665" />

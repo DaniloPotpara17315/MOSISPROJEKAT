@@ -4,13 +4,21 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
+import android.bluetooth.BluetoothServerSocket
+import android.bluetooth.BluetoothSocket
 import android.content.Context.BLUETOOTH_SERVICE
 import android.content.Intent
+import android.icu.lang.UProperty.NAME
 import android.os.Bundle
+import android.os.Handler
+import android.os.Process
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,10 +29,21 @@ import com.example.petpal.databinding.FragmentChatBinding
 import com.example.petpal.helpers.FirebaseHelper
 import com.example.petpal.models.Profile
 import com.example.petpal.shared_view_models.MainSharedViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.util.*
+import kotlin.collections.HashMap
 
-class FragmentChat : Fragment(),ChatAdapter.ChatOperationHandler {
+class FragmentChat(val handler: Handler = Handler()) : Fragment(),ChatAdapter.ChatOperationHandler {
 
     private val REQUEST_ENABLE_BT = 1
+    private val REQUEST_ENABLE_BT_EMIT = 2
+    private val idFragmeta:UUID=UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
     private var _binding : FragmentChatBinding? = null
     private val binding get() = _binding!!
@@ -45,19 +64,14 @@ class FragmentChat : Fragment(),ChatAdapter.ChatOperationHandler {
 
         val recycler = binding.recyclerChat
         FirebaseHelper.getChats(requireContext(),this, recycler, pd)
-
-        /*dataset.add(Profile("Online", Profile.STATUS_ONLINE))
-        dataset.add(Profile("Do not disturb", Profile.STATUS_DND))
-        dataset.add(Profile("Stay away", Profile.STATUS_AGGRO))
-        dataset.add(Profile("Invisible", Profile.STATUS_INVIS))
-        dataset.add(Profile("Offline"))
-*/
-        /*
-        recycler.layoutManager = LinearLayoutManager(requireContext())
-        //recycler.adapter = ChatAdapter(requireContext(), dataset,this)
-*/
+        setOnClickListeners()
     }
 
+    fun setOnClickListeners(){
+        binding.buttonChatsShowFriends.setOnClickListener {
+    // prikazi samo friends
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,37 +81,40 @@ class FragmentChat : Fragment(),ChatAdapter.ChatOperationHandler {
         return binding.root
     }
 
-//    override fun openChat(person:Profile) {
-//        sharedViewModel.selectedProfile.value = person
-//        findNavController().navigate(R.id.action_chat_to_chatroom)
-//        val navbar: FragmentContainerView? = activity?.findViewById(R.id.fragment_navbar)
-//        navbar?.visibility = View.GONE
-//
-//    }
 
-    override fun openDiscovery() {
-        bluetoothManager = context?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
-        myBluetoothAdapter= bluetoothManager.getAdapter()
-        if (myBluetoothAdapter != null) {
-                if (!myBluetoothAdapter.isEnabled) {
+    override fun openDiscovery(userId:String,buttonToHide:ImageView,buttonToShow:ImageView) {
 
-                    var enableBluetoothIntent: Intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                    startActivityForResult(enableBluetoothIntent, REQUEST_ENABLE_BT)
-                } else {
-                    findNavController().navigate(R.id.action_go_to_bluetooth)
+        var mainUserId = Firebase.auth.currentUser!!.uid
+        var rez = (sharedViewModel.userData.get("Friends") as MutableList<String>)
+        rez.add(userId)
+        var body:HashMap<String,Any> = hashMapOf<String,Any>(
+            "Friends" to rez
+        )
+        Log.d("TAggerica","{$rez}")
+        var database = Firebase.firestore.collection("Users").document(
+            mainUserId
+        ).update(body).addOnCompleteListener{
+            buttonToHide.visibility= View.GONE
+            buttonToShow.visibility = View.VISIBLE
+
+            var databaseSecond = Firebase.firestore.collection("Users").document(userId)
+            databaseSecond.get().addOnSuccessListener {
+                var hisData = it.data
+                var hisFriends = (hisData!!.get("Friends") as MutableList<String>)
+                hisFriends.add(mainUserId)
+                var bodyToSend:HashMap<String,Any> = hashMapOf<String,Any>(
+                    "Friends" to hisFriends
+                )
+                databaseSecond.update(bodyToSend).addOnSuccessListener {
+                    Snackbar.make(
+                        binding.root,
+                        "Korisnik dodat za prijatelja",
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQUEST_ENABLE_BT){
-            if(resultCode == Activity.RESULT_OK){
-                findNavController().navigate(R.id.action_go_to_bluetooth)
-            }
-            else if(resultCode == Activity.RESULT_CANCELED){
-
-            }
         }
+
     }
 
 }

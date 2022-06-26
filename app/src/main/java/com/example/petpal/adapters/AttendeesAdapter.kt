@@ -23,6 +23,7 @@ class AttendeesAdapter (val context: Context,val sharedViewModel: MainSharedView
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+
         val image = view.findViewById<ImageView>(R.id.image_event_dog_item_Profile)
         val name = view.findViewById<TextView>(R.id.text_event_dog_item_Name)
         val rate = view.findViewById<RatingBar>(R.id.ratingBar_event_dot_item_rate)
