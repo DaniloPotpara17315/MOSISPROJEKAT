@@ -1,6 +1,7 @@
 package com.example.petpal.screens.profile
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -17,6 +20,7 @@ import com.example.petpal.R
 import com.example.petpal.activity.ActivityMain
 import com.example.petpal.databinding.FragmentProfileBinding
 import com.example.petpal.helpers.FirebaseHelper
+import com.example.petpal.services.BackgroundCommunicationService
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
@@ -66,6 +70,28 @@ class FragmentProfile : Fragment() {
             }
         }
         eventClicks()
+
+        sharedViewModel.notifsEnabled.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.imageProfileNotificationToggle
+                    .setImageResource(R.drawable.ic_baseline_toggle_on)
+                binding.imageProfileNotificationToggle
+                    .setColorFilter(
+                        ContextCompat.getColor(requireContext(), R.color.blue_medium),
+                        android.graphics.PorterDuff.Mode.SRC_IN)
+
+            } else {
+                binding.imageProfileNotificationToggle
+                    .setImageResource(R.drawable.ic_baseline_toggle_off)
+                binding.imageProfileNotificationToggle
+                    .setColorFilter(
+                        ContextCompat.getColor(requireContext(), R.color.blue_pale),
+                        android.graphics.PorterDuff.Mode.SRC_IN)
+                Intent(requireActivity(), BackgroundCommunicationService::class.java).also { intent ->
+                        requireActivity().stopService(intent)
+                    }
+            }
+        }
     }
     private fun eventClicks(){
         binding.imageButtonStatus.setOnClickListener{
@@ -122,9 +148,6 @@ class FragmentProfile : Fragment() {
             //logic for profile
             findNavController().navigate(R.id.actoin_goto_settings)
         }
-        binding.imageButtonFriends.setOnClickListener{
-            //logic for friends
-        }
         binding.imageButtonDelete.setOnClickListener{
             //logic for delete
             binding.imageEditDeleteProfDec.visibility = View.VISIBLE
@@ -167,22 +190,24 @@ class FragmentProfile : Fragment() {
             requireActivity().finish()
             //logic for loggout
         }
+
+        binding.buttonProfileNotifications.setOnClickListener {
+
+            sharedViewModel.notifsEnabled.value = !sharedViewModel.notifsEnabled.value!!
+
+            val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+            if (sharedPref!=null) {
+                with (sharedPref.edit()) {
+                    putBoolean("notificationsEnabled", sharedViewModel.notifsEnabled.value!!)
+                    apply()
+                }
+            }
+        }
     }
 
 
     private fun paintYellow() {
-        binding.imageSwitchKnob.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.yellow_dark
-            )
-        );
-        binding.imageSwitch.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.yellow
-            )
-        );
+
         binding.imageSwitchKnobP.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -191,18 +216,7 @@ class FragmentProfile : Fragment() {
         );
     }
     private fun paintGreen() {
-        binding.imageSwitchKnob.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.green_dark
-            )
-        );
-        binding.imageSwitch.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.green_light
-            )
-        );
+
         binding.imageSwitchKnobP.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -211,18 +225,7 @@ class FragmentProfile : Fragment() {
         );
     }
     private fun paintRed() {
-        binding.imageSwitchKnob.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.red_dark
-            )
-        );
-        binding.imageSwitch.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.red
-            )
-        );
+
         binding.imageSwitchKnobP.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -232,18 +235,6 @@ class FragmentProfile : Fragment() {
     }
 
     private fun paintOff() {
-        binding.imageSwitchKnob.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.gray_dark
-            )
-        );
-        binding.imageSwitch.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.gray_light
-            )
-        );
         binding.imageSwitchKnobP.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),

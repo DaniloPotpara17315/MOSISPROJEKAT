@@ -40,6 +40,9 @@
     <string name="action_nez">Nezainteresovan</string>
     <string name="action_agr">Agresivan</string>
     <string name="action_inv">Offline</string>
+    <string name="obave_tenja">Obaveštenja</string>
+    <string name="channel_name">PetPal</string>
+    <string name="channel_description">PetPal notifications</string>
     <string-array name="dogStatus">
         <item>Izaberite status psa...</item>
         <item>Druzeljubiv</item>

@@ -81,6 +81,14 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             )
         }
+
+        val passerbyId = requireActivity().intent.getStringExtra("passerbyId")
+        if (passerbyId!=null && passerbyId!="") {
+            sharedViewModel.selectedUserKey = passerbyId
+            requireActivity().intent.putExtra("passerbyId", "")
+            findNavController().navigate(R.id.action_map_to_dogprofile)
+        }
+
         map.setMultiTouchControls(true)
 
         if (mapAddEventViewModel.placingCoordinates) {

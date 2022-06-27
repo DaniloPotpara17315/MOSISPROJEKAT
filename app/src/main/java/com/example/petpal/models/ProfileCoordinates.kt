@@ -6,6 +6,6 @@ data class ProfileCoordinates(
     var id : String,
     var lat : Double,
     var lon : Double,
-    var status : String,
-    var image : String
+    var status : String = "Nezainteresovan",
+    var image : String = " "
 )

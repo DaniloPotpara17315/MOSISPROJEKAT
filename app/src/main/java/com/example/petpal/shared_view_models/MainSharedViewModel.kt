@@ -38,6 +38,8 @@ class MainSharedViewModel : ViewModel(){
     var events : MutableList<Event> = mutableListOf()
     var users : MutableList<ProfileCoordinates> = mutableListOf()
 
+    var notifsEnabled = MutableLiveData(false)
+
     var cutoffDistance = 0
 
     init {

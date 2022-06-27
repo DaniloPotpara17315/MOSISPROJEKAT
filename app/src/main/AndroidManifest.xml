@@ -27,6 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetPal"
         tools:targetApi="31">
+        <service android:name=".services.BackgroundCommunicationService"/>
         <activity
             android:name=".activity.ActivitySecond"
             android:exported="false" />
