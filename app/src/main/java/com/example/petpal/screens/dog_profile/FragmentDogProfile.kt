@@ -1,5 +1,6 @@
 package com.example.petpal.screens.dog_profile
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.petpal.R
 import com.example.petpal.databinding.FragmentDogProfileBinding
+import com.example.petpal.helpers.FirebaseHelper
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
@@ -58,6 +60,12 @@ class FragmentDogProfile : Fragment() {
                 "${userDog!!.get("Description").toString()}\nRasa: ${
                     userDog.get("Breed").toString()
                 }"
+
+            if (sharedViewModel.selectedUserKey in sharedViewModel.userData["Friends"] as ArrayList<String>){
+                binding.buttonRemoveFriend.visibility = View.VISIBLE
+                binding.imageDogInvite.visibility = View.GONE
+            }
+
             when (userDog!!.get("Status").toString()) {
                 "Druzeljubiv" -> {
                     binding.imageDogKnob.setBackgroundColor(
@@ -133,7 +141,13 @@ class FragmentDogProfile : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
-
+        }
+        binding.buttonRemoveFriend.setOnClickListener {
+            val pd = ProgressDialog(requireContext())
+            pd.setMessage("Uklanjanje prijatelja...")
+            pd.setCancelable(false)
+            pd.show()
+            FirebaseHelper.removeFriend(sharedViewModel, binding.buttonRemoveFriend, binding.imageDogInvite,pd)
         }
     }
 }

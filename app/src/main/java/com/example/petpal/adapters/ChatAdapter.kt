@@ -22,7 +22,8 @@ import com.google.firebase.ktx.Firebase
 class ChatAdapter(
     private val context: Context,
     private val dataset: MutableList<ChatEntry>,
-    private val handler: ChatOperationHandler
+    private val handler: ChatOperationHandler,
+    private val friendList : ArrayList<String>
     ) : RecyclerView.Adapter<ChatAdapter.ViewHolder>(){
 
     interface ChatOperationHandler {
@@ -79,16 +80,17 @@ class ChatAdapter(
         Glide.with(context).load(dataset[position].profile.imageUri).into(holder.profilePhoto)
 
         if(dataset[position].statusCode == "1") {
+            if (dataset[position].id !in friendList) {
             holder.buttonSet.visibility = View.GONE
             setOnClickListenersAccepted(holder,position)
             holder.buttonBluetooth.visibility = View.VISIBLE
-        }
-        else if(dataset[position].statusCode == "2"){
-            holder.buttonSet.visibility = View.GONE
+            }
+            else {
+                holder.buttonSet.visibility = View.GONE
 //            setOnClickListenersAccepted(holder,position)
-            holder.buttonBluetooth.visibility = View.GONE
-            holder.buttonFriend.visibility = View.VISIBLE
-
+                holder.buttonBluetooth.visibility = View.GONE
+                holder.buttonFriend.visibility = View.VISIBLE
+            }
         }
         else {
             setOnClickListenersPending(holder,position)
@@ -109,7 +111,7 @@ class ChatAdapter(
             pd.setCancelable(false)
             pd.setMessage("Ucitavanje")
             pd.show()
-            dataset[position].statusCode = "2"
+            dataset[position].statusCode = "1"
             handler.openDiscovery(dataset[position].id,holder.buttonBluetooth,holder.buttonFriend)
             notifyItemChanged(position)
             FirebaseHelper.notifyFriendAdded(dataset[position].id, pd)

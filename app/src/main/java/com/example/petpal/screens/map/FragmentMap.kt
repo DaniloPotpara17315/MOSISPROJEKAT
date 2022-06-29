@@ -229,7 +229,7 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
 
     override fun drawUserMarkers() {
 
-        if (map.isAttachedToWindow && sharedViewModel.usersEnabled.value!!) {
+        if (map.isAttachedToWindow) {
             for (user in sharedViewModel.users) {
                 val userMarker = Marker(map)
 
@@ -264,7 +264,14 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
                     findNavController().navigate(R.id.action_map_to_dogprofile)
                     true
                 }
+
+                if (user.id in (sharedViewModel.userData["Friends"] as ArrayList<String>) &&
+                        sharedViewModel.friendsEnabled.value!!) {
                 map.overlays.add(userMarker)
+                } else if (user.id !in (sharedViewModel.userData["Friends"] as ArrayList<String>)
+                    && sharedViewModel.usersEnabled.value!!) {
+                    map.overlays.add(userMarker)
+                }
             }
         }
     }
@@ -290,6 +297,11 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         setFragmentResultListener("userMarkers") { s, bundle ->
             drawEventMarkers(sharedViewModel.events)
         }
+        setFragmentResultListener("friendMarkers") {_,_ ->
+            drawEventMarkers(sharedViewModel.events)
+
+        }
+
         setFragmentResultListener("eventsFilteredByName") { _, bundle ->
             val filterString = bundle.getString("eventsFilteredByName")
             filterByName(filterString ?: "")

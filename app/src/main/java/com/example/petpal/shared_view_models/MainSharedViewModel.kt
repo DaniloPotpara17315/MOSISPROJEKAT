@@ -34,6 +34,7 @@ class MainSharedViewModel : ViewModel(){
 
     var eventsEnabled = MutableLiveData(true)
     var usersEnabled = MutableLiveData(true)
+    var friendsEnabled = MutableLiveData(true)
 
     var events : MutableList<Event> = mutableListOf()
     var users : MutableList<ProfileCoordinates> = mutableListOf()

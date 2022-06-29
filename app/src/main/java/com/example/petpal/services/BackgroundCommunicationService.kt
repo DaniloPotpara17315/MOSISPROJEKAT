@@ -71,10 +71,10 @@ class BackgroundCommunicationService : Service() {
                                 distance
                             )
 
-                            if (distance[0] <= 100) {
-                                /*if (notifiedMap[user.id]==false) {
+                            if (distance[0] <= 250) {
+                                if (notifiedMap[user.id]==false) {
 
-                                    notifiedMap[user.id] = true*/
+                                    notifiedMap[user.id] = true
                                 Log.d(
                                     "nearbyPerson",
                                     "There is somebody nearby!!!\n ${user.id}"
@@ -83,7 +83,7 @@ class BackgroundCommunicationService : Service() {
                                     //Za potrebe testiranja je iskljucena pauza izmedju dve notifikacije
                                     //TODO ukljuciti ovo za finalnu verziju
                                     //Thread.sleep(15*6000)
-                                //}
+                                }
                             } else {
                                 notifiedMap[user.id] = false
                                 Log.d("nearbyPerson", "This person is not near:\n ${user.id}")

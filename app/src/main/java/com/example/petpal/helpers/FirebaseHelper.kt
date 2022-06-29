@@ -6,8 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.Visibility
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.graphics.drawable.toIcon
 import androidx.navigation.NavController
@@ -252,6 +254,7 @@ object FirebaseHelper {
         context: Context,
         handler: ChatAdapter.ChatOperationHandler,
         recycler:RecyclerView,
+        friendList: ArrayList<String>,
         pd: ProgressDialog
     ) {
 
@@ -267,7 +270,7 @@ object FirebaseHelper {
                         if (ds.value!=null) {
                             val temp:HashMap<Any,Any> = ds.value as HashMap<Any, Any>
 
-                            val adapter = ChatAdapter(context,dataset,handler)
+                            val adapter = ChatAdapter(context,dataset,handler,friendList)
                             document.forEach { user ->
                                 //val entry = temp.get(user.id)
                                 if (user.id in temp.keys) {
@@ -325,7 +328,7 @@ object FirebaseHelper {
             .child(Firebase.auth.currentUser!!.uid)
             .child(id)
             .setValue(
-                mapOf("statusCode" to 2)
+                mapOf("statusCode" to 1)
             )
             .addOnCompleteListener{
                 pd.dismiss()
@@ -337,6 +340,39 @@ object FirebaseHelper {
             .child(Firebase.auth.currentUser!!.uid)
             .child(id)
             .removeValue()
+    }
+
+    fun removeFriend(sharedViewModel:MainSharedViewModel, toHide: ImageView, toShow: ImageView,pd: ProgressDialog) {
+        val userId = sharedViewModel.selectedUserKey
+        var mainUserId = Firebase.auth.currentUser!!.uid
+        var rez = (sharedViewModel.userData.get("Friends") as MutableList<String>)
+        rez.remove(userId!!)
+        var body:HashMap<String,Any> = hashMapOf<String,Any>(
+            "Friends" to rez
+        )
+        Log.d("TAggerica","{$rez}")
+        var database = Firebase.firestore.collection("Users").document(
+            mainUserId
+        ).update(body).addOnCompleteListener{
+
+            var databaseSecond = Firebase.firestore.collection("Users").document(userId)
+            databaseSecond.get().addOnSuccessListener {
+                var hisData = it.data
+                var hisFriends = (hisData!!.get("Friends") as MutableList<String>)
+                hisFriends.remove(mainUserId)
+                var bodyToSend:HashMap<String,Any> = hashMapOf<String,Any>(
+                    "Friends" to hisFriends
+                )
+                databaseSecond.update(bodyToSend).addOnSuccessListener {
+                    toShow.visibility = View.VISIBLE
+                    toHide.visibility = View.GONE
+                    pd.dismiss()
+                }
+            }
+        }
+
+
+
     }
 
 }

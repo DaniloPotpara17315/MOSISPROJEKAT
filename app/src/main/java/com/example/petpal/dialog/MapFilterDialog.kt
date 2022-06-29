@@ -53,6 +53,11 @@ class MapFilterDialog : BottomSheetDialogFragment() {
             sharedViewModel.usersEnabled.value = checkBoxUsers.isChecked
         }
 
+        val checkboxFriends = binding.checkBoxFriends
+        checkboxFriends.setOnClickListener {
+            sharedViewModel.friendsEnabled.value = checkboxFriends.isChecked
+        }
+
         sharedViewModel.eventsEnabled.observe(viewLifecycleOwner) {
             checkboxEvents.isChecked = it
             setFragmentResult("eventMarkers",
@@ -60,9 +65,15 @@ class MapFilterDialog : BottomSheetDialogFragment() {
         }
         sharedViewModel.usersEnabled.observe(viewLifecycleOwner) {
             checkBoxUsers.isChecked = it
-
             setFragmentResult("userMarkers",
                 bundleOf("userMarkers" to it))
+        }
+
+        sharedViewModel.friendsEnabled.observe(viewLifecycleOwner) {
+            checkboxFriends.isChecked = it
+            setFragmentResult("friendMarkers",
+                bundleOf("friendMarkers" to it)
+                )
         }
 
         binding.edittextFilterRadius.addTextChangedListener(object: TextWatcher {

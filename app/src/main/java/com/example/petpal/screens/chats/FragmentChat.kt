@@ -63,7 +63,8 @@ class FragmentChat(val handler: Handler = Handler()) : Fragment(),ChatAdapter.Ch
         pd.show()
 
         val recycler = binding.recyclerChat
-        FirebaseHelper.getChats(requireContext(),this, recycler, pd)
+        FirebaseHelper.getChats(requireContext(),this, recycler,
+            sharedViewModel.userData["Friends"] as ArrayList<String> , pd)
         setOnClickListeners()
     }
 
