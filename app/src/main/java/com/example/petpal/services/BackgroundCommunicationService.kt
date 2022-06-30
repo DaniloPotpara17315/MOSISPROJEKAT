@@ -80,9 +80,8 @@ class BackgroundCommunicationService : Service() {
                                     "There is somebody nearby!!!\n ${user.id}"
                                 )
                                     createNotification(user.id)
-                                    //Za potrebe testiranja je iskljucena pauza izmedju dve notifikacije
-                                    //TODO ukljuciti ovo za finalnu verziju
-                                    //Thread.sleep(15*6000)
+
+                                    Thread.sleep(15*6000)
                                 }
                             } else {
                                 notifiedMap[user.id] = false

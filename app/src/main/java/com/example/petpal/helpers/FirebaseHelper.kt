@@ -85,7 +85,7 @@ object FirebaseHelper {
                         userMap["lat"] as Double,
                         userMap["lon"] as Double,
                         userMap["status"] as String,
-                        img.result.toString()
+                        if (img.isSuccessful) img.result.toString() else " "
                     )
                     if (newUser.id != Firebase.auth.uid)
                         users.add(newUser)
@@ -318,7 +318,17 @@ object FirebaseHelper {
                 mapOf("statusCode" to 1)
             )
             .addOnCompleteListener{
-                pd.dismiss()
+
+                database.getReference("chat")
+                    .child("invitations")
+                    .child(id)
+                    .child(Firebase.auth.currentUser!!.uid)
+                    .setValue(
+                        mapOf("statusCode" to 1)
+                    )
+                    .addOnCompleteListener {
+                        pd.dismiss()
+                    }
             }
 
     }
@@ -333,6 +343,7 @@ object FirebaseHelper {
             .addOnCompleteListener{
                 pd.dismiss()
             }
+
     }
     fun notifyInviteDeclined(id: String) {
         database.getReference("chat")

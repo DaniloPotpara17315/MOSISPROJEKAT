@@ -13,6 +13,7 @@ import android.widget.PopupMenu
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.os.HandlerCompat.postDelayed
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -27,6 +28,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.lang.Thread.sleep
 
 class FragmentProfile : Fragment() {
 
@@ -167,12 +169,10 @@ class FragmentProfile : Fragment() {
                     user.uid
                 ).delete().addOnCompleteListener{
                     user.delete().addOnCompleteListener{
-                        Snackbar.make(
-                            binding.root,
-                            "Profil uspesno obrisan",
-                            Snackbar.LENGTH_LONG
-                        ).show()
+
+
                         Firebase.auth.signOut()
+                        sleep(3000)
                         requireActivity().finish()
                     }
                 }

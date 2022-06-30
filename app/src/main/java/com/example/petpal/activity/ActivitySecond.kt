@@ -19,7 +19,7 @@ class ActivitySecond : AppCompatActivity() {
 
         sharedViewModel.userData = this.intent.getSerializableExtra("userData")
                 as HashMap<String, Any>
-        sharedViewModel.profileImg = this.intent.getStringExtra("userImg")!!
+        sharedViewModel.profileImg = this.intent.getStringExtra("userImg") ?: " "
 
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         val notifsEnabled = sharedPref.getBoolean("notificationsEnabled", false)
