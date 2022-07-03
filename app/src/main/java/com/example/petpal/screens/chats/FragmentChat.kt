@@ -19,6 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -43,6 +44,7 @@ class FragmentChat(val handler: Handler = Handler()) : Fragment(),ChatAdapter.Ch
 
     private val REQUEST_ENABLE_BT = 1
     private val REQUEST_ENABLE_BT_EMIT = 2
+    private var onlyFriends = false
     private val idFragmeta:UUID=UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
     private val sharedViewModel : MainSharedViewModel by activityViewModels()
     private var _binding : FragmentChatBinding? = null
@@ -64,13 +66,34 @@ class FragmentChat(val handler: Handler = Handler()) : Fragment(),ChatAdapter.Ch
 
         val recycler = binding.recyclerChat
         FirebaseHelper.getChats(requireContext(),this, recycler,
-            sharedViewModel.userData["Friends"] as ArrayList<String> , pd)
+            sharedViewModel.userData["Friends"] as ArrayList<String> , pd, false)
         setOnClickListeners()
     }
 
     fun setOnClickListeners(){
+
         binding.buttonChatsShowFriends.setOnClickListener {
-    // prikazi samo friends
+            val pd = ProgressDialog(context)
+            pd.setMessage("Ucitavanje...")
+            pd.setCancelable(false)
+            pd.show()
+            onlyFriends = !onlyFriends
+
+            if (onlyFriends) {
+                binding.buttonChatsShowFriends
+                    .setColorFilter(
+                        ContextCompat.getColor(requireContext(), R.color.white),
+                        android.graphics.PorterDuff.Mode.SRC_IN)
+            } else {
+                binding.buttonChatsShowFriends
+                    .setColorFilter(
+                        ContextCompat.getColor(requireContext(), R.color.blue_pale),
+                        android.graphics.PorterDuff.Mode.SRC_IN)
+            }
+
+            FirebaseHelper.getChats(requireContext(), this, binding.recyclerChat,
+                sharedViewModel.userData["Friends"] as ArrayList<String>, pd, onlyFriends
+                )
         }
     }
 
@@ -116,6 +139,11 @@ class FragmentChat(val handler: Handler = Handler()) : Fragment(),ChatAdapter.Ch
             }
         }
 
+    }
+
+    override fun openProfile(id: String) {
+        sharedViewModel.selectedUserKey = id
+        findNavController().navigate(R.id.action_chat_to_profile)
     }
 
 }

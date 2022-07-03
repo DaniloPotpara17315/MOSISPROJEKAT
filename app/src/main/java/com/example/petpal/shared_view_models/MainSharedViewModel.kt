@@ -30,7 +30,6 @@ class MainSharedViewModel : ViewModel(){
     var attendeesInfo = mutableListOf<Attendee>()
     var actualAttendeeInfo = mutableListOf<Profile>()
     var selectedAttendee:Profile = Profile("")
-    var dataLoaded = MutableLiveData<Boolean>(false)
 
     var eventsEnabled = MutableLiveData(true)
     var usersEnabled = MutableLiveData(true)
@@ -43,12 +42,5 @@ class MainSharedViewModel : ViewModel(){
 
     var cutoffDistance = 0
 
-    init {
-//        var usr = Firebase.auth.currentUser
 
-    }
-
-    companion object{
-        const val databaseURL="https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/"
-    }
 }

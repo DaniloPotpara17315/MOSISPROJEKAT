@@ -30,7 +30,6 @@ class FragmentDogProfile : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedViewModel.selectedUserKey.toString()
     }
 
     override fun onCreateView(

@@ -121,6 +121,9 @@
         <action
             android:id="@+id/action_go_to_bluetooth"
             app:destination="@id/fragmentFriendCreation" />
+        <action
+            android:id="@+id/action_chat_to_profile"
+            app:destination="@id/fragmentDogProfile" />
     </fragment>
     <fragment
         android:id="@+id/fragmentChatroom"

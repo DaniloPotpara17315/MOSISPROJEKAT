@@ -45,7 +45,7 @@ class EventAddDialog : BottomSheetDialogFragment() {
     private fun setOnClickListeners() {
         requireActivity().onBackPressedDispatcher.addCallback {
             mapAddEventViewModel.clearData()
-            findNavController().popBackStack()
+            dismiss()
         }
 
         binding.buttonCreate.setOnClickListener {
@@ -59,8 +59,7 @@ class EventAddDialog : BottomSheetDialogFragment() {
         binding.buttonCancel.setOnClickListener {
             //cancel event logic
             mapAddEventViewModel.clearData()
-
-            findNavController().popBackStack()
+            dismiss()
         }
         binding.buttonAddEventCalendar.setOnClickListener{
             //calendar event

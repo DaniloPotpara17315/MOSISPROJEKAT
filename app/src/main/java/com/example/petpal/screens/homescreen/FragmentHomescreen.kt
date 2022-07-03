@@ -62,19 +62,7 @@ class FragmentHomescreen : Fragment() {
 
         //PLS ne brisi ovo dugme, treba mi da udjem u drugi activity xD
         //   slobodno ga premestaj kako ti volja tho
-        val btnOtherActivity = binding.btnToActivity2
-        btnOtherActivity.setOnClickListener {
-            /*if (myBluetoothAdapter != null) {
-                if (!myBluetoothAdapter.isEnabled) {
 
-                    var enableBluetoothIntent: Intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                    startActivityForResult(enableBluetoothIntent, REQUEST_ENABLE_BT)
-                } else {
-
-                }
-            }*/
-
-        }
         val btnLoginActivity = binding.buttonToLogin
         btnLoginActivity.setOnClickListener{
             findNavController().navigate(R.id.action_goto_login)

@@ -210,17 +210,9 @@ object FirebaseHelper {
                                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                                     // ...
                                     pd.hide()
-                                    Snackbar.make(
-                                        binding.root,
-                                        "Korisnik registrovan uspešno",
-                                        Snackbar.LENGTH_LONG
-                                    ).show()
 
                                     Firebase.auth.signOut()
                                     navController.navigate(R.id.action_goto_login)
-                                    val intent = Intent(context, ActivitySecond::class.java)
-                                    intent.putExtra("userData", currUser)
-                                    startActivity(context,intent,null)
                                 }
                             }
 
@@ -255,7 +247,8 @@ object FirebaseHelper {
         handler: ChatAdapter.ChatOperationHandler,
         recycler:RecyclerView,
         friendList: ArrayList<String>,
-        pd: ProgressDialog
+        pd: ProgressDialog,
+        onlyFriends: Boolean
     ) {
 
         val users = Firebase.firestore.collection("Users").get()
@@ -278,20 +271,41 @@ object FirebaseHelper {
                                     storageRef.child("ProfileImages/${user.id}.png").downloadUrl.addOnCompleteListener() {
                                         val x = temp[user.id] as HashMap<Any, Any>
 
+                                        val cstatus = when(user["Status"]) {
+                                            "Druzeljubiv" -> 0
+                                            "Nezainteresovan" -> 1
+                                            "Agresivan" -> 2
+                                            else -> -2
+                                        }
+
                                         Log.d("statusCode", "${x["statusCode"] == "1"}")
                                         var prf =  Profile(
                                                 user["Name"] as String,
-                                        0,
+                                        cstatus,
                                         )
                                         prf.imageUri = it.result.toString()
-                                        dataset.add(
-                                            ChatEntry(
-                                                prf,
-                                                x["statusCode"].toString(),
-                                                user.id
-                                                //temp["statusCode"] as Boolean
+
+                                        if (onlyFriends) {
+                                            if (user.id in friendList) {
+                                                dataset.add(
+                                                    ChatEntry(
+                                                        prf,
+                                                        x["statusCode"].toString(),
+                                                        user.id
+                                                        //temp["statusCode"] as Boolean
+                                                    )
+                                                )
+                                            }
+                                        } else {
+                                            dataset.add(
+                                                ChatEntry(
+                                                    prf,
+                                                    x["statusCode"].toString(),
+                                                    user.id
+                                                    //temp["statusCode"] as Boolean
+                                                )
                                             )
-                                        )
+                                        }
                                         adapter.notifyItemInserted(dataset.size)
                                     }
                                 }
@@ -299,6 +313,7 @@ object FirebaseHelper {
                             }
                             recycler.adapter = adapter
                             recycler.layoutManager = LinearLayoutManager(context)
+
 
                         }
                         pd.dismiss()

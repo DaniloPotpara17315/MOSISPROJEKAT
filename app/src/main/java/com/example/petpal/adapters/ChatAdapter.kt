@@ -29,6 +29,7 @@ class ChatAdapter(
     interface ChatOperationHandler {
 //        fun openChat(person:Profile)
         fun openDiscovery(id:String,buttonToHide:ImageView,buttonToShow:ImageView)
+        fun openProfile(id:String)
     }
 
 
@@ -78,6 +79,10 @@ class ChatAdapter(
 
         //postavlja se slika
         Glide.with(context).load(dataset[position].profile.imageUri).into(holder.profilePhoto)
+
+        holder.profilePhoto.setOnClickListener {
+            handler.openProfile(dataset[position].id)
+        }
 
         if(dataset[position].statusCode == "1") {
             if (dataset[position].id !in friendList) {

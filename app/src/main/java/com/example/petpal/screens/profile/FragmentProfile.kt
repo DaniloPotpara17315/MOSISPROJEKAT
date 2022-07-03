@@ -25,6 +25,7 @@ import com.example.petpal.services.BackgroundCommunicationService
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -168,13 +169,24 @@ class FragmentProfile : Fragment() {
                 Firebase.firestore.collection("Users").document(
                     user.uid
                 ).delete().addOnCompleteListener{
-                    user.delete().addOnCompleteListener{
+
+                    val realtimeRef = FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
+                    realtimeRef.getReference("map").child("users").child(Firebase.auth.uid!!).removeValue()
+                        .addOnCompleteListener {
+                            user.delete().addOnCompleteListener{
+
+                                Firebase.auth.signOut()
+
+                                startActivity(
+                                    Intent(context, ActivityMain::class.java)
+                                )
+
+                                requireActivity().finish()
+
+                            }
+                        }
 
 
-                        Firebase.auth.signOut()
-                        sleep(3000)
-                        requireActivity().finish()
-                    }
                 }
             }
             binding.imageEditDeleteProfDec.visibility = View.INVISIBLE

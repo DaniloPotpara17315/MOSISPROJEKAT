@@ -30,7 +30,7 @@
             />
 
         <ImageView
-            app:tint="@color/white"
+            app:tint="@color/blue_pale"
             android:src="@drawable/ic_baseline_group_24"
             android:id="@+id/button_chats_show_friends"
             android:layout_width="0dp"

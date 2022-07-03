@@ -89,13 +89,5 @@
         app:layout_constraintEnd_toEndOf="@+id/imageViewLogo2"
         app:layout_constraintStart_toStartOf="@+id/imageViewLogo2" />
 
-    <Button
-        android:id="@+id/btn_to_Activity2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
