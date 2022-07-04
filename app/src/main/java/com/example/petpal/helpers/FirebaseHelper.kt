@@ -121,7 +121,7 @@ object FirebaseHelper {
                     val intent = Intent(context, ActivitySecond::class.java)
                     intent.putExtra("userData", userDataHashMap)
                     intent.putExtra("userImg", profileImg)
-                    intent.putExtra("passerbyId", activity.intent.getStringExtra("passerbyId"))
+                    intent.putExtra("passerbyId", activity.intent.getStringExtra("passerbyId") ?: "")
                     startActivity(context,intent,null)
                     activity.finish()
 

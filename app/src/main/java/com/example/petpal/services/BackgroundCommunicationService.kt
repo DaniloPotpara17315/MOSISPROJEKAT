@@ -16,12 +16,14 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.petpal.R
 import com.example.petpal.activity.ActivityMain
+import com.example.petpal.activity.SplashScreenActivity
 import com.example.petpal.helpers.FirebaseHelper
 import com.example.petpal.models.ProfileCoordinates
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.util.Spliterator.IMMUTABLE
 
 class BackgroundCommunicationService : Service() {
     private val channelId = "PetPalChannel"
@@ -81,7 +83,7 @@ class BackgroundCommunicationService : Service() {
                                 )
                                     createNotification(user.id)
 
-                                    Thread.sleep(15*6000)
+//                                    Thread.sleep(15*6000)
                                 }
                             } else {
                                 notifiedMap[user.id] = false
@@ -142,22 +144,34 @@ class BackgroundCommunicationService : Service() {
 
     fun createNotification(id : String) {
 
+        try {
+            val intent = Intent(applicationContext, SplashScreenActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_FROM_BACKGROUND
+            }
+            intent.putExtra("passerbyId", id)
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(
+                applicationContext,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
 
-        val intent = Intent(this, ActivityMain::class.java)
-        intent.putExtra("passerbyId", id)
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+            var builder = NotificationCompat.Builder(applicationContext, channelId)
+                .setSmallIcon(R.drawable.ic_baseline_pets_24)
+                .setContentTitle("Neko je u blizini!")
+                .setContentText("Pozovite na šetnju!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
 
-        var builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.ic_baseline_pets_24)
-            .setContentTitle("Neko je u blizini!")
-            .setContentText("Pozovite na šetnju!")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(pendingIntent)
+            with(NotificationManagerCompat.from(applicationContext)) {
+                // notificationId is a unique int for each notification that you must define
+                notify((System.currentTimeMillis() % 10000).toInt(), builder.build())
 
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            notify(currentNotifId, builder.build())
-            currentNotifId+=1
+            }
+        }
+        catch (ex:Exception){
+            Log.d("ErrorWhileLoading",ex.toString())
         }
     }
 

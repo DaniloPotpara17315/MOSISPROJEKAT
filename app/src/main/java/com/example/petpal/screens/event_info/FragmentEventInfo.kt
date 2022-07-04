@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
@@ -26,6 +27,7 @@ class FragmentEventInfo : Fragment() {
     private val sharedView: MainSharedViewModel by activityViewModels()
     lateinit var pd: ProgressDialog
     private var coming: Boolean = false;
+    private var disabledListView : Boolean = true;
     private lateinit var binding: FragmentEventInfoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,16 +59,27 @@ class FragmentEventInfo : Fragment() {
             Log.d("AllEv", "${it.value}")
 
             var eventData = it.value as HashMap<Any, Any>
-            var el = eventData.get("Attendees")!! as HashMap<Any,Any>
-
-            binding.textViewListNumber.text = el.size.toString()
-            sharedView.attendeesNumber = el.size
-            sharedView.attendeesInfo = mutableListOf()
-            el.forEach{elem->
-                val x = elem.value as HashMap<String, Any>
-
-                sharedView.attendeesInfo.add(Attendee(x["idUser"].toString(),x["grade"].toString()))
+//            if()() as HashMap<Any,Any>
+            var el = eventData.get("Attendees")
+            if(el == null)
+            {
+                binding.textViewListNumber.text = "0"
+                sharedView.attendeesNumber = 0
             }
+            else{
+                this.disabledListView = false;
+                el = (el) as HashMap<Any,Any>
+                binding.textViewListNumber.text = el.size.toString()
+                sharedView.attendeesNumber = el.size
+                sharedView.attendeesInfo = mutableListOf()
+                el.forEach{elem->
+                    val x = elem.value as HashMap<String, Any>
+
+                    sharedView.attendeesInfo.add(Attendee(x["idUser"].toString(),x["grade"].toString()))
+                }
+            }
+
+
 
         }
 //        datRef.child("events").child()
@@ -77,43 +90,54 @@ class FragmentEventInfo : Fragment() {
 
         binding.imageEventList.setOnClickListener {
             //attendees list
-            pd.show()
-            pd.setMessage("UCITAVANJE ZAINTERESOVANIH...")
-            var helperArray = mutableListOf<Profile>()
-            sharedView.attendeesInfo.forEach { attendee ->
-                var fbRef = Firebase.firestore
-                if (attendee.uuid != Firebase.auth.uid) {
-                    Firebase.firestore.collection("Users").document(
-                        attendee.uuid
-                    ).get().addOnSuccessListener { info ->
-                        val storageRef = Firebase.storage.reference
-                        storageRef.child("ProfileImages/${attendee.uuid}.png").downloadUrl.addOnCompleteListener() {
+            if (!disabledListView) {
+                pd.show()
+                pd.setMessage("UCITAVANJE ZAINTERESOVANIH...")
+                var helperArray = mutableListOf<Profile>()
+                Log.d("InsideOfLoop","${sharedView.attendeesInfo}")
+                var userFound = 0
+                sharedView.attendeesInfo.forEach { attendee ->
+                    var fbRef = Firebase.firestore
+                    Log.d("InsideOfLoopInner","${attendee}")
+                    if (attendee.uuid != Firebase.auth.uid) {
+                        Firebase.firestore.collection("Users").document(
+                            attendee.uuid
+                        ).get().addOnSuccessListener { info ->
+                            val storageRef = Firebase.storage.reference
+                            storageRef.child("ProfileImages/${attendee.uuid}.png").downloadUrl.addOnCompleteListener() {
 
 
-                            var eachElement = Profile(info.data!!.get("Name").toString())
-                            if (it.isSuccessful) {
-                                eachElement.imageUri = it.result.toString()
-                            } else {
-                                eachElement.imageUri = " "
-                            }
-                            eachElement.rate = attendee.grade
-                            eachElement.userId = attendee.uuid
-                            helperArray.add(eachElement)
-                            if (helperArray.size == sharedView.attendeesNumber-1) {
-                                sharedView.actualAttendeeInfo = helperArray
+                                var eachElement = Profile(info.data!!.get("Name").toString())
+                                if (it.isSuccessful) {
+                                    eachElement.imageUri = it.result.toString()
+                                } else {
+                                    eachElement.imageUri = " "
+                                }
+                                eachElement.rate = attendee.grade
+                                eachElement.userId = attendee.uuid
+                                helperArray.add(eachElement)
+                                Log.d("InsideOfLoop","${helperArray},${sharedView.attendeesNumber}")
+                                if (helperArray.size == sharedView.attendeesNumber - userFound) {
+                                    sharedView.actualAttendeeInfo = helperArray
+                                    pd.hide()
+                                    findNavController().navigate(R.id.action_event_to_List)
+
+                                }
+
+                            }.addOnFailureListener {
                                 pd.hide()
-                                findNavController().navigate(R.id.action_event_to_List)
-
+                                Log.d("FailedToLocat", "NotFound")
                             }
-
-                        }.addOnFailureListener {
-                            pd.hide()
-                            Log.d("FailedToLocat", "NotFound")
+                        }
+                    } else {
+                        userFound = 1
+                        if(sharedView.attendeesNumber == 1){
+                            pd.dismiss()
+                            Toast.makeText(this.requireContext(),"Vi ste jedini prijavljeni na dogadjaju",Toast.LENGTH_LONG).show()
                         }
                     }
                 }
             }
-
         }
 
         binding.imageEventConfirm.setOnClickListener {

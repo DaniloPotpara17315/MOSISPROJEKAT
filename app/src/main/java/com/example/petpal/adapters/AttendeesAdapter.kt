@@ -42,7 +42,7 @@ class AttendeesAdapter (val context: Context,val sharedViewModel: MainSharedView
         holder.name.text = dataSet[position].name
         var splittedString = dataSet[position].rate.split("/")
         if(splittedString[1].toFloat() == 0F){
-            holder.rate.rating = 2.5F
+            holder.rate.rating = 0F
         }else{
         holder.rate.rating= splittedString[0].toFloat()/splittedString[1].toFloat()
         }

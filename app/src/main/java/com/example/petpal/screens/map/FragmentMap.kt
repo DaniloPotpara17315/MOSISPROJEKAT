@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import com.example.petpal.BuildConfig
 import com.example.petpal.R
 import com.example.petpal.databinding.FragmentMapBinding
 import com.example.petpal.helpers.FirebaseHelper
@@ -26,7 +27,6 @@ import com.example.petpal.interfaces.MapComms
 import com.example.petpal.models.Event
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.example.petpal.shared_view_models.MapAddEventViewModel
-import com.google.android.datatransport.BuildConfig
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -90,6 +90,7 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         }
 
         map.setMultiTouchControls(true)
+        Log.d("testingbitch", "Hi you are setting the location! ${mapAddEventViewModel.placingCoordinates}")
 
         if (mapAddEventViewModel.placingCoordinates) {
             activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.GONE
@@ -99,6 +100,8 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
                 mapAddEventViewModel.placingCoordinates = false
                 findNavController().popBackStack()
             }
+            Log.d("testingbitch", "Just checking.")
+
             setOnMapClickOverlay()
             setUserLocationOverlay()
             prepareMap()
@@ -131,6 +134,7 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
     ): View? {
         binding = FragmentMapBinding.inflate(layoutInflater)
         map = binding.map
+        myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(activity), map)
         Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID
         return binding.root
     }
@@ -157,38 +161,40 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
     }
 
     private fun setUserLocationOverlay() {
-
-        myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(activity), map)
+        map.controller.setCenter(myLocationOverlay.myLocation)
         myLocationOverlay.enableFollowLocation()
-
         myLocationOverlay.runOnFirstFix {
 
         }
         map.overlays.add(myLocationOverlay)
-        Log.d("locationtest", "${myLocationOverlay.myLocation}")
-        map.controller.setCenter(myLocationOverlay.myLocation)
+        //Log.d("locationtest", "${myLocationOverlay.myLocation}")
 
-        val currentFrag = this
-        val dataRef = FirebaseHelper.database.getReference("map")
 
-        FirebaseHelper.getMapData(sharedViewModel,currentFrag)
-        dataRef.child("users").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                FirebaseHelper.getMapData(sharedViewModel, currentFrag)
-            }
+        if (!mapAddEventViewModel.placingCoordinates) {
 
-            override fun onCancelled(error: DatabaseError) {
+            val currentFrag = this
+            val dataRef = FirebaseHelper.database.getReference("map")
 
-            }
+            FirebaseHelper.getMapData(sharedViewModel, currentFrag)
+            dataRef.child("users").addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    FirebaseHelper.getMapData(sharedViewModel, currentFrag)
+                }
 
-        })
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+        }
     }
 
     override fun drawEventMarkers(dataset : MutableList<Event>) {
         map.overlays.removeAll(map.overlays)
         Log.d("mapOverlays", "${map.overlays}")
         map.overlays.add(myLocationOverlay)
-
+        map.controller.setCenter(myLocationOverlay.myLocation)
+        myLocationOverlay.enableFollowLocation()
         myLocationOverlay.runOnFirstFix {
             if (map.isAttachedToWindow && sharedViewModel.eventsEnabled.value!!) {
                 for (event in dataset) {
@@ -316,9 +322,11 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
     }
 
     private fun setOnMapClickOverlay() {
+
+        Log.d("testingbitch", "On Click is set!")
         var receive = object : MapEventsReceiver {
             override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
-
+                Log.d("testingbitch", "Hi i got your location: \n${p?.longitude} ${p?.latitude}")
                 mapAddEventViewModel.longitude.value = p?.longitude
                 mapAddEventViewModel.latitude.value = p?.latitude
 

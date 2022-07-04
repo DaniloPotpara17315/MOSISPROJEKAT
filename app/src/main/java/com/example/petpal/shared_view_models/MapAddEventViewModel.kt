@@ -45,7 +45,8 @@ class MapAddEventViewModel : ViewModel() {
             "eventDesc" to opis.value,
             "eventDate" to datum.value,
             "eventLon" to longitude.value,
-            "eventLat" to latitude.value
+            "eventLat" to latitude.value,
+
         )
 
         dataRef.child("map").child("events").push().setValue(newEvent).addOnCompleteListener{

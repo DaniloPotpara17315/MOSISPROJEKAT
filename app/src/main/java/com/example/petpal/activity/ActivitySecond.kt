@@ -28,27 +28,10 @@ class ActivitySecond : AppCompatActivity() {
         if (sharedViewModel.notifsEnabled.value!!) {
             Intent(this, BackgroundCommunicationService::class.java).also { intent ->
                 stopService(intent)
+                startService(intent)
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (sharedViewModel.notifsEnabled.value!!) {
-            Intent(this, BackgroundCommunicationService::class.java).also { intent ->
-                stopService(intent)
-            }
-        }
-    }
 
-    override fun onPause() {
-
-        if (sharedViewModel.notifsEnabled.value!!) {
-            Intent(this, BackgroundCommunicationService::class.java).also { intent ->
-                stopService(intent)
-                startService(intent) }
-        }
-
-        super.onPause()
-    }
 }
