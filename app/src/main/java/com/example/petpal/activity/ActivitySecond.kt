@@ -2,9 +2,9 @@ package com.example.petpal.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.petpal.R
 import com.example.petpal.services.BackgroundCommunicationService
 import com.example.petpal.shared_view_models.MainSharedViewModel
@@ -25,10 +25,16 @@ class ActivitySecond : AppCompatActivity() {
         val notifsEnabled = sharedPref.getBoolean("notificationsEnabled", false)
 
         sharedViewModel.notifsEnabled.value = notifsEnabled
-        if (sharedViewModel.notifsEnabled.value!!) {
-            Intent(this, BackgroundCommunicationService::class.java).also { intent ->
-                stopService(intent)
-                startService(intent)
+        if (intent.getStringExtra("passerbyId")=="") {
+            if (sharedViewModel.notifsEnabled.value!!) {
+                Intent(
+                    applicationContext,
+                    BackgroundCommunicationService::class.java
+                ).also { intent ->
+                    stopService(intent)
+                    startService(intent)
+
+                }
             }
         }
     }

@@ -318,6 +318,9 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
             val dateEnd = bundle.getString("dateEnd")
             filterByDate(dateBegin ?: "", dateEnd ?: "")
         }
+        setFragmentResultListener("noviEvent") { _,_ ->
+            FirebaseHelper.getMapData(sharedViewModel, this)
+        }
 
     }
 

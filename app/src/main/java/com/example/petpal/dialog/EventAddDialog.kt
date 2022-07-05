@@ -2,17 +2,24 @@ package com.example.petpal.dialog
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
 import com.example.petpal.databinding.EventAddDialogBinding
+import com.example.petpal.models.Event
 import com.example.petpal.shared_view_models.MainSharedViewModel
 import com.example.petpal.shared_view_models.MapAddEventViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.database.FirebaseDatabase
 import java.util.*
 
 class EventAddDialog : BottomSheetDialogFragment() {
@@ -53,8 +60,7 @@ class EventAddDialog : BottomSheetDialogFragment() {
             mapAddEventViewModel.naziv.value = binding.editTextEventName.text.toString()
             mapAddEventViewModel.opis.value = binding.editTextEventDescription.text.toString()
 
-            mapAddEventViewModel.addEvent()
-            dismiss()
+            addEvent()
         }
         binding.buttonCancel.setOnClickListener {
             //cancel event logic
@@ -113,5 +119,35 @@ class EventAddDialog : BottomSheetDialogFragment() {
                     "${mapAddEventViewModel.latitude.value}"
         }
 
+    }
+
+    private fun addEvent() {
+        val database =
+            FirebaseDatabase.getInstance("https://paw-pal-7f105-default-rtdb.europe-west1.firebasedatabase.app/")
+        val dataRef =
+            database.reference// << Ovde podesavas sta gadjas iz realtime-a U ovo slucaju je test
+
+        val newEvent = mapOf(
+            "eventName" to mapAddEventViewModel.naziv.value,
+            "eventDesc" to mapAddEventViewModel.opis.value,
+            "eventDate" to mapAddEventViewModel.datum.value,
+            "eventLon" to mapAddEventViewModel.longitude.value,
+            "eventLat" to mapAddEventViewModel.latitude.value,
+
+            )
+
+        dataRef.child("map").child("events").push().setValue(newEvent).addOnCompleteListener{
+            if(it.isSuccessful)
+            {
+                setFragmentResult("noviEvent", bundleOf("noviEvent" to true))
+                Toast.makeText(requireContext(), "Uspesno napravljen dogadjaj!", Toast.LENGTH_SHORT).show()
+                mapAddEventViewModel.clearData()
+                dismiss()
+            }
+            else{
+                Log.d("Task","Error ${it.exception}")
+                dismiss()
+            }
+        }
     }
 }

@@ -13,17 +13,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.petpal.R
 import com.example.petpal.activity.ActivityMain
-import com.example.petpal.activity.SplashScreenActivity
 import com.example.petpal.helpers.FirebaseHelper
 import com.example.petpal.models.ProfileCoordinates
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import java.util.Spliterator.IMMUTABLE
 
 class BackgroundCommunicationService : Service() {
     private val channelId = "PetPalChannel"
@@ -145,18 +141,18 @@ class BackgroundCommunicationService : Service() {
     fun createNotification(id : String) {
 
         try {
-            val intent = Intent(applicationContext, SplashScreenActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_FROM_BACKGROUND
+            val intent = Intent(this, ActivityMain::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
             intent.putExtra("passerbyId", id)
             val pendingIntent: PendingIntent = PendingIntent.getActivity(
-                applicationContext,
+                this,
                 0,
                 intent,
                 PendingIntent.FLAG_IMMUTABLE
             )
 
-            var builder = NotificationCompat.Builder(applicationContext, channelId)
+            var builder = NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_baseline_pets_24)
                 .setContentTitle("Neko je u blizini!")
                 .setContentText("Pozovite na šetnju!")
