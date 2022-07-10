@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,7 @@ class FragmentEventDogList : Fragment(), AttendeesAdapter.AttendeeListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEventDogListBinding.inflate(layoutInflater)
+        activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.GONE
         return binding.root
     }
 

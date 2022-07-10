@@ -116,7 +116,7 @@ class BackgroundCommunicationService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show()
 
         // For each start request, send a message to start a job and deliver the
         // start ID so we know which request we're stopping when we finish the job
@@ -135,7 +135,7 @@ class BackgroundCommunicationService : Service() {
     }
 
     override fun onDestroy() {
-        Toast.makeText(this, "service done", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "service done", Toast.LENGTH_SHORT).show()
     }
 
     fun createNotification(id : String) {

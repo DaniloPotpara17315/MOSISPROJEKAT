@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
 import com.example.petpal.databinding.FragmentProfileChangePasswordBinding
@@ -46,6 +47,7 @@ class FragmentProfileChangePassword : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileChangePasswordBinding.inflate(layoutInflater)
+        activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.GONE
         return binding.root
     }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -38,6 +39,7 @@ class FragmentDogProfile : Fragment() {
     ): View? {
         binding = FragmentDogProfileBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
+        activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.GONE
         return binding.root
     }
 

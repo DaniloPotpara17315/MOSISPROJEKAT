@@ -14,6 +14,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -57,6 +58,7 @@ class FragmentProfileSettings : Fragment() {
     ): View? {
         binding = FragmentProfileSettingsBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
+        activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.GONE
         return binding.root
     }
 

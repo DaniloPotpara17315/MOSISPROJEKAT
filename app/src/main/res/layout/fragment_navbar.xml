@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue_medium" />
+        app:tint="@color/white" />
     <TextView
         android:id="@+id/navbar_title_map"
         android:layout_width="wrap_content"
@@ -29,6 +29,7 @@
         android:paddingBottom="5dp"
         android:fontFamily="@font/baloo_bhai_2"
         android:text="@string/navbar_map"
+
         app:layout_constraintStart_toStartOf="@id/navbar_icon_map"
         app:layout_constraintEnd_toEndOf="@id/navbar_icon_map"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,7 +55,7 @@
         android:id="@+id/navbar_title_setnje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/blue_pale"
         android:textSize="18dp"
         android:paddingBottom="5dp"
         android:fontFamily="@font/baloo_bhai_2"
@@ -86,7 +87,7 @@
         android:id="@+id/navbar_title_profil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/blue_pale"
         android:textSize="18dp"
         android:paddingBottom="5dp"
         android:fontFamily="@font/baloo_bhai_2"

@@ -100,7 +100,7 @@ object FirebaseHelper {
     }
     // Funkcija namenjena za ActivityMain,
     // Uzima trenutnog koristnika iz baze i ukoliko je uspesan, pokrece ActivitySecond
-    fun getUser(context: Context, activity: Activity) {
+    fun getUser(context: Context, activity: Activity, pd:ProgressDialog) {
         val user = Firebase.auth.currentUser
         var data = Firebase.firestore.collection("Users").document(
             user!!.uid
@@ -135,6 +135,9 @@ object FirebaseHelper {
                     startActivity(context,intent,null)
                     activity.finish()
                 }
+                    .addOnCompleteListener {
+                        pd.dismiss()
+                    }
 
 
                 Log.d("Nodocumentfound", "User data is set $userDataHashMap")
@@ -145,7 +148,7 @@ object FirebaseHelper {
         }
     }
 
-    fun logInUser(context: Context, email: String, password: String, view: View, activity: Activity) {
+    fun logInUser(context: Context, email: String, password: String, view: View, activity: Activity, pd:ProgressDialog) {
         val auth = Firebase.auth
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -157,7 +160,7 @@ object FirebaseHelper {
                         "Uspešno ulogovan, dobrodošao:" + user.email.toString(),
                         Snackbar.LENGTH_LONG
                     ).show()
-                    getUser(context,activity)
+                    getUser(context,activity,pd)
                 }
 
             } else {
@@ -209,7 +212,7 @@ object FirebaseHelper {
                                 }.addOnSuccessListener { taskSnapshot ->
                                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                                     // ...
-                                    pd.hide()
+                                    pd.dismiss()
 
                                     Firebase.auth.signOut()
                                     navController.navigate(R.id.action_goto_login)
@@ -221,7 +224,7 @@ object FirebaseHelper {
                     } catch (e: Exception) {
                         user?.delete()?.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                pd.hide()
+                                pd.dismiss()
                                 Snackbar.make(
                                     binding.root,
                                     "Neuspešna registracija V2",
@@ -232,7 +235,7 @@ object FirebaseHelper {
                         }
                     }
                 } else {
-                    pd.hide()
+                    pd.dismiss()
                     Snackbar.make(
                         binding.root,
                         "Neuspešna registracija V1",

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
@@ -42,6 +43,7 @@ class FragmentEventInfo : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEventInfoBinding.inflate(layoutInflater)
+        activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.GONE
         return binding.root
     }
 
@@ -119,13 +121,13 @@ class FragmentEventInfo : Fragment() {
                                 Log.d("InsideOfLoop","${helperArray},${sharedView.attendeesNumber}")
                                 if (helperArray.size == sharedView.attendeesNumber - userFound) {
                                     sharedView.actualAttendeeInfo = helperArray
-                                    pd.hide()
+                                    pd.dismiss()
                                     findNavController().navigate(R.id.action_event_to_List)
 
                                 }
 
                             }.addOnFailureListener {
-                                pd.hide()
+                                pd.dismiss()
                                 Log.d("FailedToLocat", "NotFound")
                             }
                         }
@@ -168,10 +170,10 @@ class FragmentEventInfo : Fragment() {
                             coming = true
                             binding.textViewConfirm.text = "Dolazite!"
                             binding.imageViewTick.visibility = View.VISIBLE
-                            pd.hide()
+                            pd.dismiss()
                         } else {
                             Log.d("Task", "Error ${it.exception}")
-                            pd.hide()
+                            pd.dismiss()
                         }
                     }
             }

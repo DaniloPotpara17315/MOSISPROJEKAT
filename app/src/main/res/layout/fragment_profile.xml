@@ -250,6 +250,7 @@
                 android:id="@+id/imageButtonDelete"
                 android:layout_width="0dp"
                 android:layout_height="90dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -288,7 +289,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/red"
+                android:background="@color/blue_medium"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButtonDelete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

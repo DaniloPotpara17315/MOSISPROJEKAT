@@ -102,8 +102,8 @@ class FragmentLogin : Fragment() {
             var email = binding.editTextLoginEmail.text.toString()
             var password = binding.editTextLoginPassword.text.toString()
 
-            FirebaseHelper.logInUser( requireContext(), email, password, binding.root, requireActivity())
-            pd.hide()
+            FirebaseHelper.logInUser( requireContext(), email, password, binding.root, requireActivity(),pd)
+
         }
     }
 

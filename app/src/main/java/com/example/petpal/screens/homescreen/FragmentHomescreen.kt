@@ -31,7 +31,7 @@ class FragmentHomescreen : Fragment() {
             val pd = ProgressDialog(requireContext())
             pd.setMessage("Molimo Sacekajte...")
             pd.show()
-            FirebaseHelper.getUser(requireContext(), requireActivity())
+            FirebaseHelper.getUser(requireContext(), requireActivity(),pd)
         }
     }
 

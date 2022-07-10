@@ -101,16 +101,16 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
                 findNavController().popBackStack()
             }
             Log.d("testingbitch", "Just checking.")
-
+            prepareMap()
             setOnMapClickOverlay()
             setUserLocationOverlay()
-            prepareMap()
+
         }
         else {
             activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.VISIBLE
-
-            setUserLocationOverlay()
             prepareMap()
+            setUserLocationOverlay()
+
             setOnClickListeners()
             val locManager : LocationManager = requireActivity().getSystemService(Activity.LOCATION_SERVICE) as LocationManager
             locManager.requestLocationUpdates(
@@ -158,14 +158,14 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
     private fun prepareMap() {
         map.controller.setZoom(16.5)
         map.minZoomLevel = 14.0
+
+        myLocationOverlay.enableFollowLocation()
+        map.controller.setCenter(myLocationOverlay.myLocation)
     }
 
     private fun setUserLocationOverlay() {
         map.controller.setCenter(myLocationOverlay.myLocation)
         myLocationOverlay.enableFollowLocation()
-        myLocationOverlay.runOnFirstFix {
-
-        }
         map.overlays.add(myLocationOverlay)
         //Log.d("locationtest", "${myLocationOverlay.myLocation}")
 
@@ -193,8 +193,6 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         map.overlays.removeAll(map.overlays)
         Log.d("mapOverlays", "${map.overlays}")
         map.overlays.add(myLocationOverlay)
-        map.controller.setCenter(myLocationOverlay.myLocation)
-        myLocationOverlay.enableFollowLocation()
         myLocationOverlay.runOnFirstFix {
             if (map.isAttachedToWindow && sharedViewModel.eventsEnabled.value!!) {
                 for (event in dataset) {
@@ -305,7 +303,6 @@ class FragmentMap : Fragment(), LocationListener , MapComms {
         }
         setFragmentResultListener("friendMarkers") {_,_ ->
             drawEventMarkers(sharedViewModel.events)
-
         }
 
         setFragmentResultListener("eventsFilteredByName") { _, bundle ->

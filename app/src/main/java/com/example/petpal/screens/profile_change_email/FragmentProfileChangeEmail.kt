@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.petpal.R
@@ -53,6 +54,7 @@ class FragmentProfileChangeEmail : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileChangeEmailBinding.inflate(layoutInflater)
+        activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.GONE
         return binding.root
     }
 

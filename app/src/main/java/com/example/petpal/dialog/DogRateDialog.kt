@@ -68,7 +68,7 @@ class DogRateDialog : BottomSheetDialogFragment() {
                 .child("Attendees")
                 .child("${sharedView.selectedAttendee.userId}")
                 .updateChildren(updatePart).addOnSuccessListener {
-                    pd.hide()
+                    pd.dismiss()
                     Snackbar.make(
                         binding.root,
                         "Uspesno ocenjeno",
@@ -79,7 +79,7 @@ class DogRateDialog : BottomSheetDialogFragment() {
                     setFragmentResult("rateUpdate", bundleOf("rateUpdate" to 0))
                     findNavController().popBackStack()
                 }.addOnFailureListener{
-                    pd.hide()
+                    pd.dismiss()
                 }
         }
     }

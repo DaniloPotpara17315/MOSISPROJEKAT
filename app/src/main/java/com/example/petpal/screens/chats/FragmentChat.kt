@@ -58,6 +58,7 @@ class FragmentChat(val handler: Handler = Handler()) : Fragment(),ChatAdapter.Ch
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.findViewById<FragmentContainerView>(R.id.fragment_navbar)?.visibility = View.VISIBLE
 
         val pd = ProgressDialog(context)
         pd.setMessage("Ucitavanje...")

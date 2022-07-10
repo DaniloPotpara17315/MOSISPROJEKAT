@@ -7,6 +7,17 @@
     tools:context=".screens.homescreen.FragmentHomescreen">
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline7"
+        android:src="@drawable/homepagebanner"
+        />
+
     <Button
         android:id="@+id/buttonToLogin"
         android:layout_width="0dp"
